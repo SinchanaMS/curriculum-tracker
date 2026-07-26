@@ -1,0 +1,4712 @@
+{
+  "startDate": "2026-07-19",
+  "modules": [
+    {
+      "id": "mod-js-foundations",
+      "name": "JavaScript Foundations",
+      "weekStart": 1,
+      "weekEnd": 2,
+      "color": "#F7DF1E",
+      "topics": [
+        {
+          "id": "topic-1",
+          "name": "Execution Context",
+          "status": "completed",
+          "startedAt": "2026-07-19T10:00:50.371Z",
+          "completedAt": "2026-07-22T16:33:13.456Z",
+          "dueDate": "2026-08-01",
+          "notes": "if variable x is nowhere in the code, \nconsole.log(x) => ReferenceError: x is not defined\nbut, console.log(window.x) => undefined \n\nthis is because the first log looks for variable, that does not exist. but in the second case, window is a global object. \nif you try to access a property of an object and it doesn't exist, js returns undefined. ",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-1",
+              "name": "Global Execution Context",
+              "completed": true,
+              "importance": 2,
+              "keyQuestions": [
+                "When is it created?",
+                "Is there only one?",
+                "What does it contain?",
+                "What is `this` inside it?"
+              ]
+            },
+            {
+              "id": "subtopic-2",
+              "name": "Function Execution Context",
+              "completed": true,
+              "importance": 2,
+              "keyQuestions": [
+                "When is it created?",
+                "When is it destroyed?",
+                "Why do we need a new one for every function call?"
+              ]
+            },
+            {
+              "id": "subtopic-3",
+              "name": "Creation Phase vs Execution Phase",
+              "completed": true,
+              "importance": 3,
+              "keyQuestions": [
+                "What happens during Creation Phase? (memory allocation, function declarations, variable declarations, this, scope chain)",
+                "What happens during Execution Phase? (line-by-line execution, variable assignment, function invocation)",
+                "Why does understanding this make hoisting easier?"
+              ]
+            },
+            {
+              "id": "subtopic-4",
+              "name": "Variable Environment",
+              "completed": true,
+              "importance": 1,
+              "keyQuestions": [
+                "What does it store?",
+                "Why does it exist?"
+              ]
+            },
+            {
+              "id": "subtopic-5",
+              "name": "Lexical Environment",
+              "completed": true,
+              "importance": 3,
+              "keyQuestions": [
+                "What is the outer environment reference?",
+                "How does the scope chain work?",
+                "What is lexical scoping?"
+              ]
+            },
+            {
+              "id": "subtopic-6",
+              "name": "Hoisting mechanics",
+              "completed": true,
+              "importance": 2,
+              "keyQuestions": [
+                "Why does hoisting happen? (Don't memorize, understand!)",
+                "How do function declarations behave?",
+                "How do function expressions behave?",
+                "How does var vs let vs const affect hoisting?"
+              ]
+            },
+            {
+              "id": "subtopic-7",
+              "name": "Temporal Dead Zone (TDZ)",
+              "completed": true,
+              "importance": 2,
+              "keyQuestions": [
+                "Why was it introduced?",
+                "What problem does it solve?",
+                "Why doesn't var have it?"
+              ]
+            }
+          ],
+          "whyItMatters": "JavaScript needs to know what code to execute, where variables live, and which function call it's currently inside. The Execution Context is how JS organizes and tracks all of this.",
+          "keyQuestion": "How does JavaScript know what code to execute, where variables live, and which function call it's currently inside?",
+          "selfAssessment": [
+            {
+              "id": "question-1",
+              "question": "Why does JavaScript create an execution context?",
+              "answer": "",
+              "answeredAt": null
+            },
+            {
+              "id": "question-2",
+              "question": "What's the difference between the Creation Phase and the Execution Phase?",
+              "answer": "",
+              "answeredAt": null
+            },
+            {
+              "id": "question-3",
+              "question": "Why does hoisting happen?",
+              "answer": "",
+              "answeredAt": null
+            },
+            {
+              "id": "question-4",
+              "question": "Why was the Temporal Dead Zone introduced?",
+              "answer": "",
+              "answeredAt": null
+            },
+            {
+              "id": "question-5",
+              "question": "If I call the same function 100 times, how many Function Execution Contexts are created?",
+              "answer": "",
+              "answeredAt": null
+            }
+          ],
+          "relatedTopics": [
+            "Call Stack",
+            "Closures",
+            "this keyword",
+            "Scope"
+          ]
+        },
+        {
+          "id": "topic-2",
+          "name": "Call Stack",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-01",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-8",
+              "name": "Stack frames and structure",
+              "completed": false,
+              "importance": 2,
+              "keyQuestions": [
+                "What is a stack frame?",
+                "What information does it contain?"
+              ]
+            },
+            {
+              "id": "subtopic-9",
+              "name": "LIFO principle",
+              "completed": false,
+              "importance": 1,
+              "keyQuestions": [
+                "Why Last-In-First-Out?",
+                "How does this relate to function calls?"
+              ]
+            },
+            {
+              "id": "subtopic-10",
+              "name": "Stack overflow scenarios",
+              "completed": false,
+              "importance": 2,
+              "keyQuestions": [
+                "What causes stack overflow?",
+                "How can you prevent it?"
+              ]
+            },
+            {
+              "id": "subtopic-11",
+              "name": "Debugging with call stack",
+              "completed": false
+            },
+            {
+              "id": "subtopic-12",
+              "name": "Async operations and stack",
+              "completed": false
+            },
+            {
+              "id": "subtopic-13",
+              "name": "Maximum call stack size",
+              "completed": false
+            }
+          ],
+          "whyItMatters": "The Call Stack is where Execution Contexts live. Understanding it is essential for debugging, understanding recursion, and later for the Event Loop.",
+          "keyQuestion": "How does JavaScript keep track of where it is in the code and which function called which?",
+          "selfAssessment": [
+            {
+              "id": "question-6",
+              "question": "Where do Execution Contexts live?",
+              "answer": "",
+              "answeredAt": null
+            },
+            {
+              "id": "question-7",
+              "question": "What happens to the Call Stack when a function returns?",
+              "answer": "",
+              "answeredAt": null
+            },
+            {
+              "id": "question-8",
+              "question": "Why does infinite recursion cause a stack overflow?",
+              "answer": "",
+              "answeredAt": null
+            }
+          ],
+          "relatedTopics": [
+            "Execution Context",
+            "Event Loop",
+            "Recursion"
+          ]
+        },
+        {
+          "id": "topic-3",
+          "name": "Scope",
+          "status": "completed",
+          "startedAt": "2026-07-21T17:31:23.944Z",
+          "completedAt": "2026-07-22T18:20:36.837Z",
+          "dueDate": "2026-08-01",
+          "notes": "- Variable shadowing happens when a variable declared in an inner scope has the same name as a variable in an outer scope.\n- Root-level let/const are stored in the global lexical environment, which Chrome labels as Script. Root-level var and function declarations become properties of the global object, which Chrome labels as Global. When execution enters the block, JavaScript creates a new lexical environment, which Chrome labels as Block.",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-14",
+              "name": "Global scope",
+              "completed": true
+            },
+            {
+              "id": "subtopic-15",
+              "name": "Function scope",
+              "completed": true
+            },
+            {
+              "id": "subtopic-16",
+              "name": "Block scope (let/const)",
+              "completed": true
+            },
+            {
+              "id": "subtopic-17",
+              "name": "Scope chain lookup",
+              "completed": true
+            },
+            {
+              "id": "subtopic-18",
+              "name": "Variable shadowing",
+              "completed": true
+            },
+            {
+              "id": "subtopic-19",
+              "name": "Scope vs Context difference",
+              "completed": true
+            }
+          ]
+        },
+        {
+          "id": "topic-4",
+          "name": "Lexical Scope",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-01",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-20",
+              "name": "Static vs dynamic scope",
+              "completed": false
+            },
+            {
+              "id": "subtopic-21",
+              "name": "Scope determined at write-time",
+              "completed": false
+            },
+            {
+              "id": "subtopic-22",
+              "name": "Nested function scoping",
+              "completed": false
+            },
+            {
+              "id": "subtopic-23",
+              "name": "Module scope",
+              "completed": false
+            },
+            {
+              "id": "subtopic-24",
+              "name": "Eval and scope manipulation",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-5",
+          "name": "Closures",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-01",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-25",
+              "name": "Closure definition and formation",
+              "completed": false,
+              "importance": 3,
+              "keyQuestions": [
+                "What is a closure?",
+                "When is it created?",
+                "What does it \"close over\"?"
+              ]
+            },
+            {
+              "id": "subtopic-26",
+              "name": "Practical use cases",
+              "completed": false,
+              "importance": 2,
+              "keyQuestions": [
+                "Where do you use closures in real code?",
+                "Why are they useful?"
+              ]
+            },
+            {
+              "id": "subtopic-27",
+              "name": "Data privacy pattern",
+              "completed": false,
+              "importance": 2,
+              "keyQuestions": [
+                "How do closures enable private variables?",
+                "Why is this better than global state?"
+              ]
+            },
+            {
+              "id": "subtopic-28",
+              "name": "Function factories",
+              "completed": false,
+              "importance": 2,
+              "keyQuestions": [
+                "What is a function factory?",
+                "How do closures make this possible?"
+              ]
+            },
+            {
+              "id": "subtopic-29",
+              "name": "Partial application & currying",
+              "completed": false,
+              "importance": 2,
+              "keyQuestions": [
+                "What is partial application?",
+                "What is currying?",
+                "How are closures involved?"
+              ]
+            },
+            {
+              "id": "subtopic-30",
+              "name": "Memory implications",
+              "completed": false,
+              "importance": 2,
+              "keyQuestions": [
+                "When do closures cause memory leaks?",
+                "How can you avoid them?"
+              ]
+            },
+            {
+              "id": "subtopic-31",
+              "name": "Common closure pitfalls (loops)",
+              "completed": false,
+              "importance": 3,
+              "keyQuestions": [
+                "Why does the classic loop problem happen?",
+                "How do you fix it?"
+              ]
+            },
+            {
+              "id": "subtopic-32",
+              "name": "Module pattern using closures",
+              "completed": false
+            }
+          ],
+          "whyItMatters": "Closures are one of the most powerful features in JavaScript. They enable data privacy, function factories, and are the foundation for many patterns in React (hooks, callbacks).",
+          "keyQuestion": "How can a function remember variables from the place where it was defined, even after that place is gone?",
+          "selfAssessment": [
+            {
+              "id": "question-9",
+              "question": "Explain closures to a 5-year-old (or a non-programmer)",
+              "answer": "",
+              "answeredAt": null
+            },
+            {
+              "id": "question-10",
+              "question": "Write a counter function that uses closures",
+              "answer": "",
+              "answeredAt": null
+            },
+            {
+              "id": "question-11",
+              "question": "Why does var in a for loop with setTimeout print the wrong value?",
+              "answer": "",
+              "answeredAt": null
+            },
+            {
+              "id": "question-12",
+              "question": "How do closures relate to the Lexical Environment?",
+              "answer": "",
+              "answeredAt": null
+            }
+          ],
+          "relatedTopics": [
+            "Lexical Environment",
+            "Scope",
+            "this keyword",
+            "React Hooks"
+          ]
+        },
+        {
+          "id": "topic-6",
+          "name": "Event Loop",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-01",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-33",
+              "name": "Call stack and event loop",
+              "completed": false,
+              "importance": 3,
+              "keyQuestions": [
+                "How do the Call Stack and Event Loop work together?",
+                "What happens when the stack is empty?"
+              ]
+            },
+            {
+              "id": "subtopic-34",
+              "name": "Microtasks vs Macrotasks",
+              "completed": false,
+              "importance": 3,
+              "keyQuestions": [
+                "What are microtasks?",
+                "What are macrotasks?",
+                "Which runs first and why?"
+              ]
+            },
+            {
+              "id": "subtopic-35",
+              "name": "Task queue (callback queue)",
+              "completed": false,
+              "importance": 2,
+              "keyQuestions": [
+                "What goes in the task queue?",
+                "When are callbacks moved to the stack?"
+              ]
+            },
+            {
+              "id": "subtopic-36",
+              "name": "Microtask queue (job queue)",
+              "completed": false,
+              "importance": 2,
+              "keyQuestions": [
+                "What goes in the microtask queue?",
+                "Why does it have priority?"
+              ]
+            },
+            {
+              "id": "subtopic-37",
+              "name": "Promise execution order",
+              "completed": false,
+              "importance": 3,
+              "keyQuestions": [
+                "In what order do Promises resolve?",
+                "Can you predict the console.log order?"
+              ]
+            },
+            {
+              "id": "subtopic-38",
+              "name": "setTimeout/setInterval behavior",
+              "completed": false,
+              "importance": 2,
+              "keyQuestions": [
+                "Is setTimeout(fn, 0) really 0ms?",
+                "What is the minimum delay?"
+              ]
+            },
+            {
+              "id": "subtopic-39",
+              "name": "requestAnimationFrame timing",
+              "completed": false
+            },
+            {
+              "id": "subtopic-40",
+              "name": "queueMicrotask API",
+              "completed": false
+            },
+            {
+              "id": "subtopic-41",
+              "name": "Node.js event loop phases",
+              "completed": false
+            }
+          ],
+          "whyItMatters": "JavaScript is single-threaded but can handle async operations. The Event Loop is how this magic happens. Understanding it is crucial for debugging async code and performance.",
+          "keyQuestion": "How does JavaScript handle async operations if it only has one thread?",
+          "selfAssessment": [
+            {
+              "id": "question-13",
+              "question": "Draw the Event Loop diagram from memory",
+              "answer": "",
+              "answeredAt": null
+            },
+            {
+              "id": "question-14",
+              "question": "Predict the output order of: setTimeout, Promise.resolve, console.log",
+              "answer": "",
+              "answeredAt": null
+            },
+            {
+              "id": "question-15",
+              "question": "Why do Promises run before setTimeout even if setTimeout is 0?",
+              "answer": "",
+              "answeredAt": null
+            },
+            {
+              "id": "question-16",
+              "question": "What is the difference between the task queue and microtask queue?",
+              "answer": "",
+              "answeredAt": null
+            }
+          ],
+          "relatedTopics": [
+            "Call Stack",
+            "Promises",
+            "Async/Await"
+          ]
+        },
+        {
+          "id": "topic-7",
+          "name": "Promises",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-01",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-42",
+              "name": "Promise states (pending/fulfilled/rejected)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-43",
+              "name": "Creating promises (new Promise)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-44",
+              "name": "Promise chaining (.then)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-45",
+              "name": "Error handling (.catch)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-46",
+              "name": "Promise.all() - parallel execution",
+              "completed": false
+            },
+            {
+              "id": "subtopic-47",
+              "name": "Promise.race() - first to settle",
+              "completed": false
+            },
+            {
+              "id": "subtopic-48",
+              "name": "Promise.allSettled() - all results",
+              "completed": false
+            },
+            {
+              "id": "subtopic-49",
+              "name": "Promise.any() - first fulfilled",
+              "completed": false
+            },
+            {
+              "id": "subtopic-50",
+              "name": "Promise.resolve/reject",
+              "completed": false
+            },
+            {
+              "id": "subtopic-51",
+              "name": "Promisification patterns",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-8",
+          "name": "Async/Await",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-01",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-52",
+              "name": "Async function declaration",
+              "completed": false
+            },
+            {
+              "id": "subtopic-53",
+              "name": "Await expression behavior",
+              "completed": false
+            },
+            {
+              "id": "subtopic-54",
+              "name": "Error handling with try/catch",
+              "completed": false
+            },
+            {
+              "id": "subtopic-55",
+              "name": "Parallel execution patterns",
+              "completed": false
+            },
+            {
+              "id": "subtopic-56",
+              "name": "Sequential vs concurrent await",
+              "completed": false
+            },
+            {
+              "id": "subtopic-57",
+              "name": "Top-level await",
+              "completed": false
+            },
+            {
+              "id": "subtopic-58",
+              "name": "Async iterators (for-await-of)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-59",
+              "name": "Common async pitfalls",
+              "completed": false
+            },
+            {
+              "id": "subtopic-60",
+              "name": "Async in loops (forEach issues)",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-9",
+          "name": "this Keyword",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-01",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-61",
+              "name": "Default binding (global)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-62",
+              "name": "Implicit binding (object method)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-63",
+              "name": "Explicit binding (call/apply/bind)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-64",
+              "name": "new binding (constructor)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-65",
+              "name": "Arrow functions and this",
+              "completed": false
+            },
+            {
+              "id": "subtopic-66",
+              "name": "this in event handlers",
+              "completed": false
+            },
+            {
+              "id": "subtopic-67",
+              "name": "this in callbacks",
+              "completed": false
+            },
+            {
+              "id": "subtopic-68",
+              "name": "Binding precedence rules",
+              "completed": false
+            },
+            {
+              "id": "subtopic-69",
+              "name": "Lost this context issues",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-10",
+          "name": "Prototypes",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-01",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-70",
+              "name": "Prototype chain",
+              "completed": false
+            },
+            {
+              "id": "subtopic-71",
+              "name": "__proto__ vs prototype property",
+              "completed": false
+            },
+            {
+              "id": "subtopic-72",
+              "name": "Object.getPrototypeOf()",
+              "completed": false
+            },
+            {
+              "id": "subtopic-73",
+              "name": "Object.create() for inheritance",
+              "completed": false
+            },
+            {
+              "id": "subtopic-74",
+              "name": "Constructor functions",
+              "completed": false
+            },
+            {
+              "id": "subtopic-75",
+              "name": "ES6 class under the hood",
+              "completed": false
+            },
+            {
+              "id": "subtopic-76",
+              "name": "Prototype pollution risks",
+              "completed": false
+            },
+            {
+              "id": "subtopic-77",
+              "name": "Performance of prototype lookup",
+              "completed": false
+            },
+            {
+              "id": "subtopic-78",
+              "name": "hasOwnProperty vs in operator",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-11",
+          "name": "Memory Management",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-01",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-79",
+              "name": "Stack vs Heap allocation",
+              "completed": false
+            },
+            {
+              "id": "subtopic-80",
+              "name": "Primitive vs Reference types",
+              "completed": false
+            },
+            {
+              "id": "subtopic-81",
+              "name": "Shallow copy vs Deep copy",
+              "completed": false
+            },
+            {
+              "id": "subtopic-82",
+              "name": "Structured clone API",
+              "completed": false
+            },
+            {
+              "id": "subtopic-83",
+              "name": "Object spread limitations",
+              "completed": false
+            },
+            {
+              "id": "subtopic-84",
+              "name": "JSON.parse/stringify caveats",
+              "completed": false
+            },
+            {
+              "id": "subtopic-85",
+              "name": "ArrayBuffer and TypedArrays",
+              "completed": false
+            },
+            {
+              "id": "subtopic-86",
+              "name": "SharedArrayBuffer basics",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-12",
+          "name": "Garbage Collection",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-01",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-87",
+              "name": "Mark and sweep algorithm",
+              "completed": false
+            },
+            {
+              "id": "subtopic-88",
+              "name": "Reference counting (historical)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-89",
+              "name": "Reachability concept",
+              "completed": false
+            },
+            {
+              "id": "subtopic-90",
+              "name": "Common memory leak patterns",
+              "completed": false
+            },
+            {
+              "id": "subtopic-91",
+              "name": "Detached DOM nodes",
+              "completed": false
+            },
+            {
+              "id": "subtopic-92",
+              "name": "Event listener leaks",
+              "completed": false
+            },
+            {
+              "id": "subtopic-93",
+              "name": "Closures holding references",
+              "completed": false
+            },
+            {
+              "id": "subtopic-94",
+              "name": "WeakMap/WeakSet for weak refs",
+              "completed": false
+            },
+            {
+              "id": "subtopic-95",
+              "name": "WeakRef and FinalizationRegistry",
+              "completed": false
+            },
+            {
+              "id": "subtopic-96",
+              "name": "Memory profiling in DevTools",
+              "completed": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mod-browser-internals",
+      "name": "Browser Internals",
+      "weekStart": 3,
+      "weekEnd": 3,
+      "color": "#4285F4",
+      "topics": [
+        {
+          "id": "topic-13",
+          "name": "Browser Architecture",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-08",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-97",
+              "name": "Multi-process architecture",
+              "completed": false
+            },
+            {
+              "id": "subtopic-98",
+              "name": "Browser process (UI, network)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-99",
+              "name": "Renderer process (per tab)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-100",
+              "name": "GPU process",
+              "completed": false
+            },
+            {
+              "id": "subtopic-101",
+              "name": "Plugin/Extension processes",
+              "completed": false
+            },
+            {
+              "id": "subtopic-102",
+              "name": "Site isolation",
+              "completed": false
+            },
+            {
+              "id": "subtopic-103",
+              "name": "Process communication (IPC)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-104",
+              "name": "Chrome Task Manager",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-14",
+          "name": "DOM",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-08",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-105",
+              "name": "DOM tree construction",
+              "completed": false
+            },
+            {
+              "id": "subtopic-106",
+              "name": "Node types (Element, Text, Comment)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-107",
+              "name": "DOM manipulation methods",
+              "completed": false
+            },
+            {
+              "id": "subtopic-108",
+              "name": "querySelector vs getElementById perf",
+              "completed": false
+            },
+            {
+              "id": "subtopic-109",
+              "name": "DocumentFragment for batching",
+              "completed": false
+            },
+            {
+              "id": "subtopic-110",
+              "name": "MutationObserver API",
+              "completed": false
+            },
+            {
+              "id": "subtopic-111",
+              "name": "Shadow DOM basics",
+              "completed": false
+            },
+            {
+              "id": "subtopic-112",
+              "name": "DOM traversal performance",
+              "completed": false
+            },
+            {
+              "id": "subtopic-113",
+              "name": "Live vs Static NodeLists",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-15",
+          "name": "CSSOM",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-08",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-114",
+              "name": "CSS parsing process",
+              "completed": false
+            },
+            {
+              "id": "subtopic-115",
+              "name": "CSSOM tree construction",
+              "completed": false
+            },
+            {
+              "id": "subtopic-116",
+              "name": "Specificity calculation",
+              "completed": false
+            },
+            {
+              "id": "subtopic-117",
+              "name": "Cascade algorithm",
+              "completed": false
+            },
+            {
+              "id": "subtopic-118",
+              "name": "Computed styles",
+              "completed": false
+            },
+            {
+              "id": "subtopic-119",
+              "name": "CSS containment",
+              "completed": false
+            },
+            {
+              "id": "subtopic-120",
+              "name": "getComputedStyle()",
+              "completed": false
+            },
+            {
+              "id": "subtopic-121",
+              "name": "CSS Custom Properties inheritance",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-16",
+          "name": "Render Tree",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-08",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-122",
+              "name": "Render tree construction",
+              "completed": false
+            },
+            {
+              "id": "subtopic-123",
+              "name": "Combining DOM + CSSOM",
+              "completed": false
+            },
+            {
+              "id": "subtopic-124",
+              "name": "display:none exclusion",
+              "completed": false
+            },
+            {
+              "id": "subtopic-125",
+              "name": "visibility:hidden inclusion",
+              "completed": false
+            },
+            {
+              "id": "subtopic-126",
+              "name": "Pseudo-elements in render tree",
+              "completed": false
+            },
+            {
+              "id": "subtopic-127",
+              "name": "Render tree vs DOM tree",
+              "completed": false
+            },
+            {
+              "id": "subtopic-128",
+              "name": "Layer tree creation",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-17",
+          "name": "Layout (Reflow)",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-08",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-129",
+              "name": "Layout calculation process",
+              "completed": false
+            },
+            {
+              "id": "subtopic-130",
+              "name": "Box model application",
+              "completed": false
+            },
+            {
+              "id": "subtopic-131",
+              "name": "Layout triggers (geometry changes)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-132",
+              "name": "Layout thrashing",
+              "completed": false
+            },
+            {
+              "id": "subtopic-133",
+              "name": "Forced synchronous layout",
+              "completed": false
+            },
+            {
+              "id": "subtopic-134",
+              "name": "Reading layout properties",
+              "completed": false
+            },
+            {
+              "id": "subtopic-135",
+              "name": "Batching DOM reads/writes",
+              "completed": false
+            },
+            {
+              "id": "subtopic-136",
+              "name": "CSS containment for isolation",
+              "completed": false
+            },
+            {
+              "id": "subtopic-137",
+              "name": "will-change hints",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-18",
+          "name": "Paint",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-08",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-138",
+              "name": "Paint operation process",
+              "completed": false
+            },
+            {
+              "id": "subtopic-139",
+              "name": "Paint triggers (color, shadow)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-140",
+              "name": "Paint layers creation",
+              "completed": false
+            },
+            {
+              "id": "subtopic-141",
+              "name": "Paint order (stacking context)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-142",
+              "name": "Debugging with Paint Flashing",
+              "completed": false
+            },
+            {
+              "id": "subtopic-143",
+              "name": "Reducing paint area",
+              "completed": false
+            },
+            {
+              "id": "subtopic-144",
+              "name": "opacity and transform benefits",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-19",
+          "name": "Composite",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-08",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-145",
+              "name": "Compositor thread",
+              "completed": false
+            },
+            {
+              "id": "subtopic-146",
+              "name": "GPU-accelerated properties",
+              "completed": false
+            },
+            {
+              "id": "subtopic-147",
+              "name": "transform and opacity compositing",
+              "completed": false
+            },
+            {
+              "id": "subtopic-148",
+              "name": "Layer promotion criteria",
+              "completed": false
+            },
+            {
+              "id": "subtopic-149",
+              "name": "Layer explosion problem",
+              "completed": false
+            },
+            {
+              "id": "subtopic-150",
+              "name": "will-change property",
+              "completed": false
+            },
+            {
+              "id": "subtopic-151",
+              "name": "Compositor-only animations",
+              "completed": false
+            },
+            {
+              "id": "subtopic-152",
+              "name": "Debugging layers in DevTools",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-20",
+          "name": "Network Stack",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-08",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-153",
+              "name": "DNS resolution",
+              "completed": false
+            },
+            {
+              "id": "subtopic-154",
+              "name": "TCP/TLS handshake",
+              "completed": false
+            },
+            {
+              "id": "subtopic-155",
+              "name": "HTTP/1.1 limitations",
+              "completed": false
+            },
+            {
+              "id": "subtopic-156",
+              "name": "HTTP/2 multiplexing",
+              "completed": false
+            },
+            {
+              "id": "subtopic-157",
+              "name": "HTTP/3 and QUIC",
+              "completed": false
+            },
+            {
+              "id": "subtopic-158",
+              "name": "Connection pooling",
+              "completed": false
+            },
+            {
+              "id": "subtopic-159",
+              "name": "Resource hints (preload, prefetch)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-160",
+              "name": "preconnect for early connection",
+              "completed": false
+            },
+            {
+              "id": "subtopic-161",
+              "name": "Priority hints",
+              "completed": false
+            },
+            {
+              "id": "subtopic-162",
+              "name": "Service Worker interception",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-21",
+          "name": "Browser Cache",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-08",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-163",
+              "name": "HTTP cache headers",
+              "completed": false
+            },
+            {
+              "id": "subtopic-164",
+              "name": "Cache-Control directives",
+              "completed": false
+            },
+            {
+              "id": "subtopic-165",
+              "name": "ETag and If-None-Match",
+              "completed": false
+            },
+            {
+              "id": "subtopic-166",
+              "name": "Last-Modified and If-Modified-Since",
+              "completed": false
+            },
+            {
+              "id": "subtopic-167",
+              "name": "Disk cache vs Memory cache",
+              "completed": false
+            },
+            {
+              "id": "subtopic-168",
+              "name": "Service Worker cache API",
+              "completed": false
+            },
+            {
+              "id": "subtopic-169",
+              "name": "Cache storage strategies",
+              "completed": false
+            },
+            {
+              "id": "subtopic-170",
+              "name": "Cache invalidation patterns",
+              "completed": false
+            },
+            {
+              "id": "subtopic-171",
+              "name": "Immutable resources",
+              "completed": false
+            },
+            {
+              "id": "subtopic-172",
+              "name": "IndexedDB for app data",
+              "completed": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mod-react",
+      "name": "React",
+      "weekStart": 4,
+      "weekEnd": 5,
+      "color": "#61DAFB",
+      "topics": [
+        {
+          "id": "topic-22",
+          "name": "Rendering",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-22",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-173",
+              "name": "Initial render process",
+              "completed": false
+            },
+            {
+              "id": "subtopic-174",
+              "name": "Re-render triggers",
+              "completed": false
+            },
+            {
+              "id": "subtopic-175",
+              "name": "Render phase vs Commit phase",
+              "completed": false
+            },
+            {
+              "id": "subtopic-176",
+              "name": "State change rendering",
+              "completed": false
+            },
+            {
+              "id": "subtopic-177",
+              "name": "Props change rendering",
+              "completed": false
+            },
+            {
+              "id": "subtopic-178",
+              "name": "Parent re-render propagation",
+              "completed": false
+            },
+            {
+              "id": "subtopic-179",
+              "name": "Render batching (React 18)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-180",
+              "name": "Automatic batching",
+              "completed": false
+            },
+            {
+              "id": "subtopic-181",
+              "name": "flushSync for immediate updates",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-23",
+          "name": "Reconciliation",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-22",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-182",
+              "name": "Diffing algorithm basics",
+              "completed": false
+            },
+            {
+              "id": "subtopic-183",
+              "name": "O(n) heuristic approach",
+              "completed": false
+            },
+            {
+              "id": "subtopic-184",
+              "name": "Element type comparison",
+              "completed": false
+            },
+            {
+              "id": "subtopic-185",
+              "name": "Keys importance in lists",
+              "completed": false
+            },
+            {
+              "id": "subtopic-186",
+              "name": "Index as key problems",
+              "completed": false
+            },
+            {
+              "id": "subtopic-187",
+              "name": "Stable key strategies",
+              "completed": false
+            },
+            {
+              "id": "subtopic-188",
+              "name": "Component vs Element recreation",
+              "completed": false
+            },
+            {
+              "id": "subtopic-189",
+              "name": "Reconciliation optimizations",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-24",
+          "name": "Virtual DOM",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-22",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-190",
+              "name": "VDOM structure (React elements)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-191",
+              "name": "VDOM vs Real DOM",
+              "completed": false
+            },
+            {
+              "id": "subtopic-192",
+              "name": "VDOM diffing process",
+              "completed": false
+            },
+            {
+              "id": "subtopic-193",
+              "name": "Minimal DOM updates",
+              "completed": false
+            },
+            {
+              "id": "subtopic-194",
+              "name": "Performance trade-offs",
+              "completed": false
+            },
+            {
+              "id": "subtopic-195",
+              "name": "When VDOM helps/hurts",
+              "completed": false
+            },
+            {
+              "id": "subtopic-196",
+              "name": "Comparison with other approaches",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-25",
+          "name": "Fiber Architecture",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-22",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-197",
+              "name": "Fiber node structure",
+              "completed": false
+            },
+            {
+              "id": "subtopic-198",
+              "name": "Linked list traversal",
+              "completed": false
+            },
+            {
+              "id": "subtopic-199",
+              "name": "Time slicing concept",
+              "completed": false
+            },
+            {
+              "id": "subtopic-200",
+              "name": "Interruptible rendering",
+              "completed": false
+            },
+            {
+              "id": "subtopic-201",
+              "name": "Priority levels (lanes)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-202",
+              "name": "Work loop mechanism",
+              "completed": false
+            },
+            {
+              "id": "subtopic-203",
+              "name": "Current vs Work-in-progress tree",
+              "completed": false
+            },
+            {
+              "id": "subtopic-204",
+              "name": "Double buffering technique",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-26",
+          "name": "Hooks Deep Dive",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-22",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-205",
+              "name": "Rules of hooks",
+              "completed": false
+            },
+            {
+              "id": "subtopic-206",
+              "name": "Hook call order importance",
+              "completed": false
+            },
+            {
+              "id": "subtopic-207",
+              "name": "Hooks linked list",
+              "completed": false
+            },
+            {
+              "id": "subtopic-208",
+              "name": "Closure trap problem",
+              "completed": false
+            },
+            {
+              "id": "subtopic-209",
+              "name": "Stale closure debugging",
+              "completed": false
+            },
+            {
+              "id": "subtopic-210",
+              "name": "Custom hook patterns",
+              "completed": false
+            },
+            {
+              "id": "subtopic-211",
+              "name": "Hook dependencies array",
+              "completed": false
+            },
+            {
+              "id": "subtopic-212",
+              "name": "useDebugValue for DevTools",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-27",
+          "name": "useEffect",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-22",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-213",
+              "name": "Effect timing (after paint)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-214",
+              "name": "Dependency array mechanics",
+              "completed": false
+            },
+            {
+              "id": "subtopic-215",
+              "name": "Empty deps vs no deps",
+              "completed": false
+            },
+            {
+              "id": "subtopic-216",
+              "name": "Cleanup function purpose",
+              "completed": false
+            },
+            {
+              "id": "subtopic-217",
+              "name": "Cleanup timing",
+              "completed": false
+            },
+            {
+              "id": "subtopic-218",
+              "name": "Race conditions in effects",
+              "completed": false
+            },
+            {
+              "id": "subtopic-219",
+              "name": "Abort controller pattern",
+              "completed": false
+            },
+            {
+              "id": "subtopic-220",
+              "name": "useLayoutEffect differences",
+              "completed": false
+            },
+            {
+              "id": "subtopic-221",
+              "name": "Effects in Strict Mode",
+              "completed": false
+            },
+            {
+              "id": "subtopic-222",
+              "name": "Common useEffect mistakes",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-28",
+          "name": "useMemo",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-22",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-223",
+              "name": "Memoization concept",
+              "completed": false
+            },
+            {
+              "id": "subtopic-224",
+              "name": "When to use useMemo",
+              "completed": false
+            },
+            {
+              "id": "subtopic-225",
+              "name": "Referential equality",
+              "completed": false
+            },
+            {
+              "id": "subtopic-226",
+              "name": "Expensive computation caching",
+              "completed": false
+            },
+            {
+              "id": "subtopic-227",
+              "name": "Dependency array matching",
+              "completed": false
+            },
+            {
+              "id": "subtopic-228",
+              "name": "Over-memoization pitfalls",
+              "completed": false
+            },
+            {
+              "id": "subtopic-229",
+              "name": "useMemo vs useCallback",
+              "completed": false
+            },
+            {
+              "id": "subtopic-230",
+              "name": "Measuring memoization benefit",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-29",
+          "name": "useCallback",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-22",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-231",
+              "name": "Function identity stability",
+              "completed": false
+            },
+            {
+              "id": "subtopic-232",
+              "name": "Event handler optimization",
+              "completed": false
+            },
+            {
+              "id": "subtopic-233",
+              "name": "Child component optimization",
+              "completed": false
+            },
+            {
+              "id": "subtopic-234",
+              "name": "Dependency array for callbacks",
+              "completed": false
+            },
+            {
+              "id": "subtopic-235",
+              "name": "useCallback with useEffect",
+              "completed": false
+            },
+            {
+              "id": "subtopic-236",
+              "name": "When useCallback helps",
+              "completed": false
+            },
+            {
+              "id": "subtopic-237",
+              "name": "When to skip useCallback",
+              "completed": false
+            },
+            {
+              "id": "subtopic-238",
+              "name": "useCallback vs inline functions",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-30",
+          "name": "Custom Hooks",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-22",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-239",
+              "name": "Extracting reusable logic",
+              "completed": false
+            },
+            {
+              "id": "subtopic-240",
+              "name": "Custom hook naming (use prefix)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-241",
+              "name": "Composing multiple hooks",
+              "completed": false
+            },
+            {
+              "id": "subtopic-242",
+              "name": "Returning multiple values",
+              "completed": false
+            },
+            {
+              "id": "subtopic-243",
+              "name": "Custom hook with options",
+              "completed": false
+            },
+            {
+              "id": "subtopic-244",
+              "name": "Testing custom hooks",
+              "completed": false
+            },
+            {
+              "id": "subtopic-245",
+              "name": "Common custom hook patterns",
+              "completed": false
+            },
+            {
+              "id": "subtopic-246",
+              "name": "useLocalStorage example",
+              "completed": false
+            },
+            {
+              "id": "subtopic-247",
+              "name": "useFetch pattern",
+              "completed": false
+            },
+            {
+              "id": "subtopic-248",
+              "name": "useDebounce/useThrottle",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-31",
+          "name": "Context API",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-22",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-249",
+              "name": "createContext usage",
+              "completed": false
+            },
+            {
+              "id": "subtopic-250",
+              "name": "Provider and Consumer",
+              "completed": false
+            },
+            {
+              "id": "subtopic-251",
+              "name": "useContext hook",
+              "completed": false
+            },
+            {
+              "id": "subtopic-252",
+              "name": "Context re-render behavior",
+              "completed": false
+            },
+            {
+              "id": "subtopic-253",
+              "name": "Context performance issues",
+              "completed": false
+            },
+            {
+              "id": "subtopic-254",
+              "name": "Context splitting strategies",
+              "completed": false
+            },
+            {
+              "id": "subtopic-255",
+              "name": "Memoizing context values",
+              "completed": false
+            },
+            {
+              "id": "subtopic-256",
+              "name": "Context vs Props drilling",
+              "completed": false
+            },
+            {
+              "id": "subtopic-257",
+              "name": "Context vs State management",
+              "completed": false
+            },
+            {
+              "id": "subtopic-258",
+              "name": "Multiple contexts pattern",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-32",
+          "name": "Suspense",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-22",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-259",
+              "name": "Suspense for code splitting",
+              "completed": false
+            },
+            {
+              "id": "subtopic-260",
+              "name": "React.lazy() for lazy loading",
+              "completed": false
+            },
+            {
+              "id": "subtopic-261",
+              "name": "Fallback UI",
+              "completed": false
+            },
+            {
+              "id": "subtopic-262",
+              "name": "Suspense boundaries placement",
+              "completed": false
+            },
+            {
+              "id": "subtopic-263",
+              "name": "Nested Suspense boundaries",
+              "completed": false
+            },
+            {
+              "id": "subtopic-264",
+              "name": "Error boundaries with Suspense",
+              "completed": false
+            },
+            {
+              "id": "subtopic-265",
+              "name": "Suspense for data fetching",
+              "completed": false
+            },
+            {
+              "id": "subtopic-266",
+              "name": "SuspenseList (experimental)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-267",
+              "name": "Streaming SSR with Suspense",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-33",
+          "name": "Concurrent Rendering",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-22",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-268",
+              "name": "Concurrent Mode concepts",
+              "completed": false
+            },
+            {
+              "id": "subtopic-269",
+              "name": "useTransition hook",
+              "completed": false
+            },
+            {
+              "id": "subtopic-270",
+              "name": "startTransition API",
+              "completed": false
+            },
+            {
+              "id": "subtopic-271",
+              "name": "useDeferredValue hook",
+              "completed": false
+            },
+            {
+              "id": "subtopic-272",
+              "name": "Urgent vs Non-urgent updates",
+              "completed": false
+            },
+            {
+              "id": "subtopic-273",
+              "name": "Transition pending state",
+              "completed": false
+            },
+            {
+              "id": "subtopic-274",
+              "name": "Avoiding UI jank",
+              "completed": false
+            },
+            {
+              "id": "subtopic-275",
+              "name": "Concurrent features adoption",
+              "completed": false
+            },
+            {
+              "id": "subtopic-276",
+              "name": "Tearing prevention",
+              "completed": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mod-nextjs",
+      "name": "Next.js",
+      "weekStart": 6,
+      "weekEnd": 6,
+      "color": "#000000",
+      "topics": [
+        {
+          "id": "topic-34",
+          "name": "SSR (Server-Side Rendering)",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-29",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-277",
+              "name": "SSR request flow",
+              "completed": false
+            },
+            {
+              "id": "subtopic-278",
+              "name": "getServerSideProps function",
+              "completed": false
+            },
+            {
+              "id": "subtopic-279",
+              "name": "Request/Response objects",
+              "completed": false
+            },
+            {
+              "id": "subtopic-280",
+              "name": "Dynamic data per request",
+              "completed": false
+            },
+            {
+              "id": "subtopic-281",
+              "name": "Authentication in SSR",
+              "completed": false
+            },
+            {
+              "id": "subtopic-282",
+              "name": "SEO benefits of SSR",
+              "completed": false
+            },
+            {
+              "id": "subtopic-283",
+              "name": "SSR performance considerations",
+              "completed": false
+            },
+            {
+              "id": "subtopic-284",
+              "name": "Caching SSR responses",
+              "completed": false
+            },
+            {
+              "id": "subtopic-285",
+              "name": "SSR vs API routes",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-35",
+          "name": "CSR (Client-Side Rendering)",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-29",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-286",
+              "name": "When to use CSR",
+              "completed": false
+            },
+            {
+              "id": "subtopic-287",
+              "name": "Client-only components",
+              "completed": false
+            },
+            {
+              "id": "subtopic-288",
+              "name": "useEffect for client data",
+              "completed": false
+            },
+            {
+              "id": "subtopic-289",
+              "name": "Dynamic imports (no SSR)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-290",
+              "name": "Loading states",
+              "completed": false
+            },
+            {
+              "id": "subtopic-291",
+              "name": "CSR performance trade-offs",
+              "completed": false
+            },
+            {
+              "id": "subtopic-292",
+              "name": "SWR/React Query with CSR",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-36",
+          "name": "SSG (Static Site Generation)",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-29",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-293",
+              "name": "getStaticProps function",
+              "completed": false
+            },
+            {
+              "id": "subtopic-294",
+              "name": "Build-time data fetching",
+              "completed": false
+            },
+            {
+              "id": "subtopic-295",
+              "name": "getStaticPaths for dynamic routes",
+              "completed": false
+            },
+            {
+              "id": "subtopic-296",
+              "name": "Fallback strategies (true/false/blocking)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-297",
+              "name": "Incremental adoption",
+              "completed": false
+            },
+            {
+              "id": "subtopic-298",
+              "name": "SSG for blogs/docs",
+              "completed": false
+            },
+            {
+              "id": "subtopic-299",
+              "name": "SSG limitations",
+              "completed": false
+            },
+            {
+              "id": "subtopic-300",
+              "name": "Revalidation needs",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-37",
+          "name": "ISR (Incremental Static Regeneration)",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-29",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-301",
+              "name": "revalidate option",
+              "completed": false
+            },
+            {
+              "id": "subtopic-302",
+              "name": "Stale-while-revalidate pattern",
+              "completed": false
+            },
+            {
+              "id": "subtopic-303",
+              "name": "On-demand revalidation API",
+              "completed": false
+            },
+            {
+              "id": "subtopic-304",
+              "name": "revalidatePath()",
+              "completed": false
+            },
+            {
+              "id": "subtopic-305",
+              "name": "revalidateTag()",
+              "completed": false
+            },
+            {
+              "id": "subtopic-306",
+              "name": "ISR use cases",
+              "completed": false
+            },
+            {
+              "id": "subtopic-307",
+              "name": "ISR vs SSR decision",
+              "completed": false
+            },
+            {
+              "id": "subtopic-308",
+              "name": "ISR deployment requirements",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-38",
+          "name": "Hydration",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-29",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-309",
+              "name": "Hydration process explained",
+              "completed": false
+            },
+            {
+              "id": "subtopic-310",
+              "name": "Hydration mismatch errors",
+              "completed": false
+            },
+            {
+              "id": "subtopic-311",
+              "name": "Common mismatch causes",
+              "completed": false
+            },
+            {
+              "id": "subtopic-312",
+              "name": "suppressHydrationWarning",
+              "completed": false
+            },
+            {
+              "id": "subtopic-313",
+              "name": "useEffect for client-only code",
+              "completed": false
+            },
+            {
+              "id": "subtopic-314",
+              "name": "Progressive hydration",
+              "completed": false
+            },
+            {
+              "id": "subtopic-315",
+              "name": "Selective hydration",
+              "completed": false
+            },
+            {
+              "id": "subtopic-316",
+              "name": "Debugging hydration issues",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-39",
+          "name": "App Router",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-29",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-317",
+              "name": "File-based routing",
+              "completed": false
+            },
+            {
+              "id": "subtopic-318",
+              "name": "page.tsx convention",
+              "completed": false
+            },
+            {
+              "id": "subtopic-319",
+              "name": "layout.tsx for shared UI",
+              "completed": false
+            },
+            {
+              "id": "subtopic-320",
+              "name": "loading.tsx for loading states",
+              "completed": false
+            },
+            {
+              "id": "subtopic-321",
+              "name": "error.tsx for error handling",
+              "completed": false
+            },
+            {
+              "id": "subtopic-322",
+              "name": "Route groups (parentheses)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-323",
+              "name": "Parallel routes (@folder)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-324",
+              "name": "Intercepting routes",
+              "completed": false
+            },
+            {
+              "id": "subtopic-325",
+              "name": "Dynamic segments [slug]",
+              "completed": false
+            },
+            {
+              "id": "subtopic-326",
+              "name": "Catch-all routes [...slug]",
+              "completed": false
+            },
+            {
+              "id": "subtopic-327",
+              "name": "Route handlers (API routes)",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-40",
+          "name": "Server Components",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-29",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-328",
+              "name": "Server vs Client components",
+              "completed": false
+            },
+            {
+              "id": "subtopic-329",
+              "name": "Default server components",
+              "completed": false
+            },
+            {
+              "id": "subtopic-330",
+              "name": "\"use client\" directive",
+              "completed": false
+            },
+            {
+              "id": "subtopic-331",
+              "name": "RSC payload format",
+              "completed": false
+            },
+            {
+              "id": "subtopic-332",
+              "name": "Streaming Server Components",
+              "completed": false
+            },
+            {
+              "id": "subtopic-333",
+              "name": "Data fetching in Server Components",
+              "completed": false
+            },
+            {
+              "id": "subtopic-334",
+              "name": "Passing props to Client",
+              "completed": false
+            },
+            {
+              "id": "subtopic-335",
+              "name": "Server Actions basics",
+              "completed": false
+            },
+            {
+              "id": "subtopic-336",
+              "name": "When to use each type",
+              "completed": false
+            },
+            {
+              "id": "subtopic-337",
+              "name": "Composition patterns",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-41",
+          "name": "Caching Strategies",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-08-29",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-338",
+              "name": "Request Memoization",
+              "completed": false
+            },
+            {
+              "id": "subtopic-339",
+              "name": "Data Cache",
+              "completed": false
+            },
+            {
+              "id": "subtopic-340",
+              "name": "Full Route Cache",
+              "completed": false
+            },
+            {
+              "id": "subtopic-341",
+              "name": "Router Cache (client)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-342",
+              "name": "Cache revalidation methods",
+              "completed": false
+            },
+            {
+              "id": "subtopic-343",
+              "name": "fetch cache options",
+              "completed": false
+            },
+            {
+              "id": "subtopic-344",
+              "name": "unstable_cache API",
+              "completed": false
+            },
+            {
+              "id": "subtopic-345",
+              "name": "Cache invalidation patterns",
+              "completed": false
+            },
+            {
+              "id": "subtopic-346",
+              "name": "Opting out of caching",
+              "completed": false
+            },
+            {
+              "id": "subtopic-347",
+              "name": "Cache debugging",
+              "completed": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mod-frontend-architecture",
+      "name": "Frontend Architecture",
+      "weekStart": 7,
+      "weekEnd": 8,
+      "color": "#8B5CF6",
+      "topics": [
+        {
+          "id": "topic-42",
+          "name": "State Management Patterns",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-09-12",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-348",
+              "name": "Local component state",
+              "completed": false
+            },
+            {
+              "id": "subtopic-349",
+              "name": "Lifted state",
+              "completed": false
+            },
+            {
+              "id": "subtopic-350",
+              "name": "Global state solutions",
+              "completed": false
+            },
+            {
+              "id": "subtopic-351",
+              "name": "Server state (React Query/SWR)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-352",
+              "name": "URL state",
+              "completed": false
+            },
+            {
+              "id": "subtopic-353",
+              "name": "Form state",
+              "completed": false
+            },
+            {
+              "id": "subtopic-354",
+              "name": "Context for state",
+              "completed": false
+            },
+            {
+              "id": "subtopic-355",
+              "name": "Redux patterns (when needed)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-356",
+              "name": "Zustand/Jotai/Recoil comparison",
+              "completed": false
+            },
+            {
+              "id": "subtopic-357",
+              "name": "State machine patterns (XState)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-358",
+              "name": "Optimistic state updates",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-43",
+          "name": "Component Architecture",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-09-12",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-359",
+              "name": "Presentational vs Container",
+              "completed": false
+            },
+            {
+              "id": "subtopic-360",
+              "name": "Compound components pattern",
+              "completed": false
+            },
+            {
+              "id": "subtopic-361",
+              "name": "Render props pattern",
+              "completed": false
+            },
+            {
+              "id": "subtopic-362",
+              "name": "Higher-Order Components (HOC)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-363",
+              "name": "Custom hooks vs HOC",
+              "completed": false
+            },
+            {
+              "id": "subtopic-364",
+              "name": "Controlled vs Uncontrolled",
+              "completed": false
+            },
+            {
+              "id": "subtopic-365",
+              "name": "Composition over inheritance",
+              "completed": false
+            },
+            {
+              "id": "subtopic-366",
+              "name": "Component API design",
+              "completed": false
+            },
+            {
+              "id": "subtopic-367",
+              "name": "Props interface design",
+              "completed": false
+            },
+            {
+              "id": "subtopic-368",
+              "name": "Default props patterns",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-44",
+          "name": "Feature-based Architecture",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-09-12",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-369",
+              "name": "Feature folder structure",
+              "completed": false
+            },
+            {
+              "id": "subtopic-370",
+              "name": "Colocation principle",
+              "completed": false
+            },
+            {
+              "id": "subtopic-371",
+              "name": "Barrel exports (index.ts)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-372",
+              "name": "Feature boundaries",
+              "completed": false
+            },
+            {
+              "id": "subtopic-373",
+              "name": "Shared vs Feature code",
+              "completed": false
+            },
+            {
+              "id": "subtopic-374",
+              "name": "Dependency direction rules",
+              "completed": false
+            },
+            {
+              "id": "subtopic-375",
+              "name": "Cross-feature communication",
+              "completed": false
+            },
+            {
+              "id": "subtopic-376",
+              "name": "Feature flags architecture",
+              "completed": false
+            },
+            {
+              "id": "subtopic-377",
+              "name": "Monorepo considerations",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-45",
+          "name": "Design Systems",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-09-12",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-378",
+              "name": "Design tokens (spacing, colors)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-379",
+              "name": "Typography scale",
+              "completed": false
+            },
+            {
+              "id": "subtopic-380",
+              "name": "Component variants",
+              "completed": false
+            },
+            {
+              "id": "subtopic-381",
+              "name": "Component API consistency",
+              "completed": false
+            },
+            {
+              "id": "subtopic-382",
+              "name": "Theming architecture",
+              "completed": false
+            },
+            {
+              "id": "subtopic-383",
+              "name": "Dark mode implementation",
+              "completed": false
+            },
+            {
+              "id": "subtopic-384",
+              "name": "CSS-in-JS vs CSS Modules",
+              "completed": false
+            },
+            {
+              "id": "subtopic-385",
+              "name": "Tailwind for design systems",
+              "completed": false
+            },
+            {
+              "id": "subtopic-386",
+              "name": "Storybook for documentation",
+              "completed": false
+            },
+            {
+              "id": "subtopic-387",
+              "name": "Component testing strategies",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-46",
+          "name": "Accessibility (a11y)",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-09-12",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-388",
+              "name": "WCAG 2.1 guidelines",
+              "completed": false
+            },
+            {
+              "id": "subtopic-389",
+              "name": "Semantic HTML importance",
+              "completed": false
+            },
+            {
+              "id": "subtopic-390",
+              "name": "ARIA roles and attributes",
+              "completed": false
+            },
+            {
+              "id": "subtopic-391",
+              "name": "Focus management",
+              "completed": false
+            },
+            {
+              "id": "subtopic-392",
+              "name": "Keyboard navigation",
+              "completed": false
+            },
+            {
+              "id": "subtopic-393",
+              "name": "Skip links",
+              "completed": false
+            },
+            {
+              "id": "subtopic-394",
+              "name": "Screen reader testing",
+              "completed": false
+            },
+            {
+              "id": "subtopic-395",
+              "name": "Color contrast requirements",
+              "completed": false
+            },
+            {
+              "id": "subtopic-396",
+              "name": "Form accessibility",
+              "completed": false
+            },
+            {
+              "id": "subtopic-397",
+              "name": "Modal/Dialog accessibility",
+              "completed": false
+            },
+            {
+              "id": "subtopic-398",
+              "name": "Accessible routing",
+              "completed": false
+            },
+            {
+              "id": "subtopic-399",
+              "name": "a11y testing tools",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-47",
+          "name": "Performance Optimization",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-09-12",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-400",
+              "name": "Core Web Vitals (LCP, FID, CLS)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-401",
+              "name": "Code splitting strategies",
+              "completed": false
+            },
+            {
+              "id": "subtopic-402",
+              "name": "Dynamic imports",
+              "completed": false
+            },
+            {
+              "id": "subtopic-403",
+              "name": "Tree shaking",
+              "completed": false
+            },
+            {
+              "id": "subtopic-404",
+              "name": "Bundle analysis",
+              "completed": false
+            },
+            {
+              "id": "subtopic-405",
+              "name": "Image optimization",
+              "completed": false
+            },
+            {
+              "id": "subtopic-406",
+              "name": "Font loading strategies",
+              "completed": false
+            },
+            {
+              "id": "subtopic-407",
+              "name": "Third-party script loading",
+              "completed": false
+            },
+            {
+              "id": "subtopic-408",
+              "name": "Virtualization for long lists",
+              "completed": false
+            },
+            {
+              "id": "subtopic-409",
+              "name": "Debouncing and throttling",
+              "completed": false
+            },
+            {
+              "id": "subtopic-410",
+              "name": "Web Workers for heavy tasks",
+              "completed": false
+            },
+            {
+              "id": "subtopic-411",
+              "name": "Performance monitoring",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-48",
+          "name": "Error Handling & Boundaries",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-09-12",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-412",
+              "name": "Error boundaries basics",
+              "completed": false
+            },
+            {
+              "id": "subtopic-413",
+              "name": "Error boundary placement",
+              "completed": false
+            },
+            {
+              "id": "subtopic-414",
+              "name": "Fallback UI design",
+              "completed": false
+            },
+            {
+              "id": "subtopic-415",
+              "name": "Error recovery patterns",
+              "completed": false
+            },
+            {
+              "id": "subtopic-416",
+              "name": "Logging and reporting",
+              "completed": false
+            },
+            {
+              "id": "subtopic-417",
+              "name": "Sentry/LogRocket integration",
+              "completed": false
+            },
+            {
+              "id": "subtopic-418",
+              "name": "Network error handling",
+              "completed": false
+            },
+            {
+              "id": "subtopic-419",
+              "name": "Retry strategies",
+              "completed": false
+            },
+            {
+              "id": "subtopic-420",
+              "name": "Graceful degradation",
+              "completed": false
+            },
+            {
+              "id": "subtopic-421",
+              "name": "Feature detection",
+              "completed": false
+            },
+            {
+              "id": "subtopic-422",
+              "name": "Error states in UI",
+              "completed": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mod-system-design",
+      "name": "Frontend System Design",
+      "weekStart": 9,
+      "weekEnd": 10,
+      "color": "#10B981",
+      "topics": [
+        {
+          "id": "topic-49",
+          "name": "Dashboard Design",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-09-26",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-423",
+              "name": "Widget architecture",
+              "completed": false
+            },
+            {
+              "id": "subtopic-424",
+              "name": "Grid layout systems",
+              "completed": false
+            },
+            {
+              "id": "subtopic-425",
+              "name": "Data aggregation layer",
+              "completed": false
+            },
+            {
+              "id": "subtopic-426",
+              "name": "Real-time data updates",
+              "completed": false
+            },
+            {
+              "id": "subtopic-427",
+              "name": "Dashboard state management",
+              "completed": false
+            },
+            {
+              "id": "subtopic-428",
+              "name": "Widget communication",
+              "completed": false
+            },
+            {
+              "id": "subtopic-429",
+              "name": "Responsive dashboard layout",
+              "completed": false
+            },
+            {
+              "id": "subtopic-430",
+              "name": "Dashboard customization",
+              "completed": false
+            },
+            {
+              "id": "subtopic-431",
+              "name": "Export/Download features",
+              "completed": false
+            },
+            {
+              "id": "subtopic-432",
+              "name": "Dashboard performance",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-50",
+          "name": "Chat Application",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-09-26",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-433",
+              "name": "Message data structure",
+              "completed": false
+            },
+            {
+              "id": "subtopic-434",
+              "name": "Real-time with WebSocket",
+              "completed": false
+            },
+            {
+              "id": "subtopic-435",
+              "name": "Message threading",
+              "completed": false
+            },
+            {
+              "id": "subtopic-436",
+              "name": "Presence indicators",
+              "completed": false
+            },
+            {
+              "id": "subtopic-437",
+              "name": "Typing indicators",
+              "completed": false
+            },
+            {
+              "id": "subtopic-438",
+              "name": "Read receipts",
+              "completed": false
+            },
+            {
+              "id": "subtopic-439",
+              "name": "Message delivery status",
+              "completed": false
+            },
+            {
+              "id": "subtopic-440",
+              "name": "Offline message queue",
+              "completed": false
+            },
+            {
+              "id": "subtopic-441",
+              "name": "Media attachments",
+              "completed": false
+            },
+            {
+              "id": "subtopic-442",
+              "name": "Chat performance at scale",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-51",
+          "name": "Infinite Scroll",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-09-26",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-443",
+              "name": "Intersection Observer API",
+              "completed": false
+            },
+            {
+              "id": "subtopic-444",
+              "name": "Scroll position detection",
+              "completed": false
+            },
+            {
+              "id": "subtopic-445",
+              "name": "Loading triggers",
+              "completed": false
+            },
+            {
+              "id": "subtopic-446",
+              "name": "Virtualization (react-window)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-447",
+              "name": "Scroll position restoration",
+              "completed": false
+            },
+            {
+              "id": "subtopic-448",
+              "name": "Loading states",
+              "completed": false
+            },
+            {
+              "id": "subtopic-449",
+              "name": "Empty states",
+              "completed": false
+            },
+            {
+              "id": "subtopic-450",
+              "name": "End of list detection",
+              "completed": false
+            },
+            {
+              "id": "subtopic-451",
+              "name": "Pull-to-refresh",
+              "completed": false
+            },
+            {
+              "id": "subtopic-452",
+              "name": "Jump to top/bottom",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-52",
+          "name": "Search Autocomplete",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-09-26",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-453",
+              "name": "Debouncing input",
+              "completed": false
+            },
+            {
+              "id": "subtopic-454",
+              "name": "API design for search",
+              "completed": false
+            },
+            {
+              "id": "subtopic-455",
+              "name": "Caching search results",
+              "completed": false
+            },
+            {
+              "id": "subtopic-456",
+              "name": "Highlighting matches",
+              "completed": false
+            },
+            {
+              "id": "subtopic-457",
+              "name": "Keyboard navigation",
+              "completed": false
+            },
+            {
+              "id": "subtopic-458",
+              "name": "Recent searches",
+              "completed": false
+            },
+            {
+              "id": "subtopic-459",
+              "name": "Popular suggestions",
+              "completed": false
+            },
+            {
+              "id": "subtopic-460",
+              "name": "Fuzzy matching",
+              "completed": false
+            },
+            {
+              "id": "subtopic-461",
+              "name": "Search analytics",
+              "completed": false
+            },
+            {
+              "id": "subtopic-462",
+              "name": "No results handling",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-53",
+          "name": "File Upload System",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-09-26",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-463",
+              "name": "Drag and drop zone",
+              "completed": false
+            },
+            {
+              "id": "subtopic-464",
+              "name": "File type validation",
+              "completed": false
+            },
+            {
+              "id": "subtopic-465",
+              "name": "File size limits",
+              "completed": false
+            },
+            {
+              "id": "subtopic-466",
+              "name": "Progress tracking",
+              "completed": false
+            },
+            {
+              "id": "subtopic-467",
+              "name": "Chunked uploads",
+              "completed": false
+            },
+            {
+              "id": "subtopic-468",
+              "name": "Resumable uploads",
+              "completed": false
+            },
+            {
+              "id": "subtopic-469",
+              "name": "Parallel uploads",
+              "completed": false
+            },
+            {
+              "id": "subtopic-470",
+              "name": "Error recovery/retry",
+              "completed": false
+            },
+            {
+              "id": "subtopic-471",
+              "name": "File preview",
+              "completed": false
+            },
+            {
+              "id": "subtopic-472",
+              "name": "Upload queue management",
+              "completed": false
+            },
+            {
+              "id": "subtopic-473",
+              "name": "Presigned URLs pattern",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-54",
+          "name": "Restaurant Listing App",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-09-26",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-474",
+              "name": "Geolocation integration",
+              "completed": false
+            },
+            {
+              "id": "subtopic-475",
+              "name": "Map integration",
+              "completed": false
+            },
+            {
+              "id": "subtopic-476",
+              "name": "Filter architecture",
+              "completed": false
+            },
+            {
+              "id": "subtopic-477",
+              "name": "Sort functionality",
+              "completed": false
+            },
+            {
+              "id": "subtopic-478",
+              "name": "Pagination strategies",
+              "completed": false
+            },
+            {
+              "id": "subtopic-479",
+              "name": "Card layout design",
+              "completed": false
+            },
+            {
+              "id": "subtopic-480",
+              "name": "Quick view modals",
+              "completed": false
+            },
+            {
+              "id": "subtopic-481",
+              "name": "Favoriting system",
+              "completed": false
+            },
+            {
+              "id": "subtopic-482",
+              "name": "Search within results",
+              "completed": false
+            },
+            {
+              "id": "subtopic-483",
+              "name": "Mobile responsive design",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-55",
+          "name": "Form Builder",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-09-26",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-484",
+              "name": "Dynamic form schema",
+              "completed": false
+            },
+            {
+              "id": "subtopic-485",
+              "name": "Field type registry",
+              "completed": false
+            },
+            {
+              "id": "subtopic-486",
+              "name": "Validation architecture",
+              "completed": false
+            },
+            {
+              "id": "subtopic-487",
+              "name": "Conditional field logic",
+              "completed": false
+            },
+            {
+              "id": "subtopic-488",
+              "name": "Form state management",
+              "completed": false
+            },
+            {
+              "id": "subtopic-489",
+              "name": "Multi-step forms",
+              "completed": false
+            },
+            {
+              "id": "subtopic-490",
+              "name": "Form persistence",
+              "completed": false
+            },
+            {
+              "id": "subtopic-491",
+              "name": "Form preview",
+              "completed": false
+            },
+            {
+              "id": "subtopic-492",
+              "name": "Drag-drop field ordering",
+              "completed": false
+            },
+            {
+              "id": "subtopic-493",
+              "name": "Export form schema",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-56",
+          "name": "Realtime Dashboard",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-09-26",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-494",
+              "name": "WebSocket vs SSE choice",
+              "completed": false
+            },
+            {
+              "id": "subtopic-495",
+              "name": "Connection management",
+              "completed": false
+            },
+            {
+              "id": "subtopic-496",
+              "name": "Reconnection strategies",
+              "completed": false
+            },
+            {
+              "id": "subtopic-497",
+              "name": "Data normalization",
+              "completed": false
+            },
+            {
+              "id": "subtopic-498",
+              "name": "Throttling UI updates",
+              "completed": false
+            },
+            {
+              "id": "subtopic-499",
+              "name": "Chart library integration",
+              "completed": false
+            },
+            {
+              "id": "subtopic-500",
+              "name": "Memory management",
+              "completed": false
+            },
+            {
+              "id": "subtopic-501",
+              "name": "Offline handling",
+              "completed": false
+            },
+            {
+              "id": "subtopic-502",
+              "name": "Historical data loading",
+              "completed": false
+            },
+            {
+              "id": "subtopic-503",
+              "name": "Dashboard alerts",
+              "completed": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mod-engineering-breadth",
+      "name": "Engineering Breadth",
+      "weekStart": 11,
+      "weekEnd": 12,
+      "color": "#F97316",
+      "topics": [
+        {
+          "id": "topic-57",
+          "name": "Git Advanced",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-10-10",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-504",
+              "name": "Rebase vs Merge",
+              "completed": false
+            },
+            {
+              "id": "subtopic-505",
+              "name": "Interactive rebase",
+              "completed": false
+            },
+            {
+              "id": "subtopic-506",
+              "name": "Cherry-pick commits",
+              "completed": false
+            },
+            {
+              "id": "subtopic-507",
+              "name": "Git bisect for debugging",
+              "completed": false
+            },
+            {
+              "id": "subtopic-508",
+              "name": "Stash and stash pop",
+              "completed": false
+            },
+            {
+              "id": "subtopic-509",
+              "name": "Git hooks (pre-commit)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-510",
+              "name": "Conventional commits",
+              "completed": false
+            },
+            {
+              "id": "subtopic-511",
+              "name": "Branching strategies",
+              "completed": false
+            },
+            {
+              "id": "subtopic-512",
+              "name": "Git flow vs trunk-based",
+              "completed": false
+            },
+            {
+              "id": "subtopic-513",
+              "name": "Resolving merge conflicts",
+              "completed": false
+            },
+            {
+              "id": "subtopic-514",
+              "name": "Git reflog for recovery",
+              "completed": false
+            },
+            {
+              "id": "subtopic-515",
+              "name": "Squashing commits",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-58",
+          "name": "DBMS Fundamentals",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-10-10",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-516",
+              "name": "Indexes (B-tree, Hash)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-517",
+              "name": "Index optimization",
+              "completed": false
+            },
+            {
+              "id": "subtopic-518",
+              "name": "Query execution plans",
+              "completed": false
+            },
+            {
+              "id": "subtopic-519",
+              "name": "JOIN types (INNER, LEFT, etc.)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-520",
+              "name": "Transactions and ACID",
+              "completed": false
+            },
+            {
+              "id": "subtopic-521",
+              "name": "Isolation levels",
+              "completed": false
+            },
+            {
+              "id": "subtopic-522",
+              "name": "Deadlocks",
+              "completed": false
+            },
+            {
+              "id": "subtopic-523",
+              "name": "Normalization (1NF, 2NF, 3NF)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-524",
+              "name": "Denormalization trade-offs",
+              "completed": false
+            },
+            {
+              "id": "subtopic-525",
+              "name": "NoSQL basics (when to use)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-526",
+              "name": "Query optimization",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-59",
+          "name": "OOP Principles",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-10-10",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-527",
+              "name": "SOLID principles",
+              "completed": false
+            },
+            {
+              "id": "subtopic-528",
+              "name": "Single Responsibility",
+              "completed": false
+            },
+            {
+              "id": "subtopic-529",
+              "name": "Open/Closed principle",
+              "completed": false
+            },
+            {
+              "id": "subtopic-530",
+              "name": "Liskov Substitution",
+              "completed": false
+            },
+            {
+              "id": "subtopic-531",
+              "name": "Interface Segregation",
+              "completed": false
+            },
+            {
+              "id": "subtopic-532",
+              "name": "Dependency Inversion",
+              "completed": false
+            },
+            {
+              "id": "subtopic-533",
+              "name": "Composition vs Inheritance",
+              "completed": false
+            },
+            {
+              "id": "subtopic-534",
+              "name": "Design patterns overview",
+              "completed": false
+            },
+            {
+              "id": "subtopic-535",
+              "name": "Factory pattern",
+              "completed": false
+            },
+            {
+              "id": "subtopic-536",
+              "name": "Observer pattern",
+              "completed": false
+            },
+            {
+              "id": "subtopic-537",
+              "name": "Strategy pattern",
+              "completed": false
+            },
+            {
+              "id": "subtopic-538",
+              "name": "Dependency Injection",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-60",
+          "name": "Docker",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-10-10",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-539",
+              "name": "Images vs Containers",
+              "completed": false
+            },
+            {
+              "id": "subtopic-540",
+              "name": "Dockerfile basics",
+              "completed": false
+            },
+            {
+              "id": "subtopic-541",
+              "name": "Docker build process",
+              "completed": false
+            },
+            {
+              "id": "subtopic-542",
+              "name": "Layer caching",
+              "completed": false
+            },
+            {
+              "id": "subtopic-543",
+              "name": "Multi-stage builds",
+              "completed": false
+            },
+            {
+              "id": "subtopic-544",
+              "name": "Volumes for persistence",
+              "completed": false
+            },
+            {
+              "id": "subtopic-545",
+              "name": "Docker networking",
+              "completed": false
+            },
+            {
+              "id": "subtopic-546",
+              "name": "Docker Compose",
+              "completed": false
+            },
+            {
+              "id": "subtopic-547",
+              "name": "Environment variables",
+              "completed": false
+            },
+            {
+              "id": "subtopic-548",
+              "name": "Container debugging",
+              "completed": false
+            },
+            {
+              "id": "subtopic-549",
+              "name": "Docker for development",
+              "completed": false
+            },
+            {
+              "id": "subtopic-550",
+              "name": "Production best practices",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-61",
+          "name": "AWS Basics",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-10-10",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-551",
+              "name": "S3 (storage)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-552",
+              "name": "S3 presigned URLs",
+              "completed": false
+            },
+            {
+              "id": "subtopic-553",
+              "name": "CloudFront (CDN)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-554",
+              "name": "CloudFront caching",
+              "completed": false
+            },
+            {
+              "id": "subtopic-555",
+              "name": "EC2 (compute)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-556",
+              "name": "Lambda (serverless)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-557",
+              "name": "Lambda cold starts",
+              "completed": false
+            },
+            {
+              "id": "subtopic-558",
+              "name": "API Gateway",
+              "completed": false
+            },
+            {
+              "id": "subtopic-559",
+              "name": "IAM basics (roles, policies)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-560",
+              "name": "RDS basics",
+              "completed": false
+            },
+            {
+              "id": "subtopic-561",
+              "name": "DynamoDB basics",
+              "completed": false
+            },
+            {
+              "id": "subtopic-562",
+              "name": "SQS for queues",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "topic-62",
+          "name": "Kubernetes Basics",
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "dueDate": "2026-10-10",
+          "notes": "",
+          "resources": [],
+          "subtopics": [
+            {
+              "id": "subtopic-563",
+              "name": "Kubernetes problem it solves",
+              "completed": false
+            },
+            {
+              "id": "subtopic-564",
+              "name": "Pods (smallest unit)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-565",
+              "name": "Deployments",
+              "completed": false
+            },
+            {
+              "id": "subtopic-566",
+              "name": "ReplicaSets",
+              "completed": false
+            },
+            {
+              "id": "subtopic-567",
+              "name": "Services (ClusterIP, LoadBalancer)",
+              "completed": false
+            },
+            {
+              "id": "subtopic-568",
+              "name": "Ingress controllers",
+              "completed": false
+            },
+            {
+              "id": "subtopic-569",
+              "name": "ConfigMaps",
+              "completed": false
+            },
+            {
+              "id": "subtopic-570",
+              "name": "Secrets",
+              "completed": false
+            },
+            {
+              "id": "subtopic-571",
+              "name": "Namespaces",
+              "completed": false
+            },
+            {
+              "id": "subtopic-572",
+              "name": "kubectl basics",
+              "completed": false
+            },
+            {
+              "id": "subtopic-573",
+              "name": "Helm charts overview",
+              "completed": false
+            },
+            {
+              "id": "subtopic-574",
+              "name": "K8s vs Docker comparison",
+              "completed": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-data-table",
+      "name": "Advanced Data Table",
+      "description": "High-performance data table with virtualization and memoization",
+      "milestones": [
+        {
+          "id": "milestone-1",
+          "name": "Basic Table Rendering",
+          "description": "Render large datasets efficiently",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-2",
+          "name": "Virtualization",
+          "description": "Implement windowing for 10k+ rows",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-3",
+          "name": "Memoization",
+          "description": "Optimize re-renders with React.memo and useMemo",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-4",
+          "name": "Sorting & Filtering",
+          "description": "Add performant sorting and filtering",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-5",
+          "name": "Column Resizing",
+          "description": "Implement drag-to-resize columns",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        }
+      ],
+      "startedAt": null,
+      "completedAt": null,
+      "dueDate": "2026-08-01",
+      "weekStart": 1,
+      "weekEnd": 2,
+      "githubUrl": "",
+      "demoUrl": "",
+      "techStack": [
+        "React",
+        "TypeScript",
+        "react-window"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "proj-command-palette",
+      "name": "Command Palette",
+      "description": "VS Code-style command palette with fuzzy search and keyboard navigation",
+      "milestones": [
+        {
+          "id": "milestone-6",
+          "name": "Keyboard Shortcuts",
+          "description": "Cmd+K to open, arrow keys to navigate",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-7",
+          "name": "Fuzzy Search",
+          "description": "Implement fuzzy matching algorithm",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-8",
+          "name": "Command Registry",
+          "description": "Design extensible command system",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-9",
+          "name": "Recent Commands",
+          "description": "Track and prioritize recent actions",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-10",
+          "name": "Nested Commands",
+          "description": "Support command hierarchies",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        }
+      ],
+      "startedAt": null,
+      "completedAt": null,
+      "dueDate": "2026-08-08",
+      "weekStart": 3,
+      "weekEnd": 3,
+      "githubUrl": "",
+      "demoUrl": "",
+      "techStack": [
+        "React",
+        "TypeScript",
+        "fuse.js"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "proj-infinite-feed",
+      "name": "Infinite Feed",
+      "description": "Social media-style infinite scroll with caching and optimistic updates",
+      "milestones": [
+        {
+          "id": "milestone-11",
+          "name": "Infinite Scroll",
+          "description": "Intersection Observer-based loading",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-12",
+          "name": "API Pagination",
+          "description": "Cursor-based pagination",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-13",
+          "name": "Caching Layer",
+          "description": "Implement request caching",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-14",
+          "name": "Optimistic Updates",
+          "description": "Like/comment with rollback",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-15",
+          "name": "Pull to Refresh",
+          "description": "Mobile-style refresh gesture",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        }
+      ],
+      "startedAt": null,
+      "completedAt": null,
+      "dueDate": "2026-08-22",
+      "weekStart": 4,
+      "weekEnd": 5,
+      "githubUrl": "",
+      "demoUrl": "",
+      "techStack": [
+        "React",
+        "TypeScript",
+        "TanStack Query"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "proj-component-library",
+      "name": "Component Library",
+      "description": "Production-ready reusable component library with accessibility",
+      "milestones": [
+        {
+          "id": "milestone-16",
+          "name": "Design Tokens",
+          "description": "Define spacing, colors, typography",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-17",
+          "name": "Core Components",
+          "description": "Button, Input, Select, Modal",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-18",
+          "name": "Accessibility",
+          "description": "ARIA attributes, keyboard navigation",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-19",
+          "name": "Documentation",
+          "description": "Storybook integration",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-20",
+          "name": "Testing",
+          "description": "Unit tests with Testing Library",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        }
+      ],
+      "startedAt": null,
+      "completedAt": null,
+      "dueDate": "2026-08-29",
+      "weekStart": 6,
+      "weekEnd": 6,
+      "githubUrl": "",
+      "demoUrl": "",
+      "techStack": [
+        "React",
+        "TypeScript",
+        "Storybook",
+        "Tailwind CSS"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "proj-file-upload",
+      "name": "File Upload System",
+      "description": "Robust file upload with progress tracking and error recovery",
+      "milestones": [
+        {
+          "id": "milestone-21",
+          "name": "Drag & Drop",
+          "description": "Implement drag-drop zone",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-22",
+          "name": "Progress Tracking",
+          "description": "Real-time upload progress",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-23",
+          "name": "Chunked Upload",
+          "description": "Large file chunking strategy",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-24",
+          "name": "Error Recovery",
+          "description": "Retry failed uploads",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-25",
+          "name": "File Preview",
+          "description": "Image/PDF preview before upload",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        }
+      ],
+      "startedAt": null,
+      "completedAt": null,
+      "dueDate": "2026-09-12",
+      "weekStart": 7,
+      "weekEnd": 8,
+      "githubUrl": "",
+      "demoUrl": "",
+      "techStack": [
+        "React",
+        "TypeScript",
+        "axios"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "proj-realtime-dashboard",
+      "name": "Realtime Dashboard",
+      "description": "Live-updating analytics dashboard with charts and performance optimization",
+      "milestones": [
+        {
+          "id": "milestone-26",
+          "name": "WebSocket Connection",
+          "description": "Establish live data stream",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-27",
+          "name": "Chart Integration",
+          "description": "Real-time updating charts",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-28",
+          "name": "Data Aggregation",
+          "description": "Client-side data processing",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-29",
+          "name": "Performance",
+          "description": "Optimize for 60fps updates",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-30",
+          "name": "Offline Support",
+          "description": "Handle connection drops gracefully",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        }
+      ],
+      "startedAt": null,
+      "completedAt": null,
+      "dueDate": "2026-09-26",
+      "weekStart": 9,
+      "weekEnd": 10,
+      "githubUrl": "",
+      "demoUrl": "",
+      "techStack": [
+        "React",
+        "TypeScript",
+        "Recharts",
+        "WebSocket"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "proj-notion-editor",
+      "name": "Notion-style Editor",
+      "description": "Block-based rich text editor with drag-and-drop and slash commands",
+      "milestones": [
+        {
+          "id": "milestone-31",
+          "name": "Block System",
+          "description": "Design block data structure",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-32",
+          "name": "Rich Text",
+          "description": "Bold, italic, links, code",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-33",
+          "name": "Block Types",
+          "description": "Headings, lists, code blocks",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-34",
+          "name": "Drag & Drop",
+          "description": "Reorder blocks",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-35",
+          "name": "Slash Commands",
+          "description": "/ to insert block types",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        },
+        {
+          "id": "milestone-36",
+          "name": "Undo/Redo",
+          "description": "Command history pattern",
+          "status": "not_started",
+          "completedAt": null,
+          "learnings": ""
+        }
+      ],
+      "startedAt": null,
+      "completedAt": null,
+      "dueDate": "2026-10-10",
+      "weekStart": 11,
+      "weekEnd": 12,
+      "githubUrl": "",
+      "demoUrl": "",
+      "techStack": [
+        "React",
+        "TypeScript",
+        "Slate.js"
+      ],
+      "notes": ""
+    }
+  ],
+  "dsaProblems": [
+    {
+      "name": "Two sum",
+      "platform": "leetcode",
+      "url": "https://leetcode.com/problems/two-sum/",
+      "pattern": "Other",
+      "difficulty": "easy",
+      "status": "completed",
+      "solvedAt": "2026-07-20T17:14:19.510Z",
+      "timeSpentMinutes": 4,
+      "notes": "- find the complement number\n- use hash map to store the number and its index\n- first check if the map has the complement\n- then set the number in the map",
+      "tags": [
+        "array",
+        "hash-table"
+      ],
+      "revisitCount": 0,
+      "lastRevisitedAt": null,
+      "id": "dsa-1784566608076-cbxp180ow"
+    },
+    {
+      "name": "Valid anagram",
+      "platform": "leetcode",
+      "url": "https://leetcode.com/problems/valid-anagram/description/",
+      "pattern": "Other",
+      "difficulty": "easy",
+      "status": "completed",
+      "solvedAt": "2026-07-21T17:41:58.701Z",
+      "timeSpentMinutes": 10,
+      "notes": "Brute force:\n- count the no.of times each char occurs\n- compare if it's the same count for both words\n\nOptimised:\n- You can count characters from s, then subtract while traversing t.\n- One hash map instead of two. Less memory. Still O(n) time.\nInterviewers generally like this because it shows you recognize that you only need to track the difference in frequencies, not two complete frequency tables.",
+      "tags": [
+        "hash-table",
+        "sorting"
+      ],
+      "revisitCount": 0,
+      "lastRevisitedAt": null,
+      "id": "dsa-1784567607100-a92wi1m2p"
+    },
+    {
+      "name": "Contains Duplicate",
+      "platform": "leetcode",
+      "url": "https://leetcode.com/problems/contains-duplicate/description/",
+      "pattern": "Other",
+      "difficulty": "easy",
+      "status": "completed",
+      "solvedAt": "2026-07-20T17:27:52.945Z",
+      "timeSpentMinutes": 10,
+      "notes": "- use set for the best results\n- Set(arr).size !== arr.length => contains duplicates",
+      "tags": [
+        "array",
+        "hash-table"
+      ],
+      "revisitCount": 0,
+      "lastRevisitedAt": null,
+      "id": "dsa-1784568472945-7mds0eve4"
+    },
+    {
+      "name": "Top K Frequent Elements",
+      "platform": "leetcode",
+      "url": "https://leetcode.com/problems/top-k-frequent-elements/description/",
+      "pattern": "Top K Elements",
+      "difficulty": "medium",
+      "status": "pending",
+      "solvedAt": null,
+      "timeSpentMinutes": 0,
+      "notes": "",
+      "tags": [],
+      "revisitCount": 0,
+      "lastRevisitedAt": null,
+      "id": "dsa-1784745312466-x1nkdlpqw"
+    },
+    {
+      "name": "Group anagrams",
+      "platform": "leetcode",
+      "url": "https://leetcode.com/problems/group-anagrams/description/",
+      "pattern": "Other",
+      "difficulty": "medium",
+      "status": "pending",
+      "solvedAt": null,
+      "timeSpentMinutes": 0,
+      "notes": "",
+      "tags": [],
+      "revisitCount": 0,
+      "lastRevisitedAt": null,
+      "id": "dsa-1784745358073-fj5of1aca"
+    },
+    {
+      "name": "Longest Consecutive Sequence",
+      "platform": "leetcode",
+      "url": "https://leetcode.com/problems/longest-consecutive-sequence/description/",
+      "pattern": "Other",
+      "difficulty": "medium",
+      "status": "pending",
+      "solvedAt": null,
+      "timeSpentMinutes": 0,
+      "notes": "",
+      "tags": [],
+      "revisitCount": 0,
+      "lastRevisitedAt": null,
+      "id": "dsa-1784745537146-wv6e3yf7u"
+    }
+  ],
+  "weeklyReflections": [],
+  "dailyTodos": [
+    {
+      "date": "2026-07-19",
+      "items": [
+        {
+          "text": "Execution context",
+          "completed": false,
+          "priority": "medium",
+          "dueDate": "2026-07-19",
+          "completedAt": null,
+          "linkedModuleId": null,
+          "linkedProjectId": null,
+          "id": "todo-1784455013990-85nkk063n",
+          "createdAt": "2026-07-19T09:56:53.990Z"
+        },
+        {
+          "text": "Solve 1 DSA problem",
+          "completed": true,
+          "priority": "medium",
+          "dueDate": "2026-07-19",
+          "completedAt": "2026-07-21T17:29:31.835Z",
+          "linkedModuleId": null,
+          "linkedProjectId": null,
+          "id": "todo-1784455016726-tf3lus9pn",
+          "createdAt": "2026-07-19T09:56:56.726Z"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-21",
+      "items": [
+        {
+          "text": "lexical environment",
+          "completed": true,
+          "priority": "medium",
+          "dueDate": "2026-07-21",
+          "completedAt": "2026-07-21T17:32:31.836Z",
+          "linkedModuleId": null,
+          "linkedProjectId": null,
+          "id": "todo-1784655121937-ns9umxdjk",
+          "createdAt": "2026-07-21T17:32:01.937Z"
+        },
+        {
+          "text": "scope lookup",
+          "completed": true,
+          "priority": "medium",
+          "dueDate": "2026-07-21",
+          "completedAt": "2026-07-21T17:32:31.008Z",
+          "linkedModuleId": null,
+          "linkedProjectId": null,
+          "id": "todo-1784655127310-o1h0bfthl",
+          "createdAt": "2026-07-21T17:32:07.310Z"
+        },
+        {
+          "text": "scope chain",
+          "completed": true,
+          "priority": "medium",
+          "dueDate": "2026-07-21",
+          "completedAt": "2026-07-21T17:32:30.449Z",
+          "linkedModuleId": null,
+          "linkedProjectId": null,
+          "id": "todo-1784655129260-kxe2szujs",
+          "createdAt": "2026-07-21T17:32:09.260Z"
+        },
+        {
+          "text": "Solve 1 DSA problem",
+          "completed": false,
+          "priority": "high",
+          "dueDate": "2026-07-21",
+          "completedAt": null,
+          "linkedModuleId": null,
+          "linkedProjectId": null,
+          "id": "todo-1784655137308-mf5tsl3ky",
+          "createdAt": "2026-07-21T17:32:17.308Z"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-20",
+      "items": [
+        {
+          "text": "hoisting",
+          "completed": true,
+          "priority": "medium",
+          "dueDate": "2026-07-20",
+          "completedAt": "2026-07-21T17:33:52.226Z",
+          "linkedModuleId": null,
+          "linkedProjectId": null,
+          "id": "todo-1784655181672-jzaszzd4j",
+          "createdAt": "2026-07-21T17:33:01.672Z"
+        },
+        {
+          "text": "how functions execute in js",
+          "completed": true,
+          "priority": "medium",
+          "dueDate": "2026-07-20",
+          "completedAt": "2026-07-21T17:33:53.524Z",
+          "linkedModuleId": null,
+          "linkedProjectId": null,
+          "id": "todo-1784655226977-1jc5lu4tn",
+          "createdAt": "2026-07-21T17:33:46.977Z"
+        },
+        {
+          "text": "DSA - 3 problems",
+          "completed": true,
+          "priority": "medium",
+          "dueDate": "2026-07-20",
+          "completedAt": "2026-07-21T17:33:52.899Z",
+          "linkedModuleId": null,
+          "linkedProjectId": null,
+          "id": "todo-1784655230737-ijmdntx6u",
+          "createdAt": "2026-07-21T17:33:50.737Z"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-22",
+      "items": [
+        {
+          "text": "TDZ",
+          "completed": true,
+          "priority": "medium",
+          "dueDate": "2026-07-22",
+          "completedAt": "2026-07-22T18:32:52.460Z",
+          "linkedModuleId": null,
+          "linkedProjectId": null,
+          "id": "todo-1784745122700-teh0l866p",
+          "createdAt": "2026-07-22T18:32:02.700Z"
+        },
+        {
+          "text": "Block scope",
+          "completed": true,
+          "priority": "medium",
+          "dueDate": "2026-07-22",
+          "completedAt": "2026-07-22T18:32:55.270Z",
+          "linkedModuleId": null,
+          "linkedProjectId": null,
+          "id": "todo-1784745132627-7wo42e7gl",
+          "createdAt": "2026-07-22T18:32:12.627Z"
+        },
+        {
+          "text": "Variable shadowing",
+          "completed": true,
+          "priority": "medium",
+          "dueDate": "2026-07-22",
+          "completedAt": "2026-07-22T18:32:53.692Z",
+          "linkedModuleId": null,
+          "linkedProjectId": null,
+          "id": "todo-1784745135874-sfyzhp6nk",
+          "createdAt": "2026-07-22T18:32:15.874Z"
+        },
+        {
+          "text": "Lexical env vs Scope vs Context",
+          "completed": true,
+          "priority": "medium",
+          "dueDate": "2026-07-22",
+          "completedAt": "2026-07-22T18:32:54.197Z",
+          "linkedModuleId": null,
+          "linkedProjectId": null,
+          "id": "todo-1784745168626-jsy3hnfqx",
+          "createdAt": "2026-07-22T18:32:48.626Z"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-23",
+      "items": [
+        {
+          "text": "DSA - Group anagram",
+          "completed": false,
+          "priority": "medium",
+          "dueDate": "2026-07-23",
+          "completedAt": null,
+          "linkedModuleId": null,
+          "linkedProjectId": null,
+          "id": "todo-1784745189189-bci34s2om",
+          "createdAt": "2026-07-22T18:33:09.189Z"
+        },
+        {
+          "text": "DSA - Top k frequent elements",
+          "completed": false,
+          "priority": "medium",
+          "dueDate": "2026-07-23",
+          "completedAt": null,
+          "linkedModuleId": null,
+          "linkedProjectId": null,
+          "id": "todo-1784745243433-jwuhynyhg",
+          "createdAt": "2026-07-22T18:34:03.433Z"
+        }
+      ]
+    }
+  ],
+  "streakData": {
+    "currentStreak": 4,
+    "longestStreak": 4,
+    "lastActiveDate": "2026-07-22",
+    "totalActiveDays": 3,
+    "activityLog": [
+      {
+        "date": "2026-07-20",
+        "topicsCompleted": 1,
+        "problemsSolved": 3,
+        "milestonesCompleted": 0,
+        "todosCompleted": 0,
+        "minutesStudied": 0
+      },
+      {
+        "date": "2026-07-21",
+        "topicsCompleted": 2.7000000000000006,
+        "problemsSolved": 0,
+        "milestonesCompleted": 0,
+        "todosCompleted": 8,
+        "minutesStudied": 0
+      },
+      {
+        "date": "2026-07-22",
+        "topicsCompleted": 0.5,
+        "problemsSolved": 0,
+        "milestonesCompleted": 0,
+        "todosCompleted": 4,
+        "minutesStudied": 0
+      }
+    ]
+  },
+  "settings": {
+    "theme": "light",
+    "dailyGoal": {
+      "topics": 2,
+      "problems": 1,
+      "studyMinutes": 120
+    },
+    "notifications": true,
+    "exportFormat": "json"
+  },
+  "_version": 4,
+  "_savedAt": "2026-07-22T18:38:57.147Z"
+}
