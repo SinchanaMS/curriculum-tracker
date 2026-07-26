@@ -16,6 +16,7 @@ export default function ModuleDetailPage() {
   const [filter, setFilter] = useState<'all' | TopicStatus>('all');
   const [editingNotes, setEditingNotes] = useState<string | null>(null);
   const [expandedTopics, setExpandedTopics] = useState<Set<string>>(new Set());
+  const [expandedNotes, setExpandedNotes] = useState<Set<string>>(new Set());
 
   if (!module) {
     return (
@@ -103,39 +104,39 @@ export default function ModuleDetailPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-start gap-3 md:gap-4">
         <Link
           to="/modules"
-          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors shrink-0"
         >
           <ArrowLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
         </Link>
-        <div className="flex-1">
-          <div className="flex items-center gap-3">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 md:gap-3">
             <div
-              className="w-4 h-4 rounded-full"
+              className="w-3 h-3 md:w-4 md:h-4 rounded-full shrink-0"
               style={{ backgroundColor: module.color }}
             />
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white truncate">
               {module.name}
             </h1>
           </div>
-          <p className="text-gray-600 dark:text-gray-400 mt-1 flex items-center gap-2">
+          <div className="text-gray-600 dark:text-gray-400 mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
             <span>Week {module.weekStart}{module.weekEnd !== module.weekStart ? `-${module.weekEnd}` : ''}</span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span>{module.topics.length} topics</span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span>{totalSubtopics} subtopics</span>
             {module.topics[0]?.dueDate && (
               <>
-                <span>•</span>
+                <span className="hidden sm:inline">•</span>
                 <span className="flex items-center gap-1">
                   <Calendar className="w-3.5 h-3.5" />
                   Due {formatDueDate(module.topics[0].dueDate)}
                 </span>
               </>
             )}
-          </p>
+          </div>
         </div>
       </div>
 
@@ -172,7 +173,7 @@ export default function ModuleDetailPage() {
       </Card>
 
       {/* Filters */}
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         {(['all', TopicStatus.PENDING, TopicStatus.IN_PROGRESS, TopicStatus.COMPLETED] as const).map((f) => (
           <Button
             key={f}
@@ -180,7 +181,7 @@ export default function ModuleDetailPage() {
             size="sm"
             onClick={() => setFilter(f)}
           >
-            {f === 'all' ? 'All' : f.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+            {f === 'all' ? 'All' : f === TopicStatus.IN_PROGRESS ? 'In Progress' : f.charAt(0).toUpperCase() + f.slice(1)}
           </Button>
         ))}
       </div>
@@ -194,44 +195,46 @@ export default function ModuleDetailPage() {
           const subtopicsTotal = subtopics.length;
 
           return (
-            <Card key={topic.id} className="p-4">
-              <div className="flex items-start gap-4">
+            <Card key={topic.id} className="p-3 md:p-4">
+              <div className="flex items-start gap-3 md:gap-4">
                 <button
                   onClick={() => updateTopicStatus(module.id, topic.id, getNextStatus(topic.status))}
-                  className="mt-0.5 hover:scale-110 transition-transform"
+                  className="mt-0.5 hover:scale-110 transition-transform shrink-0"
                   title="Click to change status"
                 >
                   {getStatusIcon(topic.status)}
                 </button>
 
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-medium text-gray-900 dark:text-white">
-                        {topic.name}
-                      </h3>
-                      {subtopicsTotal > 0 && (
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
-                          ({subtopicsDone}/{subtopicsTotal})
-                        </span>
-                      )}
-                       {/* Study Guide link for topics with enhanced content */}
-                        {(topic.whyItMatters || topic.selfAssessment?.length) && (
-                          <Link
-                            to={`/modules/${module.id}/study/${topic.id}`}
-                            className="inline-flex items-center gap-1.5 text-sm text-purple-600 dark:text-purple-400 hover:underline ml-3"
-                          >
-                            <BookOpen className="w-4 h-4" />
-                            Open Study Guide
-                            {topic.selfAssessment && topic.selfAssessment.length > 0 && (
-                              <span className="text-xs text-gray-500">
-                                ({topic.selfAssessment.filter(q => q.answer).length}/{topic.selfAssessment.length} answered)
-                              </span>
-                            )}
-                          </Link>
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="font-medium text-gray-900 dark:text-white">
+                          {topic.name}
+                        </h3>
+                        {subtopicsTotal > 0 && (
+                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                            ({subtopicsDone}/{subtopicsTotal})
+                          </span>
                         )}
+                      </div>
+                      {/* Study Guide link for topics with enhanced content */}
+                      {(topic.whyItMatters || topic.selfAssessment?.length) && (
+                        <Link
+                          to={`/modules/${module.id}/study/${topic.id}`}
+                          className="inline-flex items-center gap-1 text-xs md:text-sm text-purple-600 dark:text-purple-400 hover:underline mt-1"
+                        >
+                          <BookOpen className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                          <span className="hidden sm:inline">Open</span> Study Guide
+                          {topic.selfAssessment && topic.selfAssessment.length > 0 && (
+                            <span className="text-xs text-gray-500">
+                              ({topic.selfAssessment.filter(q => q.answer).length}/{topic.selfAssessment.length} answered)
+                            </span>
+                          )}
+                        </Link>
+                      )}
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1 md:gap-2 shrink-0">
                       {getStatusBadge(topic.status)}
                       {subtopicsTotal > 0 && (
                         <button
@@ -311,17 +314,51 @@ export default function ModuleDetailPage() {
                         Done
                       </Button>
                     </div>
+                  ) : topic.notes ? (
+                    <div className="mt-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3">
+                      <p className={`text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap ${
+                        !expandedNotes.has(topic.id) && topic.notes.length > 150 ? 'line-clamp-2' : ''
+                      }`}>
+                        {topic.notes}
+                      </p>
+                      <div className="flex items-center gap-3 mt-2">
+                        {topic.notes.length > 150 && (
+                          <button
+                            onClick={() => {
+                              setExpandedNotes(prev => {
+                                const next = new Set(prev);
+                                if (next.has(topic.id)) {
+                                  next.delete(topic.id);
+                                } else {
+                                  next.add(topic.id);
+                                }
+                                return next;
+                              });
+                            }}
+                            className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+                          >
+                            {expandedNotes.has(topic.id) ? 'Show less' : 'Read more'}
+                          </button>
+                        )}
+                        <button
+                          onClick={() => setEditingNotes(topic.id)}
+                          className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                        >
+                          Edit
+                        </button>
+                      </div>
+                    </div>
                   ) : (
                     <button
                       onClick={() => setEditingNotes(topic.id)}
-                      className="mt-2 text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 block"
+                      className="mt-2 text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                     >
-                      {topic.notes ? topic.notes.substring(0, 100) + (topic.notes.length > 100 ? '...' : '') : '+ Add notes'}
+                      + Add notes
                     </button>
                   )}
 
                   {/* Due Date & Timestamps */}
-                  <div className="mt-2 flex flex-wrap gap-4 text-xs text-gray-500 dark:text-gray-400">
+                  <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-500 dark:text-gray-400">
                     {topic.dueDate && topic.status !== TopicStatus.COMPLETED && (
                       <span className={`flex items-center gap-1 ${
                         getDueDateStatus(topic.dueDate, topic.status) === 'overdue' ? 'text-red-500 font-medium' :

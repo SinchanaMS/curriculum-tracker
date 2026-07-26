@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import { Sun, Moon, Download } from 'lucide-react';
+import { Sun, Moon, Download, Menu } from 'lucide-react';
 import { useCurriculumStore, useSettings } from '../../store';
 import UserMenu from '../auth/UserMenu';
 
@@ -13,7 +13,11 @@ const routeTitles: Record<string, string> = {
   '/settings': 'Settings',
 };
 
-export function Header() {
+interface HeaderProps {
+  onMenuClick: () => void;
+}
+
+export function Header({ onMenuClick }: HeaderProps) {
   const location = useLocation();
   const settings = useSettings();
   const updateSettings = useCurriculumStore(state => state.updateSettings);
@@ -49,26 +53,33 @@ export function Header() {
   };
 
   return (
-    <header className="h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 flex items-center justify-between">
-      <div>
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+    <header className="h-14 md:h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-3 md:px-6 flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        {/* Mobile menu button */}
+        <button
+          onClick={onMenuClick}
+          className="lg:hidden p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+        <h2 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white">
           {getTitle()}
         </h2>
       </div>
 
-      <div className="flex items-center gap-4">
-        {/* Day Counter */}
-        <div className="text-sm text-gray-600 dark:text-gray-400">
+      <div className="flex items-center gap-2 md:gap-4">
+        {/* Day Counter - hidden on small screens */}
+        <div className="hidden sm:block text-sm text-gray-600 dark:text-gray-400">
           <span className="font-semibold text-blue-600 dark:text-blue-400">Day {currentDay}</span>
           <span className="mx-1">of 88</span>
           <span className="text-gray-400 dark:text-gray-500">|</span>
           <span className="ml-1">Week {currentWeek}</span>
         </div>
 
-        {/* Export Button */}
+        {/* Export Button - hidden on mobile */}
         <button
           onClick={handleExport}
-          className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+          className="hidden md:block p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
           title="Export Data"
         >
           <Download className="w-5 h-5" />

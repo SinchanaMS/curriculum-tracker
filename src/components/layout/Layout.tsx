@@ -3,10 +3,11 @@ import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { CountdownBanner } from '../shared/CountdownBanner';
 import { useSettings } from '../../store';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export function Layout() {
   const settings = useSettings();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -30,10 +31,17 @@ export function Layout() {
     <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-900">
       <CountdownBanner />
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar />
+        {/* Mobile sidebar overlay */}
+        {sidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <div className="flex-1 flex flex-col overflow-hidden">
-          <Header />
-          <main className="flex-1 overflow-y-auto p-6">
+          <Header onMenuClick={() => setSidebarOpen(true)} />
+          <main className="flex-1 overflow-y-auto p-4 md:p-6">
             <Outlet />
           </main>
         </div>
