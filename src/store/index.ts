@@ -569,7 +569,7 @@ export const useCurriculumStore = create<CurriculumStore>()(
     {
       name: 'curriculum-tracker-storage',
       storage: createJSONStorage(() => localStorage),
-      version: 4,
+      version: 5,
       partialize: (state) => ({
         startDate: state.startDate,
         modules: state.modules,
@@ -662,6 +662,66 @@ export const useCurriculumStore = create<CurriculumStore>()(
                 };
               })
             };
+          });
+        }
+
+        // Migration to v5: Update due dates (revised timeline) and add DSA Practice module
+        if (version < 5) {
+          // Revised due dates mapping (module weekEnd -> new due date)
+          const revisedDueDates: Record<string, string> = {
+            'mod-js-foundations': '2026-08-20',
+            'mod-browser-internals': '2026-08-27',
+            'mod-react': '2026-09-07',
+            'mod-nextjs': '2026-09-14',
+            'mod-frontend-architecture': '2026-09-23',
+            'mod-system-design': '2026-10-03',
+            'mod-engineering-breadth': '2026-10-15',
+          };
+
+          // Update due dates for existing modules
+          state.modules = state.modules.map(module => {
+            const newDueDate = revisedDueDates[module.id];
+            if (newDueDate) {
+              return {
+                ...module,
+                topics: module.topics.map(topic => ({
+                  ...topic,
+                  dueDate: newDueDate
+                }))
+              };
+            }
+            return module;
+          });
+
+          // Add DSA Practice module if it doesn't exist
+          const hasDsaModule = state.modules.some(m => m.id === 'mod-dsa-practice');
+          if (!hasDsaModule) {
+            const dsaModule = initialState.modules.find(m => m.id === 'mod-dsa-practice');
+            if (dsaModule) {
+              state.modules.push(dsaModule);
+            }
+          }
+
+          // Update project due dates too
+          const projectDueDates: Record<string, string> = {
+            'proj-data-table': '2026-08-20',
+            'proj-command-palette': '2026-08-27',
+            'proj-infinite-feed': '2026-09-07',
+            'proj-component-library': '2026-09-14',
+            'proj-file-upload': '2026-09-23',
+            'proj-realtime-dashboard': '2026-10-03',
+            'proj-notion-editor': '2026-10-15',
+          };
+
+          state.projects = state.projects.map(project => {
+            const newDueDate = projectDueDates[project.id];
+            if (newDueDate) {
+              return {
+                ...project,
+                dueDate: newDueDate
+              };
+            }
+            return project;
           });
         }
 

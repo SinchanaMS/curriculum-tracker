@@ -8,8 +8,26 @@ let topicIdCounter = 0;
 let subtopicIdCounter = 0;
 let milestoneIdCounter = 0;
 
+// Revised timeline due dates (Option A - aggressive catch-up schedule)
+// Based on current progress as of Aug 13, 2026
+const REVISED_DUE_DATES: Record<number, string> = {
+  2: '2026-08-20',   // JS Foundations (Week 1-2) - was Aug 1
+  3: '2026-08-27',   // Browser Internals (Week 3) - was Aug 8
+  5: '2026-09-07',   // React (Week 4-5) - was Aug 22
+  6: '2026-09-14',   // Next.js (Week 6) - was Aug 29
+  8: '2026-09-23',   // Frontend Architecture (Week 7-8) - was Sep 12
+  10: '2026-10-03',  // Frontend System Design (Week 9-10) - was Sep 26
+  12: '2026-10-15',  // Engineering Breadth (Week 11-12) - was Oct 10
+  14: '2026-10-15',  // DSA Practice (ongoing) - same end date
+};
+
 // Helper to calculate due date based on week number (end of that week)
 const getWeekEndDate = (weekNumber: number): string => {
+  // Use revised dates if available
+  if (REVISED_DUE_DATES[weekNumber]) {
+    return REVISED_DUE_DATES[weekNumber];
+  }
+  // Fallback to original calculation
   const startDate = new Date(CURRICULUM_START_DATE);
   const daysToAdd = weekNumber * 7 - 1; // End of week (Sunday)
   const dueDate = new Date(startDate);
@@ -1003,6 +1021,257 @@ const engineeringBreadthTopics: Topic[] = [
   ])
 ];
 
+// ============================================
+// MODULE 8: DSA PRACTICE (Ongoing - Weeks 1-12)
+// ============================================
+currentModuleWeekEnd = 14; // Use 14 for end of curriculum
+const dsaPracticeTopics: Topic[] = [
+  createTopic({
+    name: 'Arrays & Hashing',
+    whyItMatters: 'Foundation of most coding interviews. Master these patterns first.',
+    subtopics: [
+      { name: 'Two Sum (Easy)', importance: 3 },
+      { name: 'Contains Duplicate (Easy)', importance: 2 },
+      { name: 'Valid Anagram (Easy)', importance: 2 },
+      { name: 'Group Anagrams (Medium)', importance: 2 },
+      { name: 'Top K Frequent Elements (Medium)', importance: 3 },
+      { name: 'Product of Array Except Self (Medium)', importance: 3 },
+      { name: 'Longest Consecutive Sequence (Medium)', importance: 2 },
+      { name: 'Encode and Decode Strings (Medium)', importance: 1 }
+    ],
+    selfAssessment: [
+      'Can you solve Two Sum in O(n) time?',
+      'When do you use a HashMap vs HashSet?'
+    ]
+  }),
+  createTopic({
+    name: 'Two Pointers',
+    whyItMatters: 'Essential for string/array manipulation without extra space.',
+    subtopics: [
+      { name: 'Valid Palindrome (Easy)', importance: 2 },
+      { name: 'Two Sum II - Sorted Array (Medium)', importance: 2 },
+      { name: '3Sum (Medium)', importance: 3 },
+      { name: 'Container With Most Water (Medium)', importance: 3 },
+      { name: 'Trapping Rain Water (Hard)', importance: 2 }
+    ],
+    selfAssessment: [
+      'When should you use two pointers vs sliding window?',
+      'How do you handle duplicates in 3Sum?'
+    ]
+  }),
+  createTopic({
+    name: 'Sliding Window',
+    whyItMatters: 'Optimizes brute force O(n²) to O(n) for subarray/substring problems.',
+    subtopics: [
+      { name: 'Best Time to Buy and Sell Stock (Easy)', importance: 3 },
+      { name: 'Longest Substring Without Repeating Chars (Medium)', importance: 3 },
+      { name: 'Longest Repeating Character Replacement (Medium)', importance: 2 },
+      { name: 'Permutation in String (Medium)', importance: 2 },
+      { name: 'Minimum Window Substring (Hard)', importance: 2 },
+      { name: 'Sliding Window Maximum (Hard)', importance: 1 }
+    ],
+    selfAssessment: [
+      'What defines a valid sliding window problem?',
+      'Fixed vs variable size windows - when to use each?'
+    ]
+  }),
+  createTopic({
+    name: 'Stack',
+    whyItMatters: 'Key for parsing, matching brackets, and monotonic patterns.',
+    subtopics: [
+      { name: 'Valid Parentheses (Easy)', importance: 3 },
+      { name: 'Min Stack (Medium)', importance: 2 },
+      { name: 'Evaluate Reverse Polish Notation (Medium)', importance: 2 },
+      { name: 'Daily Temperatures (Medium)', importance: 3 },
+      { name: 'Car Fleet (Medium)', importance: 2 },
+      { name: 'Largest Rectangle in Histogram (Hard)', importance: 2 }
+    ],
+    selfAssessment: [
+      'When do you use a monotonic stack?',
+      'How do you implement Min Stack in O(1)?'
+    ]
+  }),
+  createTopic({
+    name: 'Binary Search',
+    whyItMatters: 'Reduces O(n) to O(log n). Critical for sorted data and search space problems.',
+    subtopics: [
+      { name: 'Binary Search (Easy)', importance: 3 },
+      { name: 'Search a 2D Matrix (Medium)', importance: 2 },
+      { name: 'Koko Eating Bananas (Medium)', importance: 3 },
+      { name: 'Find Minimum in Rotated Sorted Array (Medium)', importance: 3 },
+      { name: 'Search in Rotated Sorted Array (Medium)', importance: 3 },
+      { name: 'Time Based Key-Value Store (Medium)', importance: 2 },
+      { name: 'Median of Two Sorted Arrays (Hard)', importance: 1 }
+    ],
+    selfAssessment: [
+      'Can you write binary search without bugs on first try?',
+      'When do you use left < right vs left <= right?'
+    ]
+  }),
+  createTopic({
+    name: 'Linked List',
+    whyItMatters: 'Tests pointer manipulation and edge case handling.',
+    subtopics: [
+      { name: 'Reverse Linked List (Easy)', importance: 3 },
+      { name: 'Merge Two Sorted Lists (Easy)', importance: 3 },
+      { name: 'Linked List Cycle (Easy)', importance: 3 },
+      { name: 'Reorder List (Medium)', importance: 2 },
+      { name: 'Remove Nth Node From End (Medium)', importance: 2 },
+      { name: 'Copy List with Random Pointer (Medium)', importance: 2 },
+      { name: 'LRU Cache (Medium)', importance: 3 },
+      { name: 'Merge K Sorted Lists (Hard)', importance: 2 }
+    ],
+    selfAssessment: [
+      'Can you reverse a linked list iteratively and recursively?',
+      'How does the fast/slow pointer technique detect cycles?'
+    ]
+  }),
+  createTopic({
+    name: 'Trees',
+    whyItMatters: 'Fundamental data structure. Recursion and DFS/BFS mastery required.',
+    subtopics: [
+      { name: 'Invert Binary Tree (Easy)', importance: 2 },
+      { name: 'Maximum Depth of Binary Tree (Easy)', importance: 2 },
+      { name: 'Same Tree (Easy)', importance: 2 },
+      { name: 'Subtree of Another Tree (Easy)', importance: 2 },
+      { name: 'Lowest Common Ancestor (Medium)', importance: 3 },
+      { name: 'Binary Tree Level Order Traversal (Medium)', importance: 3 },
+      { name: 'Validate Binary Search Tree (Medium)', importance: 3 },
+      { name: 'Kth Smallest Element in BST (Medium)', importance: 2 },
+      { name: 'Construct Binary Tree from Preorder/Inorder (Medium)', importance: 2 },
+      { name: 'Binary Tree Max Path Sum (Hard)', importance: 2 },
+      { name: 'Serialize and Deserialize Binary Tree (Hard)', importance: 2 }
+    ],
+    selfAssessment: [
+      'DFS vs BFS - when to use each for trees?',
+      'Can you do all 3 traversals (pre/in/post) iteratively?'
+    ]
+  }),
+  createTopic({
+    name: 'Heap / Priority Queue',
+    whyItMatters: 'Efficient for top-k problems and streaming data.',
+    subtopics: [
+      { name: 'Kth Largest Element in Array (Medium)', importance: 3 },
+      { name: 'Last Stone Weight (Easy)', importance: 2 },
+      { name: 'K Closest Points to Origin (Medium)', importance: 2 },
+      { name: 'Task Scheduler (Medium)', importance: 2 },
+      { name: 'Design Twitter (Medium)', importance: 2 },
+      { name: 'Find Median from Data Stream (Hard)', importance: 3 }
+    ],
+    selfAssessment: [
+      'Min heap vs Max heap - when to use each?',
+      'How do you find the kth largest with a min heap?'
+    ]
+  }),
+  createTopic({
+    name: 'Backtracking',
+    whyItMatters: 'Essential for combination, permutation, and constraint problems.',
+    subtopics: [
+      { name: 'Subsets (Medium)', importance: 3 },
+      { name: 'Combination Sum (Medium)', importance: 3 },
+      { name: 'Permutations (Medium)', importance: 3 },
+      { name: 'Subsets II (Medium)', importance: 2 },
+      { name: 'Combination Sum II (Medium)', importance: 2 },
+      { name: 'Word Search (Medium)', importance: 3 },
+      { name: 'Palindrome Partitioning (Medium)', importance: 2 },
+      { name: 'Letter Combinations of Phone Number (Medium)', importance: 2 },
+      { name: 'N-Queens (Hard)', importance: 2 }
+    ],
+    selfAssessment: [
+      'What is the backtracking template?',
+      'How do you avoid duplicates in combination problems?'
+    ]
+  }),
+  createTopic({
+    name: 'Graphs',
+    whyItMatters: 'Complex problems often reduce to graph traversal.',
+    subtopics: [
+      { name: 'Number of Islands (Medium)', importance: 3 },
+      { name: 'Clone Graph (Medium)', importance: 2 },
+      { name: 'Pacific Atlantic Water Flow (Medium)', importance: 2 },
+      { name: 'Course Schedule (Medium)', importance: 3 },
+      { name: 'Course Schedule II (Medium)', importance: 2 },
+      { name: 'Number of Connected Components (Medium)', importance: 2 },
+      { name: 'Graph Valid Tree (Medium)', importance: 2 },
+      { name: 'Word Ladder (Hard)', importance: 2 }
+    ],
+    selfAssessment: [
+      'BFS vs DFS for shortest path?',
+      'How do you detect a cycle in a directed vs undirected graph?'
+    ]
+  }),
+  createTopic({
+    name: 'Dynamic Programming',
+    whyItMatters: 'Most challenging pattern. Build up from 1D to 2D problems.',
+    subtopics: [
+      { name: 'Climbing Stairs (Easy)', importance: 3 },
+      { name: 'House Robber (Medium)', importance: 3 },
+      { name: 'House Robber II (Medium)', importance: 2 },
+      { name: 'Longest Palindromic Substring (Medium)', importance: 2 },
+      { name: 'Palindromic Substrings (Medium)', importance: 2 },
+      { name: 'Decode Ways (Medium)', importance: 2 },
+      { name: 'Coin Change (Medium)', importance: 3 },
+      { name: 'Maximum Product Subarray (Medium)', importance: 2 },
+      { name: 'Word Break (Medium)', importance: 3 },
+      { name: 'Longest Increasing Subsequence (Medium)', importance: 3 },
+      { name: 'Unique Paths (Medium)', importance: 2 },
+      { name: 'Longest Common Subsequence (Medium)', importance: 2 },
+      { name: 'Edit Distance (Medium)', importance: 2 }
+    ],
+    selfAssessment: [
+      'Can you identify overlapping subproblems?',
+      'Top-down vs bottom-up - pros and cons?'
+    ]
+  }),
+  createTopic({
+    name: 'Intervals',
+    whyItMatters: 'Common in scheduling and calendar problems.',
+    subtopics: [
+      { name: 'Merge Intervals (Medium)', importance: 3 },
+      { name: 'Insert Interval (Medium)', importance: 2 },
+      { name: 'Non-overlapping Intervals (Medium)', importance: 2 },
+      { name: 'Meeting Rooms (Easy)', importance: 2 },
+      { name: 'Meeting Rooms II (Medium)', importance: 3 }
+    ],
+    selfAssessment: [
+      'What is the standard approach for interval problems?',
+      'When do you sort by start vs end time?'
+    ]
+  }),
+  createTopic({
+    name: 'Greedy',
+    whyItMatters: 'Optimal local choices leading to global optimum.',
+    subtopics: [
+      { name: 'Maximum Subarray (Medium)', importance: 3 },
+      { name: 'Jump Game (Medium)', importance: 3 },
+      { name: 'Jump Game II (Medium)', importance: 2 },
+      { name: 'Gas Station (Medium)', importance: 2 },
+      { name: 'Hand of Straights (Medium)', importance: 1 },
+      { name: 'Partition Labels (Medium)', importance: 2 }
+    ],
+    selfAssessment: [
+      'How do you prove a greedy solution is correct?',
+      'Greedy vs DP - how to decide which to use?'
+    ]
+  }),
+  createTopic({
+    name: 'Bit Manipulation',
+    whyItMatters: 'Space-efficient solutions and XOR tricks.',
+    subtopics: [
+      { name: 'Single Number (Easy)', importance: 3 },
+      { name: 'Number of 1 Bits (Easy)', importance: 2 },
+      { name: 'Counting Bits (Easy)', importance: 2 },
+      { name: 'Reverse Bits (Easy)', importance: 1 },
+      { name: 'Missing Number (Easy)', importance: 2 },
+      { name: 'Sum of Two Integers (Medium)', importance: 1 }
+    ],
+    selfAssessment: [
+      'Why does XOR find the single number?',
+      'Common bit manipulation tricks (AND, OR, XOR, shifts)?'
+    ]
+  })
+];
+
 export const INITIAL_MODULES: Module[] = [
   {
     id: 'mod-js-foundations',
@@ -1059,6 +1328,14 @@ export const INITIAL_MODULES: Module[] = [
     weekEnd: 12,
     color: '#F97316',
     topics: engineeringBreadthTopics
+  },
+  {
+    id: 'mod-dsa-practice',
+    name: 'DSA Practice',
+    weekStart: 1,
+    weekEnd: 12,
+    color: '#EC4899',
+    topics: dsaPracticeTopics
   }
 ];
 

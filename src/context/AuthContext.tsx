@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState, ReactNode } from 'react
 import { User } from 'firebase/auth';
 import { onAuthChange, signInWithGoogle, signOutUser, loadProgressFromFirestore, saveProgressToFirestore } from '../lib/firebase';
 import { useCurriculumStore } from '../store';
+import { INITIAL_MODULES } from '../data/initialData';
 
 interface AuthContextType {
   user: User | null;
@@ -42,9 +43,62 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
             if (cloudUpdatedAt > localUpdatedAt) {
               // Cloud data is newer, import it
+              // But first, merge any new modules from initial data (like DSA Practice)
+              let mergedModules = cloudData.modules || store.modules;
+
+              // Add DSA Practice module if it doesn't exist in cloud data
+              const dsaModule = INITIAL_MODULES.find(m => m.id === 'mod-dsa-practice');
+              if (dsaModule && !mergedModules.find((m: any) => m.id === 'mod-dsa-practice')) {
+                mergedModules = [...mergedModules, dsaModule];
+              }
+
+              // Update due dates for existing modules (revised timeline)
+              const revisedDueDates: Record<string, string> = {
+                'mod-js-foundations': '2026-08-20',
+                'mod-browser-internals': '2026-08-27',
+                'mod-react': '2026-09-07',
+                'mod-nextjs': '2026-09-14',
+                'mod-frontend-architecture': '2026-09-23',
+                'mod-system-design': '2026-10-03',
+                'mod-engineering-breadth': '2026-10-15',
+              };
+
+              mergedModules = mergedModules.map((module: any) => {
+                const newDueDate = revisedDueDates[module.id];
+                if (newDueDate) {
+                  return {
+                    ...module,
+                    topics: module.topics.map((topic: any) => ({
+                      ...topic,
+                      dueDate: newDueDate
+                    }))
+                  };
+                }
+                return module;
+              });
+
+              // Update project due dates (revised timeline)
+              const projectDueDates: Record<string, string> = {
+                'proj-data-table': '2026-08-20',
+                'proj-command-palette': '2026-08-27',
+                'proj-infinite-feed': '2026-09-07',
+                'proj-component-library': '2026-09-14',
+                'proj-file-upload': '2026-09-23',
+                'proj-realtime-dashboard': '2026-10-03',
+                'proj-notion-editor': '2026-10-15',
+              };
+
+              const mergedProjects = (cloudData.projects || store.projects).map((project: any) => {
+                const newDueDate = projectDueDates[project.id];
+                if (newDueDate) {
+                  return { ...project, dueDate: newDueDate };
+                }
+                return project;
+              });
+
               useCurriculumStore.setState({
-                modules: cloudData.modules || store.modules,
-                projects: cloudData.projects || store.projects,
+                modules: mergedModules,
+                projects: mergedProjects,
                 dsaProblems: cloudData.dsaProblems || store.dsaProblems,
                 weeklyReflections: cloudData.weeklyReflections || store.weeklyReflections,
                 dailyTodos: cloudData.dailyTodos || store.dailyTodos,
@@ -54,7 +108,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                   lastSyncedAt: new Date().toISOString()
                 }
               });
-              console.log('Loaded data from cloud');
+              console.log('Loaded data from cloud (with merged updates)');
             } else {
               // Local data is newer, sync to cloud
               await syncDataToCloud(firebaseUser.uid);
@@ -126,9 +180,62 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const cloudData = await loadProgressFromFirestore(user.uid);
       if (cloudData) {
         const store = useCurriculumStore.getState();
+
+        // Merge any new modules from initial data (like DSA Practice)
+        let mergedModules = cloudData.modules || store.modules;
+
+        const dsaModule = INITIAL_MODULES.find(m => m.id === 'mod-dsa-practice');
+        if (dsaModule && !mergedModules.find((m: any) => m.id === 'mod-dsa-practice')) {
+          mergedModules = [...mergedModules, dsaModule];
+        }
+
+        // Update due dates for existing modules (revised timeline)
+        const revisedDueDates: Record<string, string> = {
+          'mod-js-foundations': '2026-08-20',
+          'mod-browser-internals': '2026-08-27',
+          'mod-react': '2026-09-07',
+          'mod-nextjs': '2026-09-14',
+          'mod-frontend-architecture': '2026-09-23',
+          'mod-system-design': '2026-10-03',
+          'mod-engineering-breadth': '2026-10-15',
+        };
+
+        mergedModules = mergedModules.map((module: any) => {
+          const newDueDate = revisedDueDates[module.id];
+          if (newDueDate) {
+            return {
+              ...module,
+              topics: module.topics.map((topic: any) => ({
+                ...topic,
+                dueDate: newDueDate
+              }))
+            };
+          }
+          return module;
+        });
+
+        // Update project due dates (revised timeline)
+        const projectDueDates: Record<string, string> = {
+          'proj-data-table': '2026-08-20',
+          'proj-command-palette': '2026-08-27',
+          'proj-infinite-feed': '2026-09-07',
+          'proj-component-library': '2026-09-14',
+          'proj-file-upload': '2026-09-23',
+          'proj-realtime-dashboard': '2026-10-03',
+          'proj-notion-editor': '2026-10-15',
+        };
+
+        const mergedProjects = (cloudData.projects || store.projects).map((project: any) => {
+          const newDueDate = projectDueDates[project.id];
+          if (newDueDate) {
+            return { ...project, dueDate: newDueDate };
+          }
+          return project;
+        });
+
         useCurriculumStore.setState({
-          modules: cloudData.modules || store.modules,
-          projects: cloudData.projects || store.projects,
+          modules: mergedModules,
+          projects: mergedProjects,
           dsaProblems: cloudData.dsaProblems || store.dsaProblems,
           weeklyReflections: cloudData.weeklyReflections || store.weeklyReflections,
           dailyTodos: cloudData.dailyTodos || store.dailyTodos,
@@ -138,7 +245,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             lastSyncedAt: new Date().toISOString()
           }
         });
-        console.log('Loaded data from cloud');
+        console.log('Loaded data from cloud (with merged updates)');
       }
     } catch (error) {
       console.error('Error loading from cloud:', error);
