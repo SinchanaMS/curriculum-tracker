@@ -10,6 +10,7 @@ interface AuthContextType {
   signIn: () => Promise<void>;
   signOut: () => Promise<void>;
   syncToCloud: () => Promise<void>;
+  syncFromCloud: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -118,8 +119,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setSyncing(false);
   };
 
+  const syncFromCloud = async () => {
+    if (!user) return;
+    setSyncing(true);
+    try {
+      const cloudData = await loadProgressFromFirestore(user.uid);
+      if (cloudData) {
+        const store = useCurriculumStore.getState();
+        useCurriculumStore.setState({
+          modules: cloudData.modules || store.modules,
+          projects: cloudData.projects || store.projects,
+          dsaProblems: cloudData.dsaProblems || store.dsaProblems,
+          weeklyReflections: cloudData.weeklyReflections || store.weeklyReflections,
+          dailyTodos: cloudData.dailyTodos || store.dailyTodos,
+          streakData: cloudData.streakData || store.streakData,
+          settings: {
+            ...store.settings,
+            lastSyncedAt: new Date().toISOString()
+          }
+        });
+        console.log('Loaded data from cloud');
+      }
+    } catch (error) {
+      console.error('Error loading from cloud:', error);
+    }
+    setSyncing(false);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, syncing, signIn, signOut, syncToCloud }}>
+    <AuthContext.Provider value={{ user, loading, syncing, signIn, signOut, syncToCloud, syncFromCloud }}>
       {children}
     </AuthContext.Provider>
   );

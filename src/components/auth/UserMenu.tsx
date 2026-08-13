@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import { LogIn, LogOut, User, Cloud, Loader2 } from 'lucide-react';
+import { LogIn, LogOut, User, Cloud, CloudDownload, CloudUpload, Loader2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 export default function UserMenu() {
-  const { user, loading, syncing, signIn, signOut, syncToCloud } = useAuth();
+  const { user, loading, syncing, signIn, signOut, syncToCloud, syncFromCloud } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -76,6 +76,22 @@ export default function UserMenu() {
           <div className="py-1">
             <button
               onClick={() => {
+                syncFromCloud();
+                setIsOpen(false);
+              }}
+              disabled={syncing}
+              className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50"
+            >
+              {syncing ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <CloudDownload className="w-4 h-4" />
+              )}
+              <span>Pull from cloud</span>
+            </button>
+
+            <button
+              onClick={() => {
                 syncToCloud();
                 setIsOpen(false);
               }}
@@ -85,9 +101,9 @@ export default function UserMenu() {
               {syncing ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
-                <Cloud className="w-4 h-4" />
+                <CloudUpload className="w-4 h-4" />
               )}
-              <span>{syncing ? 'Syncing...' : 'Sync now'}</span>
+              <span>Push to cloud</span>
             </button>
 
             <button
