@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, CheckCircle2, Circle, Clock, Github, ExternalLink, Calendar, AlertCircle } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Circle, Clock, Github, ExternalLink, Calendar, AlertCircle, BookOpen } from 'lucide-react';
 import { Card, Badge, Button, ProgressBar, Input, Textarea } from '../components/ui';
 import { useProjects, useCurriculumStore } from '../store';
 import { MilestoneStatus } from '../types';
@@ -240,6 +240,24 @@ export default function ProjectDetailPage() {
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                   {milestone.description}
                 </p>
+
+                {/* Prerequisites */}
+                {milestone.prerequisites && milestone.prerequisites.length > 0 && (
+                  <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                    <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                      <BookOpen className="w-3 h-3" />
+                      Topics:
+                    </span>
+                    {milestone.prerequisites.map((prereq: string) => (
+                      <span
+                        key={prereq}
+                        className="inline-flex items-center px-2 py-0.5 text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 rounded"
+                      >
+                        {prereq}
+                      </span>
+                    ))}
+                  </div>
+                )}
 
                 {/* Learnings */}
                 {editingLearnings === milestone.id ? (

@@ -61,7 +61,7 @@ export default function Dashboard() {
             <ProgressRing value={totalProgress} size={120} strokeWidth={10} />
             <div className="flex-1">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                Day {currentDay} of 88
+                Day {currentDay} of 105
               </h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Week {currentWeek} - {currentModule?.name || 'Getting Started'}

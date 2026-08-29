@@ -1,24 +1,24 @@
 import { Module, Project, CurriculumState, TopicStatus, MilestoneStatus, AppSettings, StreakData, Topic, SubTopic } from '../types';
 
 export const CURRICULUM_START_DATE = '2026-07-19';
-export const TOTAL_DAYS = 88;
-export const TOTAL_WEEKS = 12;
+export const TOTAL_DAYS = 105; // July 19 → October 31
+export const TOTAL_WEEKS = 15; // Extended timeline
 
 let topicIdCounter = 0;
 let subtopicIdCounter = 0;
 let milestoneIdCounter = 0;
 
-// Revised timeline due dates (Option A - aggressive catch-up schedule)
-// Based on current progress as of Aug 13, 2026
+// Revised timeline due dates (Plan B - sustainable 1 topic/day)
+// Based on restart from Aug 29, 2026 - ends Oct 31
 const REVISED_DUE_DATES: Record<number, string> = {
-  2: '2026-08-20',   // JS Foundations (Week 1-2) - was Aug 1
-  3: '2026-08-27',   // Browser Internals (Week 3) - was Aug 8
-  5: '2026-09-07',   // React (Week 4-5) - was Aug 22
-  6: '2026-09-14',   // Next.js (Week 6) - was Aug 29
-  8: '2026-09-23',   // Frontend Architecture (Week 7-8) - was Sep 12
-  10: '2026-10-03',  // Frontend System Design (Week 9-10) - was Sep 26
-  12: '2026-10-15',  // Engineering Breadth (Week 11-12) - was Oct 10
-  14: '2026-10-15',  // DSA Practice (ongoing) - same end date
+  2: '2026-09-06',   // JS Foundations (Week 1-2)
+  3: '2026-09-15',   // Browser Internals (Week 3)
+  5: '2026-09-27',   // React (Week 4-5)
+  6: '2026-10-05',   // Next.js (Week 6)
+  8: '2026-10-12',   // Frontend Architecture (Week 7-8)
+  10: '2026-10-22',  // Frontend System Design (Week 9-10)
+  12: '2026-10-31',  // Engineering Breadth (Week 11-12)
+  14: '2026-10-31',  // DSA Practice (ongoing)
 };
 
 // Helper to calculate due date based on week number (end of that week)
@@ -112,13 +112,14 @@ const createTopic = (input: string | TopicInput, subtopics?: (string | SubtopicI
   };
 };
 
-const createMilestone = (name: string, description: string) => ({
+const createMilestone = (name: string, description: string, prerequisites?: string[]) => ({
   id: `milestone-${++milestoneIdCounter}`,
   name,
   description,
   status: MilestoneStatus.NOT_STARTED,
   completedAt: null,
-  learnings: ''
+  learnings: '',
+  prerequisites
 });
 
 // ============================================
@@ -1345,11 +1346,21 @@ export const INITIAL_PROJECTS: Project[] = [
     name: 'Advanced Data Table',
     description: 'High-performance data table with virtualization and memoization',
     milestones: [
-      createMilestone('Basic Table Rendering', 'Render large datasets efficiently'),
-      createMilestone('Virtualization', 'Implement windowing for 10k+ rows'),
-      createMilestone('Memoization', 'Optimize re-renders with React.memo and useMemo'),
-      createMilestone('Sorting & Filtering', 'Add performant sorting and filtering'),
-      createMilestone('Column Resizing', 'Implement drag-to-resize columns')
+      createMilestone('Basic Table Rendering', 'Render large datasets efficiently', [
+        'Closures', 'Memory Management', 'Rendering', 'Virtual DOM'
+      ]),
+      createMilestone('Virtualization', 'Implement windowing for 10k+ rows', [
+        'DOM', 'Layout (Reflow)', 'Performance Optimization'
+      ]),
+      createMilestone('Memoization', 'Optimize re-renders with React.memo and useMemo', [
+        'Closures', 'useMemo', 'useCallback', 'Reconciliation'
+      ]),
+      createMilestone('Sorting & Filtering', 'Add performant sorting and filtering', [
+        'Event Loop', 'useMemo', 'Custom Hooks'
+      ]),
+      createMilestone('Column Resizing', 'Implement drag-to-resize columns', [
+        'DOM', 'Layout (Reflow)', 'Paint'
+      ])
     ],
     startedAt: null,
     completedAt: null,
@@ -1366,11 +1377,21 @@ export const INITIAL_PROJECTS: Project[] = [
     name: 'Command Palette',
     description: 'VS Code-style command palette with fuzzy search and keyboard navigation',
     milestones: [
-      createMilestone('Keyboard Shortcuts', 'Cmd+K to open, arrow keys to navigate'),
-      createMilestone('Fuzzy Search', 'Implement fuzzy matching algorithm'),
-      createMilestone('Command Registry', 'Design extensible command system'),
-      createMilestone('Recent Commands', 'Track and prioritize recent actions'),
-      createMilestone('Nested Commands', 'Support command hierarchies')
+      createMilestone('Keyboard Shortcuts', 'Cmd+K to open, arrow keys to navigate', [
+        'DOM', 'Event Loop', 'useEffect'
+      ]),
+      createMilestone('Fuzzy Search', 'Implement fuzzy matching algorithm', [
+        'Closures', 'useMemo', 'Custom Hooks'
+      ]),
+      createMilestone('Command Registry', 'Design extensible command system', [
+        'Closures', 'Prototypes', 'Context API', 'State Management Patterns'
+      ]),
+      createMilestone('Recent Commands', 'Track and prioritize recent actions', [
+        'Browser Cache', 'Custom Hooks', 'State Management Patterns'
+      ]),
+      createMilestone('Nested Commands', 'Support command hierarchies', [
+        'Closures', 'Reconciliation', 'Component Architecture'
+      ])
     ],
     startedAt: null,
     completedAt: null,
@@ -1387,11 +1408,21 @@ export const INITIAL_PROJECTS: Project[] = [
     name: 'Infinite Feed',
     description: 'Social media-style infinite scroll with caching and optimistic updates',
     milestones: [
-      createMilestone('Infinite Scroll', 'Intersection Observer-based loading'),
-      createMilestone('API Pagination', 'Cursor-based pagination'),
-      createMilestone('Caching Layer', 'Implement request caching'),
-      createMilestone('Optimistic Updates', 'Like/comment with rollback'),
-      createMilestone('Pull to Refresh', 'Mobile-style refresh gesture')
+      createMilestone('Infinite Scroll', 'Intersection Observer-based loading', [
+        'DOM', 'Browser Architecture', 'useEffect', 'Custom Hooks'
+      ]),
+      createMilestone('API Pagination', 'Cursor-based pagination', [
+        'Promises', 'Async/Await', 'Network Stack'
+      ]),
+      createMilestone('Caching Layer', 'Implement request caching', [
+        'Closures', 'Browser Cache', 'State Management Patterns'
+      ]),
+      createMilestone('Optimistic Updates', 'Like/comment with rollback', [
+        'Promises', 'Error Handling & Boundaries', 'State Management Patterns'
+      ]),
+      createMilestone('Pull to Refresh', 'Mobile-style refresh gesture', [
+        'DOM', 'Layout (Reflow)', 'useEffect'
+      ])
     ],
     startedAt: null,
     completedAt: null,
@@ -1408,11 +1439,21 @@ export const INITIAL_PROJECTS: Project[] = [
     name: 'Component Library',
     description: 'Production-ready reusable component library with accessibility',
     milestones: [
-      createMilestone('Design Tokens', 'Define spacing, colors, typography'),
-      createMilestone('Core Components', 'Button, Input, Select, Modal'),
-      createMilestone('Accessibility', 'ARIA attributes, keyboard navigation'),
-      createMilestone('Documentation', 'Storybook integration'),
-      createMilestone('Testing', 'Unit tests with Testing Library')
+      createMilestone('Design Tokens', 'Define spacing, colors, typography', [
+        'CSSOM', 'Design Systems'
+      ]),
+      createMilestone('Core Components', 'Button, Input, Select, Modal', [
+        'Component Architecture', 'Custom Hooks', 'Context API'
+      ]),
+      createMilestone('Accessibility', 'ARIA attributes, keyboard navigation', [
+        'DOM', 'Accessibility (a11y)'
+      ]),
+      createMilestone('Documentation', 'Storybook integration', [
+        'Component Architecture', 'Design Systems'
+      ]),
+      createMilestone('Testing', 'Unit tests with Testing Library', [
+        'DOM', 'Hooks Deep Dive', 'Component Architecture'
+      ])
     ],
     startedAt: null,
     completedAt: null,
@@ -1429,11 +1470,21 @@ export const INITIAL_PROJECTS: Project[] = [
     name: 'File Upload System',
     description: 'Robust file upload with progress tracking and error recovery',
     milestones: [
-      createMilestone('Drag & Drop', 'Implement drag-drop zone'),
-      createMilestone('Progress Tracking', 'Real-time upload progress'),
-      createMilestone('Chunked Upload', 'Large file chunking strategy'),
-      createMilestone('Error Recovery', 'Retry failed uploads'),
-      createMilestone('File Preview', 'Image/PDF preview before upload')
+      createMilestone('Drag & Drop', 'Implement drag-drop zone', [
+        'DOM', 'useEffect', 'Custom Hooks'
+      ]),
+      createMilestone('Progress Tracking', 'Real-time upload progress', [
+        'Event Loop', 'Promises', 'Async/Await', 'useEffect'
+      ]),
+      createMilestone('Chunked Upload', 'Large file chunking strategy', [
+        'Memory Management', 'Promises', 'Network Stack', 'File Upload System'
+      ]),
+      createMilestone('Error Recovery', 'Retry failed uploads', [
+        'Promises', 'Error Handling & Boundaries', 'State Management Patterns'
+      ]),
+      createMilestone('File Preview', 'Image/PDF preview before upload', [
+        'Memory Management', 'DOM', 'useEffect'
+      ])
     ],
     startedAt: null,
     completedAt: null,
@@ -1450,11 +1501,21 @@ export const INITIAL_PROJECTS: Project[] = [
     name: 'Realtime Dashboard',
     description: 'Live-updating analytics dashboard with charts and performance optimization',
     milestones: [
-      createMilestone('WebSocket Connection', 'Establish live data stream'),
-      createMilestone('Chart Integration', 'Real-time updating charts'),
-      createMilestone('Data Aggregation', 'Client-side data processing'),
-      createMilestone('Performance', 'Optimize for 60fps updates'),
-      createMilestone('Offline Support', 'Handle connection drops gracefully')
+      createMilestone('WebSocket Connection', 'Establish live data stream', [
+        'Event Loop', 'Promises', 'Network Stack', 'Realtime Dashboard'
+      ]),
+      createMilestone('Chart Integration', 'Real-time updating charts', [
+        'useMemo', 'useCallback', 'Performance Optimization', 'Dashboard Design'
+      ]),
+      createMilestone('Data Aggregation', 'Client-side data processing', [
+        'Memory Management', 'useMemo', 'Custom Hooks'
+      ]),
+      createMilestone('Performance', 'Optimize for 60fps updates', [
+        'Event Loop', 'Layout (Reflow)', 'Paint', 'Composite', 'Performance Optimization'
+      ]),
+      createMilestone('Offline Support', 'Handle connection drops gracefully', [
+        'Browser Cache', 'Error Handling & Boundaries', 'State Management Patterns'
+      ])
     ],
     startedAt: null,
     completedAt: null,
@@ -1471,12 +1532,24 @@ export const INITIAL_PROJECTS: Project[] = [
     name: 'Notion-style Editor',
     description: 'Block-based rich text editor with drag-and-drop and slash commands',
     milestones: [
-      createMilestone('Block System', 'Design block data structure'),
-      createMilestone('Rich Text', 'Bold, italic, links, code'),
-      createMilestone('Block Types', 'Headings, lists, code blocks'),
-      createMilestone('Drag & Drop', 'Reorder blocks'),
-      createMilestone('Slash Commands', '/ to insert block types'),
-      createMilestone('Undo/Redo', 'Command history pattern')
+      createMilestone('Block System', 'Design block data structure', [
+        'Prototypes', 'State Management Patterns', 'Component Architecture'
+      ]),
+      createMilestone('Rich Text', 'Bold, italic, links, code', [
+        'DOM', 'useEffect', 'Custom Hooks'
+      ]),
+      createMilestone('Block Types', 'Headings, lists, code blocks', [
+        'Component Architecture', 'Reconciliation'
+      ]),
+      createMilestone('Drag & Drop', 'Reorder blocks', [
+        'DOM', 'Layout (Reflow)', 'State Management Patterns'
+      ]),
+      createMilestone('Slash Commands', '/ to insert block types', [
+        'DOM', 'useEffect', 'Context API', 'Component Architecture'
+      ]),
+      createMilestone('Undo/Redo', 'Command history pattern', [
+        'Closures', 'State Management Patterns', 'OOP Principles'
+      ])
     ],
     startedAt: null,
     completedAt: null,

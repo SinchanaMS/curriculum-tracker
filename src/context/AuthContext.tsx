@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState, ReactNode } from 'react
 import { User } from 'firebase/auth';
 import { onAuthChange, signInWithGoogle, signOutUser, loadProgressFromFirestore, saveProgressToFirestore } from '../lib/firebase';
 import { useCurriculumStore } from '../store';
-import { INITIAL_MODULES } from '../data/initialData';
+import { INITIAL_MODULES, INITIAL_PROJECTS } from '../data/initialData';
 
 interface AuthContextType {
   user: User | null;
@@ -52,15 +52,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 mergedModules = [...mergedModules, dsaModule];
               }
 
-              // Update due dates for existing modules (revised timeline)
+              // Update due dates for existing modules (revised timeline from Aug 29)
               const revisedDueDates: Record<string, string> = {
-                'mod-js-foundations': '2026-08-20',
-                'mod-browser-internals': '2026-08-27',
-                'mod-react': '2026-09-07',
-                'mod-nextjs': '2026-09-14',
-                'mod-frontend-architecture': '2026-09-23',
-                'mod-system-design': '2026-10-03',
-                'mod-engineering-breadth': '2026-10-15',
+                'mod-js-foundations': '2026-09-06',      // 8 days (3 in progress)
+                'mod-browser-internals': '2026-09-15',   // 9 days
+                'mod-react': '2026-09-27',               // 12 days
+                'mod-nextjs': '2026-10-05',              // 8 days
+                'mod-frontend-architecture': '2026-10-12', // 7 days
+                'mod-system-design': '2026-10-22',       // 10 days
+                'mod-engineering-breadth': '2026-10-31', // 9 days (buffer)
               };
 
               mergedModules = mergedModules.map((module: any) => {
@@ -77,23 +77,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 return module;
               });
 
-              // Update project due dates (revised timeline)
+              // Update project due dates and merge prerequisites (revised timeline from Aug 29)
               const projectDueDates: Record<string, string> = {
-                'proj-data-table': '2026-08-20',
-                'proj-command-palette': '2026-08-27',
-                'proj-infinite-feed': '2026-09-07',
-                'proj-component-library': '2026-09-14',
-                'proj-file-upload': '2026-09-23',
-                'proj-realtime-dashboard': '2026-10-03',
-                'proj-notion-editor': '2026-10-15',
+                'proj-data-table': '2026-09-06',
+                'proj-command-palette': '2026-09-15',
+                'proj-infinite-feed': '2026-09-27',
+                'proj-component-library': '2026-10-05',
+                'proj-file-upload': '2026-10-12',
+                'proj-realtime-dashboard': '2026-10-22',
+                'proj-notion-editor': '2026-10-31',
               };
 
               const mergedProjects = (cloudData.projects || store.projects).map((project: any) => {
+                const initialProject = INITIAL_PROJECTS.find(p => p.id === project.id);
                 const newDueDate = projectDueDates[project.id];
-                if (newDueDate) {
-                  return { ...project, dueDate: newDueDate };
-                }
-                return project;
+
+                // Merge milestones with prerequisites from initial data
+                const mergedMilestones = project.milestones.map((milestone: any, idx: number) => {
+                  const initialMilestone = initialProject?.milestones[idx];
+                  return {
+                    ...milestone,
+                    prerequisites: milestone.prerequisites ?? initialMilestone?.prerequisites
+                  };
+                });
+
+                return {
+                  ...project,
+                  dueDate: newDueDate || project.dueDate,
+                  milestones: mergedMilestones
+                };
               });
 
               useCurriculumStore.setState({
@@ -189,15 +201,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           mergedModules = [...mergedModules, dsaModule];
         }
 
-        // Update due dates for existing modules (revised timeline)
+        // Update due dates for existing modules (revised timeline from Aug 29)
         const revisedDueDates: Record<string, string> = {
-          'mod-js-foundations': '2026-08-20',
-          'mod-browser-internals': '2026-08-27',
-          'mod-react': '2026-09-07',
-          'mod-nextjs': '2026-09-14',
-          'mod-frontend-architecture': '2026-09-23',
-          'mod-system-design': '2026-10-03',
-          'mod-engineering-breadth': '2026-10-15',
+          'mod-js-foundations': '2026-09-06',      // 8 days (3 in progress)
+          'mod-browser-internals': '2026-09-15',   // 9 days
+          'mod-react': '2026-09-27',               // 12 days
+          'mod-nextjs': '2026-10-05',              // 8 days
+          'mod-frontend-architecture': '2026-10-12', // 7 days
+          'mod-system-design': '2026-10-22',       // 10 days
+          'mod-engineering-breadth': '2026-10-31', // 9 days (buffer)
         };
 
         mergedModules = mergedModules.map((module: any) => {
@@ -214,23 +226,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           return module;
         });
 
-        // Update project due dates (revised timeline)
+        // Update project due dates and merge prerequisites (revised timeline from Aug 29)
         const projectDueDates: Record<string, string> = {
-          'proj-data-table': '2026-08-20',
-          'proj-command-palette': '2026-08-27',
-          'proj-infinite-feed': '2026-09-07',
-          'proj-component-library': '2026-09-14',
-          'proj-file-upload': '2026-09-23',
-          'proj-realtime-dashboard': '2026-10-03',
-          'proj-notion-editor': '2026-10-15',
+          'proj-data-table': '2026-09-06',
+          'proj-command-palette': '2026-09-15',
+          'proj-infinite-feed': '2026-09-27',
+          'proj-component-library': '2026-10-05',
+          'proj-file-upload': '2026-10-12',
+          'proj-realtime-dashboard': '2026-10-22',
+          'proj-notion-editor': '2026-10-31',
         };
 
         const mergedProjects = (cloudData.projects || store.projects).map((project: any) => {
+          const initialProject = INITIAL_PROJECTS.find(p => p.id === project.id);
           const newDueDate = projectDueDates[project.id];
-          if (newDueDate) {
-            return { ...project, dueDate: newDueDate };
-          }
-          return project;
+
+          // Merge milestones with prerequisites from initial data
+          const mergedMilestones = project.milestones.map((milestone: any, idx: number) => {
+            const initialMilestone = initialProject?.milestones[idx];
+            return {
+              ...milestone,
+              prerequisites: milestone.prerequisites ?? initialMilestone?.prerequisites
+            };
+          });
+
+          return {
+            ...project,
+            dueDate: newDueDate || project.dueDate,
+            milestones: mergedMilestones
+          };
         });
 
         useCurriculumStore.setState({

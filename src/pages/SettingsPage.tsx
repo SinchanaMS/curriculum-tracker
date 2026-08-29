@@ -214,13 +214,13 @@ export default function SettingsPage() {
         <h3 className="font-semibold text-gray-900 dark:text-white mb-4">About</h3>
         <div className="text-sm text-gray-600 dark:text-gray-400 space-y-2">
           <p>
-            <strong className="text-gray-900 dark:text-white">Curriculum Tracker</strong> - Your 88-day frontend engineering journey
+            <strong className="text-gray-900 dark:text-white">Curriculum Tracker</strong> - Your 105-day frontend engineering journey
           </p>
           <p>
             Start Date: July 19, 2026
           </p>
           <p>
-            Duration: 12 weeks / 88 days
+            Duration: 15 weeks / 105 days
           </p>
           <p className="pt-2 text-gray-500">
             Built with React, TypeScript, and Tailwind CSS

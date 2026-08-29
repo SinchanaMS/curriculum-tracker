@@ -45,7 +45,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             Curriculum Tracker
           </h1>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            88-Day Journey
+            105-Day Journey
           </p>
         </div>
         <button

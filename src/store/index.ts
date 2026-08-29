@@ -55,6 +55,7 @@ interface CurriculumActions {
   exportData: () => string;
   importData: (jsonData: string) => boolean;
   resetAllData: () => void;
+  refreshDueDates: () => void;
 
   // Computed Helpers
   getCurrentWeek: () => number;
@@ -511,19 +512,82 @@ export const useCurriculumStore = create<CurriculumStore>()(
         set(createInitialState());
       },
 
+      refreshDueDates: () => {
+        set((state) => {
+          // Updated due dates (Plan B - sustainable 1 topic/day from Aug 29)
+          const moduleDueDates: Record<string, string> = {
+            'mod-js-foundations': '2026-09-06',
+            'mod-browser-internals': '2026-09-15',
+            'mod-react': '2026-09-27',
+            'mod-nextjs': '2026-10-05',
+            'mod-frontend-architecture': '2026-10-12',
+            'mod-system-design': '2026-10-22',
+            'mod-engineering-breadth': '2026-10-31',
+            'mod-dsa-practice': '2026-10-31',
+          };
+
+          const projectDueDates: Record<string, string> = {
+            'proj-data-table': '2026-09-06',
+            'proj-command-palette': '2026-09-15',
+            'proj-infinite-feed': '2026-09-27',
+            'proj-component-library': '2026-10-05',
+            'proj-file-upload': '2026-10-12',
+            'proj-realtime-dashboard': '2026-10-22',
+            'proj-notion-editor': '2026-10-31',
+          };
+
+          // Update module topic due dates
+          state.modules = state.modules.map(module => {
+            const newDueDate = moduleDueDates[module.id];
+            if (newDueDate) {
+              return {
+                ...module,
+                topics: module.topics.map(topic => ({
+                  ...topic,
+                  dueDate: newDueDate
+                }))
+              };
+            }
+            return module;
+          });
+
+          // Add DSA module if missing
+          const initialState = createInitialState();
+          const hasDsaModule = state.modules.some(m => m.id === 'mod-dsa-practice');
+          if (!hasDsaModule) {
+            const dsaModule = initialState.modules.find(m => m.id === 'mod-dsa-practice');
+            if (dsaModule) {
+              state.modules.push(dsaModule);
+            }
+          }
+
+          // Update project due dates
+          state.projects = state.projects.map(project => {
+            const newDueDate = projectDueDates[project.id];
+            if (newDueDate) {
+              return {
+                ...project,
+                dueDate: newDueDate
+              };
+            }
+            return project;
+          });
+        });
+      },
+
       // ============ COMPUTED HELPERS ============
       getCurrentWeek: () => {
         const start = new Date(CURRICULUM_START_DATE);
         const now = new Date();
         const diffDays = Math.floor((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
-        return Math.min(12, Math.max(1, Math.ceil((diffDays + 1) / 7)));
+        return Math.min(15, Math.max(1, Math.ceil((diffDays + 1) / 7)));
       },
 
       getCurrentDay: () => {
         const start = new Date(CURRICULUM_START_DATE);
         const now = new Date();
         const diffDays = Math.floor((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
-        return Math.min(88, Math.max(1, diffDays + 1));
+        return Math.min(105, Math.max(1, diffDays + 1));
       },
 
       getModuleProgress: (moduleId) => {
@@ -667,15 +731,15 @@ export const useCurriculumStore = create<CurriculumStore>()(
 
         // Migration to v5: Update due dates (revised timeline) and add DSA Practice module
         if (version < 5) {
-          // Revised due dates mapping (module weekEnd -> new due date)
+          // Revised due dates mapping (Plan B - sustainable 1 topic/day from Aug 29)
           const revisedDueDates: Record<string, string> = {
-            'mod-js-foundations': '2026-08-20',
-            'mod-browser-internals': '2026-08-27',
-            'mod-react': '2026-09-07',
-            'mod-nextjs': '2026-09-14',
-            'mod-frontend-architecture': '2026-09-23',
-            'mod-system-design': '2026-10-03',
-            'mod-engineering-breadth': '2026-10-15',
+            'mod-js-foundations': '2026-09-06',
+            'mod-browser-internals': '2026-09-15',
+            'mod-react': '2026-09-27',
+            'mod-nextjs': '2026-10-05',
+            'mod-frontend-architecture': '2026-10-12',
+            'mod-system-design': '2026-10-22',
+            'mod-engineering-breadth': '2026-10-31',
           };
 
           // Update due dates for existing modules
@@ -702,15 +766,15 @@ export const useCurriculumStore = create<CurriculumStore>()(
             }
           }
 
-          // Update project due dates too
+          // Update project due dates too (Plan B from Aug 29)
           const projectDueDates: Record<string, string> = {
-            'proj-data-table': '2026-08-20',
-            'proj-command-palette': '2026-08-27',
-            'proj-infinite-feed': '2026-09-07',
-            'proj-component-library': '2026-09-14',
-            'proj-file-upload': '2026-09-23',
-            'proj-realtime-dashboard': '2026-10-03',
-            'proj-notion-editor': '2026-10-15',
+            'proj-data-table': '2026-09-06',
+            'proj-command-palette': '2026-09-15',
+            'proj-infinite-feed': '2026-09-27',
+            'proj-component-library': '2026-10-05',
+            'proj-file-upload': '2026-10-12',
+            'proj-realtime-dashboard': '2026-10-22',
+            'proj-notion-editor': '2026-10-31',
           };
 
           state.projects = state.projects.map(project => {
@@ -759,6 +823,11 @@ export const useStreakData = () => useCurriculumStore(state => state.streakData)
 export const useSettings = () => useCurriculumStore(state => state.settings);
 export const useDailyTodos = () => useCurriculumStore(state => state.dailyTodos);
 export const useWeeklyReflections = () => useCurriculumStore(state => state.weeklyReflections);
+
+// Expose store globally for debugging/manual updates
+if (typeof window !== 'undefined') {
+  (window as any).curriculumStore = useCurriculumStore;
+}
 
 // Auto-sync to Firebase when state changes (debounced)
 let syncTimeout: ReturnType<typeof setTimeout> | null = null;

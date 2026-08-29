@@ -103,6 +103,7 @@ export interface Milestone {
   status: MilestoneStatus;
   completedAt: string | null;
   learnings: string;
+  prerequisites?: string[]; // Topics to know before this milestone
 }
 
 export interface Project {

@@ -71,7 +71,7 @@ export function Header({ onMenuClick }: HeaderProps) {
         {/* Day Counter - hidden on small screens */}
         <div className="hidden sm:block text-sm text-gray-600 dark:text-gray-400">
           <span className="font-semibold text-blue-600 dark:text-blue-400">Day {currentDay}</span>
-          <span className="mx-1">of 88</span>
+          <span className="mx-1">of 105</span>
           <span className="text-gray-400 dark:text-gray-500">|</span>
           <span className="ml-1">Week {currentWeek}</span>
         </div>
