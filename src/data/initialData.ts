@@ -1,4 +1,4 @@
-import { Module, Project, CurriculumState, TopicStatus, MilestoneStatus, AppSettings, StreakData, Topic, SubTopic } from '../types';
+import { Module, Project, CurriculumState, TopicStatus, MilestoneStatus, AppSettings, StreakData, Topic, SubTopic, ImplementationPhase } from '../types';
 
 export const CURRICULUM_START_DATE = '2026-07-19';
 export const TOTAL_DAYS = 105; // July 19 → October 31
@@ -120,6 +120,19 @@ const createMilestone = (name: string, description: string, prerequisites?: stri
   completedAt: null,
   learnings: '',
   prerequisites
+});
+
+let phaseIdCounter = 0;
+let stepIdCounter = 0;
+
+const createPhase = (name: string, steps: string[]): ImplementationPhase => ({
+  id: `phase-${++phaseIdCounter}`,
+  name,
+  steps: steps.map(text => ({
+    id: `step-${++stepIdCounter}`,
+    text,
+    completed: false
+  }))
 });
 
 // ============================================
@@ -1362,6 +1375,76 @@ export const INITIAL_PROJECTS: Project[] = [
         'DOM', 'Layout (Reflow)', 'Paint'
       ])
     ],
+    implementationGuide: [
+      createPhase('Phase 1: Project Setup & Basic Table', [
+        'Create new React + TypeScript project (or folder in existing project)',
+        'Set up folder structure: components/DataTable/, hooks/, types/, utils/',
+        'Define TypeScript interfaces: Column<T>, RowData, TableProps',
+        'Create mock data generator function (10,000+ rows)',
+        'Build basic <table> with <thead> and <tbody>',
+        'Render all rows naively first (to see the performance problem)',
+        'Open React DevTools Profiler and measure render time'
+      ]),
+      createPhase('Phase 2: Virtualization (Core Challenge)', [
+        'Understand the concept: only render visible rows + small buffer',
+        'Calculate container height (fixed viewport)',
+        'Decide on row height strategy (fixed height is easier to start)',
+        'Calculate total scrollable height: rowCount × rowHeight',
+        'Create scrollable container with overflow-y: auto',
+        'Add inner div with total height for scroll area',
+        'Implement useVirtualization custom hook',
+        'Calculate startIndex: Math.floor(scrollTop / rowHeight)',
+        'Calculate endIndex: startIndex + visibleCount + buffer',
+        'Calculate offsetY for positioning: startIndex × rowHeight',
+        'Render only visible rows with transform: translateY(offsetY)',
+        'Add onScroll listener to recalculate on scroll',
+        'Test with 10,000+ rows - should be smooth 60fps'
+      ]),
+      createPhase('Phase 3: Memoization & Performance', [
+        'Wrap TableRow component with React.memo()',
+        'Define proper comparison function for memo if needed',
+        'Use useMemo for sorted/filtered data arrays',
+        'Use useMemo for column definitions',
+        'Use useCallback for event handlers passed to rows',
+        'Profile with React DevTools before and after',
+        'Verify reduced re-renders in Profiler'
+      ]),
+      createPhase('Phase 4: Sorting', [
+        'Add sortColumn and sortDirection to state',
+        'Create clickable column headers',
+        'Implement sort function with useMemo (don\'t mutate original)',
+        'Handle ascending/descending toggle',
+        'Add sort indicator icons to headers',
+        'Test sorting doesn\'t break virtualization'
+      ]),
+      createPhase('Phase 5: Filtering', [
+        'Add filter input above table',
+        'Implement useDebounce hook (300ms delay)',
+        'Filter data in useMemo before sorting',
+        'Update row count display after filtering',
+        'Handle empty results state',
+        'Ensure virtualization recalculates on filter'
+      ]),
+      createPhase('Phase 6: Column Resizing', [
+        'Store column widths in state',
+        'Add resize handle div on column header borders',
+        'Style handle with cursor: col-resize',
+        'Track mousedown → mousemove → mouseup events',
+        'Calculate new width: initialWidth + (currentX - startX)',
+        'Set minimum column width constraint',
+        'Apply widths to both header and body columns',
+        'Test resizing doesn\'t cause layout thrashing'
+      ]),
+      createPhase('Phase 7: Polish & Edge Cases', [
+        'Handle empty data state',
+        'Handle loading state',
+        'Add keyboard navigation (optional)',
+        'Test with different data sizes (100, 1000, 10000, 100000)',
+        'Add horizontal scrolling for many columns',
+        'Write README documenting your approach',
+        'Record a demo video/gif showing performance'
+      ])
+    ],
     startedAt: null,
     completedAt: null,
     dueDate: getWeekEndDate(2),
@@ -1369,7 +1452,7 @@ export const INITIAL_PROJECTS: Project[] = [
     weekEnd: 2,
     githubUrl: '',
     demoUrl: '',
-    techStack: ['React', 'TypeScript', 'react-window'],
+    techStack: ['React', 'TypeScript'],
     notes: ''
   },
   {
@@ -1391,6 +1474,75 @@ export const INITIAL_PROJECTS: Project[] = [
       ]),
       createMilestone('Nested Commands', 'Support command hierarchies', [
         'Closures', 'Reconciliation', 'Component Architecture'
+      ])
+    ],
+    implementationGuide: [
+      createPhase('Phase 1: Modal & Keyboard Setup', [
+        'Create CommandPalette component with modal overlay',
+        'Style modal: centered, dark backdrop, rounded corners',
+        'Add useEffect to listen for Cmd+K (Mac) / Ctrl+K (Windows)',
+        'Implement open/close state management',
+        'Add Escape key to close modal',
+        'Prevent body scroll when modal is open',
+        'Auto-focus search input when modal opens'
+      ]),
+      createPhase('Phase 2: Command Registry System', [
+        'Define Command interface: { id, name, shortcut?, icon?, action, category? }',
+        'Create CommandRegistry class or context',
+        'Implement registerCommand(command) method',
+        'Implement unregisterCommand(id) method',
+        'Implement getCommands() method',
+        'Create useCommands() hook to access registry',
+        'Register sample commands (theme toggle, navigation, etc.)'
+      ]),
+      createPhase('Phase 3: Basic Search & Display', [
+        'Display all commands in a scrollable list',
+        'Add search input at top of modal',
+        'Implement basic string matching filter',
+        'Highlight matching text in results',
+        'Group commands by category (optional)',
+        'Show command shortcuts on the right side'
+      ]),
+      createPhase('Phase 4: Fuzzy Search', [
+        'Understand fuzzy matching: characters in order, not consecutive',
+        'Implement simple fuzzy match function from scratch',
+        'Score results by match quality (consecutive chars = higher)',
+        'Sort results by score descending',
+        'Alternatively: integrate fuse.js for production quality',
+        'Test with typos and partial matches'
+      ]),
+      createPhase('Phase 5: Keyboard Navigation', [
+        'Track selectedIndex in state',
+        'Add ArrowDown: increment selectedIndex',
+        'Add ArrowUp: decrement selectedIndex',
+        'Wrap around at list boundaries (optional)',
+        'Add Enter: execute selected command',
+        'Scroll selected item into view',
+        'Add visual highlight for selected item'
+      ]),
+      createPhase('Phase 6: Recent Commands', [
+        'Create useRecentCommands() hook',
+        'Store recent command IDs in localStorage',
+        'Limit to last 5-10 commands',
+        'Show recent commands when search is empty',
+        'Add "Recent" section header',
+        'Update recents when command is executed'
+      ]),
+      createPhase('Phase 7: Nested Commands (Advanced)', [
+        'Add children?: Command[] to Command interface',
+        'Track navigation path/breadcrumb state',
+        'Render child commands when parent is selected',
+        'Add Backspace to go back to parent',
+        'Show breadcrumb trail in modal header',
+        'Add ">" indicator for commands with children'
+      ]),
+      createPhase('Phase 8: Polish', [
+        'Add smooth open/close animations',
+        'Add icons for common command types',
+        'Handle empty search results state',
+        'Add loading state for async commands',
+        'Test accessibility (screen reader, focus trap)',
+        'Document how to register new commands'
       ])
     ],
     startedAt: null,
@@ -1424,6 +1576,78 @@ export const INITIAL_PROJECTS: Project[] = [
         'DOM', 'Layout (Reflow)', 'useEffect'
       ])
     ],
+    implementationGuide: [
+      createPhase('Phase 1: Project Setup & Mock API', [
+        'Set up project with React + TypeScript',
+        'Define Post interface: { id, author, content, likes, comments, createdAt }',
+        'Create mock API with artificial delay (simulate network)',
+        'Implement getPosts(cursor, limit) returning { posts, nextCursor }',
+        'Use cursor-based pagination (not offset-based)',
+        'Generate 100+ mock posts for testing'
+      ]),
+      createPhase('Phase 2: Basic Feed Display', [
+        'Create FeedPost component for individual posts',
+        'Create Feed component to render list of posts',
+        'Fetch initial posts on mount',
+        'Display loading skeleton while fetching',
+        'Style posts like social media cards',
+        'Add author avatar, name, timestamp, content'
+      ]),
+      createPhase('Phase 3: Infinite Scroll with Intersection Observer', [
+        'Create useInfiniteScroll custom hook',
+        'Add sentinel element at bottom of feed',
+        'Set up IntersectionObserver to watch sentinel',
+        'Trigger loadMore when sentinel is visible',
+        'Track hasNextPage and isFetching states',
+        'Append new posts to existing list',
+        'Show loading spinner during fetch',
+        'Stop observing when no more pages'
+      ]),
+      createPhase('Phase 4: Caching Layer', [
+        'Design cache structure: Map<string, { data, timestamp }>',
+        'Implement cache.get(key) with TTL check',
+        'Implement cache.set(key, data)',
+        'Cache API responses by cursor',
+        'Return cached data immediately, refetch in background (SWR pattern)',
+        'Alternatively: integrate TanStack Query for production'
+      ]),
+      createPhase('Phase 5: Like Feature with Optimistic Updates', [
+        'Add like button to FeedPost component',
+        'Track liked state and like count',
+        'On click: immediately update UI (optimistic)',
+        'Send API request in background',
+        'On success: confirm update',
+        'On failure: rollback to previous state',
+        'Show error toast on failure',
+        'Debounce rapid clicks'
+      ]),
+      createPhase('Phase 6: Comments with Optimistic Updates', [
+        'Add expandable comments section',
+        'Create AddComment input component',
+        'On submit: add comment to UI immediately',
+        'Generate temporary ID for optimistic comment',
+        'Send API request in background',
+        'Replace temp ID with real ID on success',
+        'Remove comment and show error on failure'
+      ]),
+      createPhase('Phase 7: Pull to Refresh', [
+        'Track touch start Y position on mobile',
+        'Calculate pull distance during touchmove',
+        'Show pull indicator when threshold reached',
+        'Trigger refresh on touchend if pulled enough',
+        'Add pulling animation/indicator',
+        'Prepend new posts to feed',
+        'Reset scroll position after refresh'
+      ]),
+      createPhase('Phase 8: Edge Cases & Polish', [
+        'Handle empty feed state',
+        'Handle network error state with retry button',
+        'Add post timestamp formatting (2h ago, Yesterday)',
+        'Virtualize feed for better performance (optional)',
+        'Test on mobile devices',
+        'Add scroll position restoration on back navigation'
+      ])
+    ],
     startedAt: null,
     completedAt: null,
     dueDate: getWeekEndDate(5),
@@ -1453,6 +1677,84 @@ export const INITIAL_PROJECTS: Project[] = [
       ]),
       createMilestone('Testing', 'Unit tests with Testing Library', [
         'DOM', 'Hooks Deep Dive', 'Component Architecture'
+      ])
+    ],
+    implementationGuide: [
+      createPhase('Phase 1: Project Setup & Design Tokens', [
+        'Initialize project with Vite + React + TypeScript',
+        'Install and configure Tailwind CSS',
+        'Create tokens/ folder for design tokens',
+        'Define color palette: primary, secondary, gray, semantic (error, success)',
+        'Define spacing scale: 0, 1, 2, 4, 6, 8, 12, 16, 24, 32, 48, 64',
+        'Define typography scale: xs, sm, base, lg, xl, 2xl, 3xl',
+        'Define border radius values: none, sm, md, lg, full',
+        'Export tokens as CSS variables and/or Tailwind config'
+      ]),
+      createPhase('Phase 2: Button Component', [
+        'Create Button component with TypeScript props interface',
+        'Add variant prop: primary, secondary, outline, ghost, danger',
+        'Add size prop: sm, md, lg',
+        'Add disabled state styling',
+        'Add loading state with spinner',
+        'Support as prop for polymorphic rendering (button, a, Link)',
+        'Add focus ring for accessibility',
+        'Support left/right icon slots'
+      ]),
+      createPhase('Phase 3: Input Component', [
+        'Create Input component with forwardRef for ref support',
+        'Add label prop with proper htmlFor association',
+        'Add error state with error message display',
+        'Add helper text support',
+        'Add disabled state',
+        'Add left/right addon support (icons, text)',
+        'Style focus state with ring',
+        'Support all native input types'
+      ]),
+      createPhase('Phase 4: Select Component', [
+        'Create Select component with options prop',
+        'Support both controlled and uncontrolled modes',
+        'Add placeholder option',
+        'Add disabled state',
+        'Add error state matching Input style',
+        'Style the dropdown arrow consistently',
+        'Consider building custom dropdown for better styling (advanced)'
+      ]),
+      createPhase('Phase 5: Modal Component', [
+        'Create Modal with Portal (render outside DOM hierarchy)',
+        'Add backdrop with click-to-close option',
+        'Implement focus trap inside modal',
+        'Add Escape key to close',
+        'Prevent body scroll when open',
+        'Add enter/exit animations',
+        'Create Modal.Header, Modal.Body, Modal.Footer subcomponents',
+        'Support different sizes: sm, md, lg, full'
+      ]),
+      createPhase('Phase 6: Accessibility Audit', [
+        'Add proper ARIA roles to all components',
+        'Ensure all interactive elements are focusable',
+        'Test keyboard navigation for each component',
+        'Verify color contrast meets WCAG AA (4.5:1)',
+        'Add aria-label/aria-describedby where needed',
+        'Test with screen reader (VoiceOver/NVDA)',
+        'Add skip links if applicable'
+      ]),
+      createPhase('Phase 7: Storybook Documentation', [
+        'Install and configure Storybook',
+        'Create stories for each component',
+        'Document all props with argTypes',
+        'Add usage examples for each variant',
+        'Show do\'s and don\'ts',
+        'Add accessibility notes',
+        'Configure Storybook addons: a11y, viewport, docs'
+      ]),
+      createPhase('Phase 8: Testing', [
+        'Install Testing Library and Jest/Vitest',
+        'Write unit tests for Button (click, disabled, loading)',
+        'Write unit tests for Input (change, error, focus)',
+        'Write unit tests for Select (selection, disabled)',
+        'Write unit tests for Modal (open, close, focus trap)',
+        'Test accessibility with jest-axe',
+        'Aim for 80%+ coverage on core components'
       ])
     ],
     startedAt: null,
@@ -1486,6 +1788,81 @@ export const INITIAL_PROJECTS: Project[] = [
         'Memory Management', 'DOM', 'useEffect'
       ])
     ],
+    implementationGuide: [
+      createPhase('Phase 1: Basic File Input & Drop Zone', [
+        'Create DropZone component with styled div',
+        'Add hidden file input with useRef',
+        'Handle click on zone to trigger file input',
+        'Listen to ondragenter, ondragover, ondragleave, ondrop events',
+        'Prevent default browser behavior on drag events',
+        'Add visual feedback: border color change on drag over',
+        'Accept multiple files if needed',
+        'Define accepted file types: accept prop on input'
+      ]),
+      createPhase('Phase 2: File Validation', [
+        'Create validateFile(file) function',
+        'Check file type against allowed types',
+        'Check file size against maximum limit (e.g., 10MB)',
+        'Display validation errors to user',
+        'Create FileRejection interface for error details',
+        'Show rejected files with reasons',
+        'Allow removing rejected files from queue'
+      ]),
+      createPhase('Phase 3: Upload Queue Management', [
+        'Define UploadFile interface: { id, file, status, progress, error }',
+        'Create upload queue state as array',
+        'Add files to queue on drop/select',
+        'Display queue as list with file name, size, status',
+        'Add remove button for each queued file',
+        'Show pending, uploading, complete, error states',
+        'Support clearing entire queue'
+      ]),
+      createPhase('Phase 4: Progress Tracking', [
+        'Create uploadFile function with XMLHttpRequest or axios',
+        'Use onUploadProgress callback for progress events',
+        'Calculate percentage: (loaded / total) * 100',
+        'Update queue item progress in real-time',
+        'Display progress bar for each file',
+        'Show upload speed (optional)',
+        'Show estimated time remaining (optional)'
+      ]),
+      createPhase('Phase 5: Chunked Upload for Large Files', [
+        'Define chunk size (e.g., 5MB)',
+        'Split file into chunks using file.slice(start, end)',
+        'Upload chunks sequentially or in parallel',
+        'Track chunk progress for overall file progress',
+        'Send chunk index and total chunks to server',
+        'Handle chunk assembly on server side',
+        'Resume from last successful chunk on retry'
+      ]),
+      createPhase('Phase 6: Error Handling & Retry', [
+        'Catch upload errors (network, server)',
+        'Set file status to error with message',
+        'Display error state with retry button',
+        'Implement retry function',
+        'Add automatic retry with exponential backoff (optional)',
+        'Limit retry attempts (e.g., 3 max)',
+        'Allow canceling in-progress uploads'
+      ]),
+      createPhase('Phase 7: File Preview', [
+        'Create preview for images using URL.createObjectURL',
+        'Display thumbnail in queue list',
+        'Revoke object URL on component unmount (memory!)',
+        'Show file icon for non-image types',
+        'Add PDF preview using pdf.js (optional)',
+        'Show image dimensions for images',
+        'Add full-size preview on click'
+      ]),
+      createPhase('Phase 8: Polish & UX', [
+        'Add drag-and-drop from other apps',
+        'Support paste from clipboard',
+        'Show overall upload progress',
+        'Add upload complete notification',
+        'Handle offline state gracefully',
+        'Test with various file types and sizes',
+        'Document API contract for server'
+      ])
+    ],
     startedAt: null,
     completedAt: null,
     dueDate: getWeekEndDate(8),
@@ -1515,6 +1892,88 @@ export const INITIAL_PROJECTS: Project[] = [
       ]),
       createMilestone('Offline Support', 'Handle connection drops gracefully', [
         'Browser Cache', 'Error Handling & Boundaries', 'State Management Patterns'
+      ])
+    ],
+    implementationGuide: [
+      createPhase('Phase 1: Project Setup & Mock Server', [
+        'Set up React + TypeScript project',
+        'Create simple WebSocket server (Node.js + ws library)',
+        'Or use mock: setInterval to simulate incoming data',
+        'Define data schema: { timestamp, metric, value }',
+        'Generate realistic random data with trends',
+        'Test connection with simple console.log'
+      ]),
+      createPhase('Phase 2: WebSocket Hook', [
+        'Create useWebSocket(url) custom hook',
+        'Handle connection states: connecting, connected, disconnected',
+        'Implement connect, disconnect, send functions',
+        'Parse incoming JSON messages',
+        'Expose lastMessage and messageHistory',
+        'Handle connection errors',
+        'Return connection status for UI'
+      ]),
+      createPhase('Phase 3: Dashboard Layout', [
+        'Create responsive grid layout for widgets',
+        'Use CSS Grid or Tailwind grid',
+        'Define Widget component wrapper',
+        'Support different widget sizes: sm, md, lg',
+        'Add widget header with title',
+        'Create placeholder widgets for each metric',
+        'Make layout responsive for mobile'
+      ]),
+      createPhase('Phase 4: Chart Integration', [
+        'Install Recharts (or Chart.js / Victory)',
+        'Create LineChart widget for time-series data',
+        'Create BarChart widget for categories',
+        'Create StatCard widget for single values',
+        'Pass data from WebSocket to charts',
+        'Format axis labels and tooltips',
+        'Add loading state for initial data'
+      ]),
+      createPhase('Phase 5: Data Aggregation', [
+        'Create useDataAggregator hook',
+        'Store incoming data in circular buffer (limit memory)',
+        'Calculate rolling averages',
+        'Calculate min, max, current values',
+        'Aggregate by time period (1m, 5m, 1h)',
+        'Use useMemo for expensive calculations',
+        'Only recalculate when data changes'
+      ]),
+      createPhase('Phase 6: Performance Optimization', [
+        'Throttle incoming messages (max 60 updates/sec)',
+        'Use requestAnimationFrame for batch updates',
+        'Memoize chart components with React.memo',
+        'Profile with React DevTools Profiler',
+        'Check for layout thrashing in Performance tab',
+        'Virtualize data points if charts have 1000+ points',
+        'Consider web worker for heavy calculations'
+      ]),
+      createPhase('Phase 7: Reconnection Strategy', [
+        'Detect WebSocket disconnect events',
+        'Show connection status indicator',
+        'Implement automatic reconnection',
+        'Use exponential backoff (1s, 2s, 4s, 8s...)',
+        'Set maximum retry limit',
+        'Show reconnecting state in UI',
+        'Resume data stream after reconnect'
+      ]),
+      createPhase('Phase 8: Offline Support', [
+        'Cache last known data in localStorage',
+        'Show stale data indicator when offline',
+        'Display "last updated" timestamp',
+        'Queue user actions while offline (if any)',
+        'Sync when connection restored',
+        'Handle browser online/offline events',
+        'Show graceful degradation message'
+      ]),
+      createPhase('Phase 9: Polish', [
+        'Add dark mode support',
+        'Add time range selector (live, 1h, 24h)',
+        'Add export data feature',
+        'Add fullscreen mode for charts',
+        'Add alerts for threshold breaches',
+        'Test with various data rates',
+        'Document WebSocket message format'
       ])
     ],
     startedAt: null,
@@ -1549,6 +2008,87 @@ export const INITIAL_PROJECTS: Project[] = [
       ]),
       createMilestone('Undo/Redo', 'Command history pattern', [
         'Closures', 'State Management Patterns', 'OOP Principles'
+      ])
+    ],
+    implementationGuide: [
+      createPhase('Phase 1: Block Data Structure', [
+        'Define Block interface: { id, type, content, children? }',
+        'Define block types: paragraph, heading1-3, bulletList, numberedList, code, quote',
+        'Create initial document state as array of blocks',
+        'Generate unique IDs for each block (uuid or nanoid)',
+        'Design content structure for rich text (marks array)',
+        'Consider nested blocks for lists (children array)'
+      ]),
+      createPhase('Phase 2: Basic Editor Rendering', [
+        'Create Editor component with blocks state',
+        'Create Block component with switch for block types',
+        'Render contentEditable div for each text block',
+        'Handle block focus and blur events',
+        'Add placeholder text for empty blocks',
+        'Style different block types (headings, quotes, etc.)'
+      ]),
+      createPhase('Phase 3: Text Editing', [
+        'Handle onInput events to update block content',
+        'Preserve cursor position after state updates',
+        'Handle Enter key to create new block',
+        'Handle Backspace on empty block to delete it',
+        'Merge blocks when Backspace at start',
+        'Handle selection across multiple blocks'
+      ]),
+      createPhase('Phase 4: Rich Text Formatting', [
+        'Track text selection using window.getSelection()',
+        'Create formatting toolbar (or use keyboard shortcuts)',
+        'Implement bold: Cmd+B / Ctrl+B',
+        'Implement italic: Cmd+I / Ctrl+I',
+        'Implement code: Cmd+E / Ctrl+E',
+        'Store formatting as marks: [{ type: "bold", start, end }]',
+        'Render formatted text with spans',
+        'Handle link insertion with URL prompt'
+      ]),
+      createPhase('Phase 5: Block Type Switching', [
+        'Convert paragraph to heading on # + space',
+        'Convert paragraph to bullet on - + space',
+        'Convert paragraph to numbered on 1. + space',
+        'Convert paragraph to code on ``` + enter',
+        'Convert paragraph to quote on > + space',
+        'Add keyboard shortcut Cmd+Shift+1/2/3 for headings'
+      ]),
+      createPhase('Phase 6: Slash Commands', [
+        'Detect / typed at start of empty block',
+        'Show command menu popup near cursor',
+        'List available block types in menu',
+        'Filter menu items as user types',
+        'Keyboard navigation in menu (arrows, Enter)',
+        'Insert selected block type on Enter',
+        'Close menu on Escape or click outside'
+      ]),
+      createPhase('Phase 7: Drag and Drop', [
+        'Add drag handle to each block',
+        'Make blocks draggable (draggable attribute)',
+        'Track dragstart, dragover, drop events',
+        'Calculate drop position (above/below target)',
+        'Show drop indicator line',
+        'Reorder blocks array on drop',
+        'Consider using dnd-kit for smoother UX'
+      ]),
+      createPhase('Phase 8: Undo/Redo', [
+        'Create history stack: past, present, future arrays',
+        'Push state to past on every change',
+        'Implement undo: move present to future, pop from past',
+        'Implement redo: move present to past, pop from future',
+        'Add Cmd+Z for undo, Cmd+Shift+Z for redo',
+        'Debounce history pushes (group rapid typing)',
+        'Limit history size to prevent memory issues'
+      ]),
+      createPhase('Phase 9: Polish & Advanced', [
+        'Add copy/paste handling for blocks',
+        'Handle paste from external sources (HTML to blocks)',
+        'Add block duplication (Cmd+D)',
+        'Add block deletion shortcut',
+        'Support nested blocks (indentation)',
+        'Add image block type with upload',
+        'Persist document to localStorage',
+        'Consider integrating Slate.js for production robustness'
       ])
     ],
     startedAt: null,

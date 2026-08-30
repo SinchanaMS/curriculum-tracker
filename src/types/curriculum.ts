@@ -106,11 +106,24 @@ export interface Milestone {
   prerequisites?: string[]; // Topics to know before this milestone
 }
 
+export interface ImplementationStep {
+  id: string;
+  text: string;
+  completed: boolean;
+}
+
+export interface ImplementationPhase {
+  id: string;
+  name: string;
+  steps: ImplementationStep[];
+}
+
 export interface Project {
   id: string;
   name: string;
   description: string;
   milestones: Milestone[];
+  implementationGuide?: ImplementationPhase[];
   startedAt: string | null;
   completedAt: string | null;
   dueDate: string;

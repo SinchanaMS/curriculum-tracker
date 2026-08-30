@@ -1,9 +1,10 @@
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, CheckCircle2, Circle, Clock, Github, ExternalLink, Calendar, AlertCircle, BookOpen } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Circle, Clock, Github, ExternalLink, Calendar, AlertCircle, BookOpen, ChevronDown, ChevronRight, Lightbulb } from 'lucide-react';
 import { Card, Badge, Button, ProgressBar, Input, Textarea } from '../components/ui';
 import { useProjects, useCurriculumStore } from '../store';
-import { MilestoneStatus } from '../types';
+import { MilestoneStatus, ImplementationPhase } from '../types';
 import { useState } from 'react';
+import { clsx } from 'clsx';
 
 export default function ProjectDetailPage() {
   const { projectId } = useParams();
@@ -14,10 +15,38 @@ export default function ProjectDetailPage() {
   const updateProjectNotes = useCurriculumStore(state => state.updateProjectNotes);
 
   const project = projects.find(p => p.id === projectId);
+  const toggleImplementationStep = useCurriculumStore(state => state.toggleImplementationStep);
   const [editingLearnings, setEditingLearnings] = useState<string | null>(null);
   const [editingLinks, setEditingLinks] = useState(false);
   const [githubUrl, setGithubUrl] = useState(project?.githubUrl || '');
   const [demoUrl, setDemoUrl] = useState(project?.demoUrl || '');
+  const [expandedPhases, setExpandedPhases] = useState<Set<string>>(new Set());
+
+  const togglePhase = (phaseId: string) => {
+    setExpandedPhases(prev => {
+      const next = new Set(prev);
+      if (next.has(phaseId)) {
+        next.delete(phaseId);
+      } else {
+        next.add(phaseId);
+      }
+      return next;
+    });
+  };
+
+  const getPhaseProgress = (phase: ImplementationPhase) => {
+    const completed = phase.steps.filter(s => s.completed).length;
+    return { completed, total: phase.steps.length };
+  };
+
+  const getGuideProgress = () => {
+    if (!project?.implementationGuide) return { completed: 0, total: 0 };
+    const allSteps = project.implementationGuide.flatMap(p => p.steps);
+    return {
+      completed: allSteps.filter(s => s.completed).length,
+      total: allSteps.length
+    };
+  };
 
   if (!project) {
     return (
@@ -292,6 +321,110 @@ export default function ProjectDetailPage() {
           ))}
         </div>
       </Card>
+
+      {/* Implementation Guide */}
+      {project.implementationGuide && project.implementationGuide.length > 0 && (
+        <Card>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Lightbulb className="w-5 h-5 text-yellow-500" />
+              <h3 className="font-semibold text-gray-900 dark:text-white">How to Build This</h3>
+            </div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">
+              {getGuideProgress().completed}/{getGuideProgress().total} steps completed
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <ProgressBar
+              value={Math.round((getGuideProgress().completed / getGuideProgress().total) * 100)}
+              size="sm"
+            />
+          </div>
+
+          <div className="space-y-3">
+            {project.implementationGuide.map((phase) => {
+              const isExpanded = expandedPhases.has(phase.id);
+              const progress = getPhaseProgress(phase);
+              const isComplete = progress.completed === progress.total;
+
+              return (
+                <div
+                  key={phase.id}
+                  className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
+                >
+                  {/* Phase Header */}
+                  <button
+                    onClick={() => togglePhase(phase.id)}
+                    className={clsx(
+                      "w-full flex items-center justify-between p-3 text-left transition-colors",
+                      isComplete
+                        ? "bg-green-50 dark:bg-green-900/20"
+                        : "bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    )}
+                  >
+                    <div className="flex items-center gap-3">
+                      {isExpanded ? (
+                        <ChevronDown className="w-4 h-4 text-gray-500" />
+                      ) : (
+                        <ChevronRight className="w-4 h-4 text-gray-500" />
+                      )}
+                      <span className={clsx(
+                        "font-medium",
+                        isComplete
+                          ? "text-green-700 dark:text-green-400"
+                          : "text-gray-900 dark:text-white"
+                      )}>
+                        {phase.name}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className={clsx(
+                        "text-sm",
+                        isComplete
+                          ? "text-green-600 dark:text-green-400"
+                          : "text-gray-500 dark:text-gray-400"
+                      )}>
+                        {progress.completed}/{progress.total}
+                      </span>
+                      {isComplete && (
+                        <CheckCircle2 className="w-4 h-4 text-green-500" />
+                      )}
+                    </div>
+                  </button>
+
+                  {/* Phase Steps */}
+                  {isExpanded && (
+                    <div className="p-3 pt-0 space-y-2">
+                      {phase.steps.map((step) => (
+                        <label
+                          key={step.id}
+                          className="flex items-start gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer group"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={step.completed}
+                            onChange={() => toggleImplementationStep(project.id, phase.id, step.id)}
+                            className="mt-0.5 w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                          />
+                          <span className={clsx(
+                            "text-sm transition-colors",
+                            step.completed
+                              ? "text-gray-400 dark:text-gray-500 line-through"
+                              : "text-gray-700 dark:text-gray-300"
+                          )}>
+                            {step.text}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+      )}
 
       {/* Project Notes */}
       <Card>

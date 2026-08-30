@@ -28,6 +28,7 @@ interface CurriculumActions {
   updateMilestoneLearnings: (projectId: string, milestoneId: string, learnings: string) => void;
   updateProjectLinks: (projectId: string, githubUrl: string, demoUrl: string) => void;
   updateProjectNotes: (projectId: string, notes: string) => void;
+  toggleImplementationStep: (projectId: string, phaseId: string, stepId: string) => void;
 
   // DSA Problem Actions
   addDSAProblem: (problem: Omit<DSAProblem, 'id'>) => void;
@@ -270,6 +271,21 @@ export const useCurriculumStore = create<CurriculumStore>()(
         set((state) => {
           const project = state.projects.find(p => p.id === projectId);
           if (project) project.notes = notes;
+        });
+      },
+
+      toggleImplementationStep: (projectId, phaseId, stepId) => {
+        set((state) => {
+          const project = state.projects.find(p => p.id === projectId);
+          if (!project?.implementationGuide) return;
+
+          const phase = project.implementationGuide.find(p => p.id === phaseId);
+          if (!phase) return;
+
+          const step = phase.steps.find(s => s.id === stepId);
+          if (step) {
+            step.completed = !step.completed;
+          }
         });
       },
 
@@ -633,7 +649,7 @@ export const useCurriculumStore = create<CurriculumStore>()(
     {
       name: 'curriculum-tracker-storage',
       storage: createJSONStorage(() => localStorage),
-      version: 5,
+      version: 6,
       partialize: (state) => ({
         startDate: state.startDate,
         modules: state.modules,
@@ -725,6 +741,17 @@ export const useCurriculumStore = create<CurriculumStore>()(
                   }) ?? []
                 };
               })
+            };
+          });
+        }
+
+        // Migration to v6: Add implementation guides to projects
+        if (version < 6) {
+          state.projects = state.projects.map(project => {
+            const initialProject = initialState.projects.find(p => p.id === project.id);
+            return {
+              ...project,
+              implementationGuide: (project as any).implementationGuide ?? initialProject?.implementationGuide
             };
           });
         }
