@@ -1,9 +1,10 @@
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, CheckCircle2, Clock, Circle, ChevronDown, ChevronRight, Calendar, AlertCircle, BookOpen, Star } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Clock, Circle, ChevronDown, ChevronRight, Calendar, AlertCircle, BookOpen, Star, GraduationCap } from 'lucide-react';
 import { Card, Badge, Button, ProgressBar, Textarea } from '../components/ui';
 import { useModules, useCurriculumStore } from '../store';
 import { TopicStatus } from '../types';
 import { useState } from 'react';
+import { hasModuleContent } from '../content';
 
 export default function ModuleDetailPage() {
   const { moduleId } = useParams();
@@ -137,6 +138,15 @@ export default function ModuleDetailPage() {
               </>
             )}
           </div>
+          {/* Learn Button */}
+          {hasModuleContent(module.id) && (
+            <Link to={`/modules/${module.id}/learn`} className="mt-3">
+              <Button variant="primary" size="sm" className="flex items-center gap-2">
+                <GraduationCap className="w-4 h-4" />
+                Start Learning
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
 

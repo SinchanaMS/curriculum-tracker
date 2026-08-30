@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Calendar, AlertCircle } from 'lucide-react';
+import { Calendar, AlertCircle, BookOpen } from 'lucide-react';
 import { Card, ProgressRing, Badge } from '../components/ui';
 import { useModules, useCurriculumStore } from '../store';
 import { TopicStatus } from '../types';
+import { hasModuleContent } from '../content';
 
 const getModuleDueDateInfo = (dueDate: string | undefined, progress: number) => {
   if (!dueDate || progress === 100) return null;
@@ -104,6 +105,18 @@ export default function ModulesPage() {
                     )}
                   </div>
                 </div>
+
+                {/* Learning Content Indicator */}
+                {hasModuleContent(module.id) && (
+                  <Link
+                    to={`/modules/${module.id}/learn`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="mt-4 flex items-center gap-2 text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium"
+                  >
+                    <BookOpen className="w-4 h-4" />
+                    Learning content available
+                  </Link>
+                )}
               </Card>
             </Link>
           );

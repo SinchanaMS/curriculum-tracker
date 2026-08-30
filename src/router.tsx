@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard';
 import ModulesPage from './pages/ModulesPage';
 import ModuleDetailPage from './pages/ModuleDetailPage';
 import StudyGuidePage from './pages/StudyGuidePage';
+import LearnPage from './pages/LearnPage';
 import ProjectsPage from './pages/ProjectsPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 import DSAPage from './pages/DSAPage';
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
       { path: 'modules', element: <ModulesPage /> },
       { path: 'modules/:moduleId', element: <ModuleDetailPage /> },
       { path: 'modules/:moduleId/study/:topicId', element: <StudyGuidePage /> },
+      { path: 'modules/:moduleId/learn', element: <LearnPage /> },
       { path: 'projects', element: <ProjectsPage /> },
       { path: 'projects/:projectId', element: <ProjectDetailPage /> },
       { path: 'dsa', element: <DSAPage /> },

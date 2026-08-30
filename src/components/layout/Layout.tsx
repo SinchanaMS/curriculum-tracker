@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 export function Layout() {
   const settings = useSettings();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -27,6 +28,21 @@ export function Layout() {
     }
   }, [settings.theme]);
 
+  // Load collapsed state from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('sidebarCollapsed');
+    if (saved) {
+      setSidebarCollapsed(JSON.parse(saved));
+    }
+  }, []);
+
+  // Save collapsed state to localStorage
+  const toggleCollapsed = () => {
+    const newState = !sidebarCollapsed;
+    setSidebarCollapsed(newState);
+    localStorage.setItem('sidebarCollapsed', JSON.stringify(newState));
+  };
+
   return (
     <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-900">
       <CountdownBanner />
@@ -38,7 +54,12 @@ export function Layout() {
             onClick={() => setSidebarOpen(false)}
           />
         )}
-        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <Sidebar
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+          collapsed={sidebarCollapsed}
+          onToggleCollapse={toggleCollapsed}
+        />
         <div className="flex-1 flex flex-col overflow-hidden">
           <Header onMenuClick={() => setSidebarOpen(true)} />
           <main className="flex-1 overflow-y-auto p-4 md:p-6">
