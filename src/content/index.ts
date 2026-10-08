@@ -9,8 +9,19 @@ import promises from './javascript-foundations/07-promises.md?raw';
 import asyncAwait from './javascript-foundations/08-async-await.md?raw';
 import thisKeyword from './javascript-foundations/09-this-keyword.md?raw';
 import prototypes from './javascript-foundations/10-prototypes.md?raw';
-import memoryManagement from './javascript-foundations/11-memory-management.md?raw';
-import garbageCollection from './javascript-foundations/12-garbage-collection.md?raw';
+import memoryManagement from './javascript-foundations/11-memory-management-expanded.md?raw';
+import garbageCollection from './javascript-foundations/12-garbage-collection-expanded.md?raw';
+
+// Browser Internals content
+import browserArchitecture from './browser-internals/01-browser-architecture.md?raw';
+import dom from './browser-internals/02-dom.md?raw';
+import cssOM from './browser-internals/03-cssom.md?raw';
+
+// Frontend Architecture content
+import stateManagement from './frontend-architecture/01-state-management.md?raw';
+import componentArchitecture from './frontend-architecture/02-component-architecture.md?raw';
+import featureBasedArchitecture from './frontend-architecture/03-feature-based-architecture.md?raw';
+import designSystems from './frontend-architecture/04-design-systems.md?raw';
 
 // Content organized by module
 export const moduleContent: Record<string, TopicContent[]> = {
@@ -29,10 +40,18 @@ export const moduleContent: Record<string, TopicContent[]> = {
     { topicName: 'Garbage Collection', content: garbageCollection, order: 12 },
   ],
   // Add other modules as content is created
-  'mod-browser-internals': [],
+  'mod-browser-internals': [{ topicName: 'Browser Architecture', content: browserArchitecture, order: 1 },
+  { topicName: 'DOM', content: dom, order: 2 },
+  { topicName: 'CSSOM', content: cssOM, order: 3 },
+  ],
   'mod-react': [],
   'mod-nextjs': [],
-  'mod-frontend-architecture': [],
+  'mod-frontend-architecture': [
+    { topicName: 'State Management', content: stateManagement, order: 1 },
+    { topicName: 'Component Architecture', content: componentArchitecture, order: 2 },
+    { topicName: 'Feature Based Architecture', content: featureBasedArchitecture, order: 3 },
+    { topicName: 'Design Systems', content: designSystems, order: 4 }
+  ],
   'mod-system-design': [],
   'mod-engineering-breadth': [],
   'mod-dsa-practice': [],
