@@ -162,7 +162,7 @@ export default function ModuleDetailPage() {
                 {completed}/{module.topics.length} completed
               </span>
             </div>
-            <ProgressBar value={progress} size="lg" color={`bg-[${module.color}]`} />
+            <ProgressBar value={progress} size="lg" color={module.color} />
           </div>
           <div>
             <div className="flex items-center justify-between mb-2">
@@ -176,7 +176,7 @@ export default function ModuleDetailPage() {
             <ProgressBar
               value={totalSubtopics > 0 ? (completedSubtopics / totalSubtopics) * 100 : 0}
               size="sm"
-              color="bg-green-500"
+              color={"#10B981"}
             />
           </div>
         </div>

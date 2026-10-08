@@ -215,7 +215,7 @@ export default function Dashboard() {
                   </div>
                   <ProgressBar
                     value={progress}
-                    color={`bg-[${module.color}]`}
+                    color={`${module.color}`}
                     size="sm"
                   />
                 </Link>
@@ -320,7 +320,7 @@ export default function Dashboard() {
                     </p>
                   </div>
                 </div>
-                <ProgressBar value={progress} size="sm" />
+                <ProgressBar value={progress} size="sm" color={"#F59E0B"} />
               </Link>
             );
           })}

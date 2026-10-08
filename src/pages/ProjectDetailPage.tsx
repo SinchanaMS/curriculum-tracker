@@ -171,7 +171,7 @@ export default function ProjectDetailPage() {
               {progress}%
             </span>
           </div>
-          <ProgressBar value={progress} size="lg" />
+          <ProgressBar value={progress} size="lg" color={"#F59E0B"} />
         </Card>
 
         <Card>
@@ -339,6 +339,7 @@ export default function ProjectDetailPage() {
             <ProgressBar
               value={Math.round((getGuideProgress().completed / getGuideProgress().total) * 100)}
               size="sm"
+              color={"#10B981"}
             />
           </div>
 
