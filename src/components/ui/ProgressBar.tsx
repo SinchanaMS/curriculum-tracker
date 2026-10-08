@@ -12,13 +12,12 @@ interface ProgressBarProps {
 export function ProgressBar({
   value,
   max = 100,
-  color = 'bg-blue-500',
+  color = 'bg-[#6366F1]',
   size = 'md',
   showLabel = false,
   className
 }: ProgressBarProps) {
   const percentage = Math.min(100, Math.max(0, (value / max) * 100));
-
   const sizes = {
     sm: 'h-1.5',
     md: 'h-2',
@@ -35,8 +34,8 @@ export function ProgressBar({
       )}
       <div className={clsx('bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden', sizes[size])}>
         <div
-          className={clsx('h-full rounded-full', color)}
-          style={{ width: `${percentage}%` }}
+          className={clsx('h-full rounded-full', `bg-[${color}]`)}
+          style={{ width: `${percentage}%`, backgroundColor: color }}
         />
       </div>
     </div>
