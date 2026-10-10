@@ -14,14 +14,16 @@ import garbageCollection from './javascript-foundations/12-garbage-collection-ex
 
 // Browser Internals content
 import browserArchitecture from './browser-internals/01-browser-architecture.md?raw';
-import dom from './browser-internals/02-dom.md?raw';
-import cssOM from './browser-internals/03-cssom.md?raw';
+import dom from './browser-internals/02-dom-learning-guide.md?raw';
+import cssOM from './browser-internals/03-cssom-learning-guide.md?raw';
 
 // Frontend Architecture content
 import stateManagement from './frontend-architecture/01-state-management.md?raw';
 import componentArchitecture from './frontend-architecture/02-component-architecture.md?raw';
 import featureBasedArchitecture from './frontend-architecture/03-feature-based-architecture.md?raw';
 import designSystems from './frontend-architecture/04-design-systems.md?raw';
+import accessibility from './frontend-architecture/05-accessibility-a11y.md?raw';
+import performanceOptimization from './frontend-architecture/06-performance-optimization.md?raw';
 
 // Content organized by module
 export const moduleContent: Record<string, TopicContent[]> = {
@@ -50,7 +52,9 @@ export const moduleContent: Record<string, TopicContent[]> = {
     { topicName: 'State Management', content: stateManagement, order: 1 },
     { topicName: 'Component Architecture', content: componentArchitecture, order: 2 },
     { topicName: 'Feature Based Architecture', content: featureBasedArchitecture, order: 3 },
-    { topicName: 'Design Systems', content: designSystems, order: 4 }
+    { topicName: 'Design Systems', content: designSystems, order: 4 },
+    { topicName: 'Accessibility a11y', content: accessibility, order: 5 },
+    { topicName: 'Performance Optimization', content: performanceOptimization, order: 6 }
   ],
   'mod-system-design': [],
   'mod-engineering-breadth': [],
