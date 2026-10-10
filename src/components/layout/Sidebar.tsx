@@ -10,7 +10,8 @@ import {
   Flame,
   X,
   PanelLeftClose,
-  PanelLeft
+  PanelLeft,
+  MessageSquareMore
 } from 'lucide-react';
 import { useCurriculumStore, useStreakData } from '../../store';
 import { clsx } from 'clsx';
@@ -20,6 +21,7 @@ const navItems = [
   { to: '/modules', icon: BookOpen, label: 'Modules' },
   { to: '/projects', icon: Folder, label: 'Projects' },
   { to: '/dsa', icon: Code2, label: 'DSA Log' },
+  { to: '/interview-prep', icon: MessageSquareMore, label: 'Interview Prep' },
   { to: '/reflections', icon: FileText, label: 'Reflections' },
   { to: '/todos', icon: CheckSquare, label: 'Todos' },
   { to: '/settings', icon: Settings, label: 'Settings' },

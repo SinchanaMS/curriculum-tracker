@@ -10,7 +10,8 @@ import {
   TodoItem,
   TodoPriority,
   AppSettings,
-  DailyActivity
+  DailyActivity,
+  InterviewQuestionProgress
 } from '../types';
 import { createInitialState, CURRICULUM_START_DATE } from '../data/initialData';
 import { auth, saveProgressToFirestore } from '../lib/firebase';
@@ -51,6 +52,9 @@ interface CurriculumActions {
 
   // Settings Actions
   updateSettings: (settings: Partial<AppSettings>) => void;
+
+  // Interview Prep Actions
+  updateInterviewProgress: (questionId: string, progress: InterviewQuestionProgress) => void;
 
   // Data Management
   exportData: () => string;
@@ -497,6 +501,16 @@ export const useCurriculumStore = create<CurriculumStore>()(
         });
       },
 
+      // ============ INTERVIEW PREP ACTIONS ============
+      updateInterviewProgress: (questionId, progress) => {
+        set((state) => {
+          if (!state.interviewProgress) {
+            state.interviewProgress = {};
+          }
+          state.interviewProgress[questionId] = progress;
+        });
+      },
+
       // ============ DATA MANAGEMENT ============
       exportData: () => {
         const state = get();
@@ -658,7 +672,8 @@ export const useCurriculumStore = create<CurriculumStore>()(
         weeklyReflections: state.weeklyReflections,
         dailyTodos: state.dailyTodos,
         streakData: state.streakData,
-        settings: state.settings
+        settings: state.settings,
+        interviewProgress: state.interviewProgress
       }),
       migrate: (persistedState: unknown, version: number) => {
         const state = persistedState as CurriculumState;

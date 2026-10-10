@@ -227,6 +227,7 @@ export interface CurriculumState {
   dailyTodos: DailyTodos[];
   streakData: StreakData;
   settings: AppSettings;
+  interviewProgress?: Record<string, InterviewQuestionProgress>;
 }
 
 // ============================================
@@ -256,4 +257,55 @@ export interface WeeklyStatsData {
   problemsSolved: number;
   milestonesCompleted: number;
   studyHours: number;
+}
+
+// ============================================
+// INTERVIEW PREP TYPES
+// ============================================
+
+export enum InterviewQuestionStatus {
+  NOT_REVIEWED = 'not_reviewed',
+  NEEDS_PRACTICE = 'needs_practice',
+  CONFIDENT = 'confident'
+}
+
+export enum InterviewDifficulty {
+  BASIC = 'basic',
+  INTERMEDIATE = 'intermediate',
+  ADVANCED = 'advanced'
+}
+
+export interface FollowUpQuestion {
+  question: string;
+  answer: string;
+}
+
+export interface InterviewQuestion {
+  id: string;
+  question: string;
+  answer: string;
+  keyPoints: string[];
+  followUps: FollowUpQuestion[];
+  example?: string;
+  codeExample?: string;
+  commonMistakes?: string[];
+  interviewerExpects: string;
+  difficulty: InterviewDifficulty;
+}
+
+export interface InterviewCategory {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  color: string;
+  questions: InterviewQuestion[];
+}
+
+export interface InterviewQuestionProgress {
+  questionId: string;
+  status: InterviewQuestionStatus;
+  lastReviewedAt: string | null;
+  reviewCount: number;
+  notes: string;
 }

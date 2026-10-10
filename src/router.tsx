@@ -13,6 +13,8 @@ import ReflectionsPage from './pages/ReflectionsPage';
 import ReflectionDetailPage from './pages/ReflectionDetailPage';
 import TodosPage from './pages/TodosPage';
 import SettingsPage from './pages/SettingsPage';
+import InterviewPrepPage from './pages/InterviewPrepPage';
+import InterviewCategoryPage from './pages/InterviewCategoryPage';
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +34,8 @@ export const router = createBrowserRouter([
       { path: 'reflections', element: <ReflectionsPage /> },
       { path: 'reflections/:weekNumber', element: <ReflectionDetailPage /> },
       { path: 'todos', element: <TodosPage /> },
+      { path: 'interview-prep', element: <InterviewPrepPage /> },
+      { path: 'interview-prep/:categoryId', element: <InterviewCategoryPage /> },
       { path: 'settings', element: <SettingsPage /> }
     ]
   }
