@@ -115,6 +115,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 weeklyReflections: cloudData.weeklyReflections || store.weeklyReflections,
                 dailyTodos: cloudData.dailyTodos || store.dailyTodos,
                 streakData: cloudData.streakData || store.streakData,
+                interviewProgress: cloudData.interviewProgress || store.interviewProgress,
                 settings: {
                   ...store.settings,
                   lastSyncedAt: new Date().toISOString()
@@ -151,7 +152,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       weeklyReflections: store.weeklyReflections,
       dailyTodos: store.dailyTodos,
       streakData: store.streakData,
-      settings: store.settings
+      settings: store.settings,
+      interviewProgress: store.interviewProgress
     };
 
     const success = await saveProgressToFirestore(userId, dataToSync);
@@ -264,6 +266,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           weeklyReflections: cloudData.weeklyReflections || store.weeklyReflections,
           dailyTodos: cloudData.dailyTodos || store.dailyTodos,
           streakData: cloudData.streakData || store.streakData,
+          interviewProgress: cloudData.interviewProgress || store.interviewProgress,
           settings: {
             ...store.settings,
             lastSyncedAt: new Date().toISOString()

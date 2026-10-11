@@ -507,7 +507,28 @@ export const useCurriculumStore = create<CurriculumStore>()(
           if (!state.interviewProgress) {
             state.interviewProgress = {};
           }
+
           state.interviewProgress[questionId] = progress;
+
+          // Update streak for any interview prep activity
+          const today = new Date().toISOString().split('T')[0];
+          let todayActivity = state.streakData.activityLog.find(a => a.date === today);
+
+          if (!todayActivity) {
+            todayActivity = {
+              date: today,
+              topicsCompleted: 0,
+              problemsSolved: 0,
+              milestonesCompleted: 0,
+              todosCompleted: 0,
+              minutesStudied: 0
+            };
+            state.streakData.activityLog.push(todayActivity);
+          }
+
+          // Count interview question review as partial topic progress
+          todayActivity.topicsCompleted += 0.1;
+          updateStreak(state.streakData, today);
         });
       },
 
@@ -886,7 +907,8 @@ const syncToFirebase = async () => {
     weeklyReflections: state.weeklyReflections,
     dailyTodos: state.dailyTodos,
     streakData: state.streakData,
-    settings: state.settings
+    settings: state.settings,
+    interviewProgress: state.interviewProgress
   };
 
   await saveProgressToFirestore(user.uid, dataToSync);
@@ -900,7 +922,8 @@ useCurriculumStore.subscribe(
     dsaProblems: state.dsaProblems,
     weeklyReflections: state.weeklyReflections,
     dailyTodos: state.dailyTodos,
-    streakData: state.streakData
+    streakData: state.streakData,
+    interviewProgress: state.interviewProgress
   }),
   () => {
     // Debounce the sync to avoid too many Firebase writes

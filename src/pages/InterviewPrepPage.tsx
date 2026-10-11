@@ -20,12 +20,14 @@ export default function InterviewPrepPage() {
 
   const totalQuestions = getTotalQuestionCount();
 
-  const getCategoryProgress = (categoryId: string, questionCount: number) => {
-    const categoryProgress = Object.entries(interviewProgress)
-      .filter(([qId]) => qId.startsWith(categoryId.replace('js-core', 'js-').replace('js-coding', 'jsc-')))
-      .filter(([, p]) => p.status === 'confident')
-      .length;
-    return Math.round((categoryProgress / questionCount) * 100) || 0;
+  const getCategoryProgress = (categoryId: string) => {
+    const category = interviewCategories.find(c => c.id === categoryId);
+    if (!category) return 0;
+
+    const confidentCount = category.questions.filter(
+      q => interviewProgress[q.id]?.status === 'confident'
+    ).length;
+    return Math.round((confidentCount / category.questions.length) * 100) || 0;
   };
 
   const getOverallProgress = () => {
@@ -81,7 +83,7 @@ export default function InterviewPrepPage() {
           </div>
         </div>
 
-        <ProgressBar value={overallProgress} className="mb-4" />
+        <ProgressBar value={overallProgress} className="mb-4" color='#2563eb'/>
 
         <div className="grid grid-cols-3 gap-4 text-center">
           <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
@@ -109,7 +111,7 @@ export default function InterviewPrepPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {interviewCategories.map(category => {
           const Icon = iconMap[category.icon] || BookOpen;
-          const progress = getCategoryProgress(category.id, category.questions.length);
+          const progress = getCategoryProgress(category.id);
 
           return (
             <Link
@@ -145,7 +147,7 @@ export default function InterviewPrepPage() {
 
                 <div className="flex items-center justify-between">
                   <div className="flex-1 mr-3">
-                    <ProgressBar value={progress} size="sm" />
+                    <ProgressBar value={progress} size="sm" color={category.color} />
                   </div>
                   <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
                     {progress}%
