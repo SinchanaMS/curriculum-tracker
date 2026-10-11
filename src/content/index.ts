@@ -24,6 +24,7 @@ import featureBasedArchitecture from './frontend-architecture/03-feature-based-a
 import designSystems from './frontend-architecture/04-design-systems.md?raw';
 import accessibility from './frontend-architecture/05-accessibility-a11y.md?raw';
 import performanceOptimization from './frontend-architecture/06-performance-optimization.md?raw';
+import errorHandlingAndBoundaries from './frontend-architecture/07-error-handling-and-boundaries.md?raw';
 
 // Content organized by module
 export const moduleContent: Record<string, TopicContent[]> = {
@@ -54,7 +55,8 @@ export const moduleContent: Record<string, TopicContent[]> = {
     { topicName: 'Feature Based Architecture', content: featureBasedArchitecture, order: 3 },
     { topicName: 'Design Systems', content: designSystems, order: 4 },
     { topicName: 'Accessibility a11y', content: accessibility, order: 5 },
-    { topicName: 'Performance Optimization', content: performanceOptimization, order: 6 }
+    { topicName: 'Performance Optimization', content: performanceOptimization, order: 6 },
+    { topicName: 'Error Handling and Boundaries', content: errorHandlingAndBoundaries, order: 7 }
   ],
   'mod-system-design': [],
   'mod-engineering-breadth': [],
